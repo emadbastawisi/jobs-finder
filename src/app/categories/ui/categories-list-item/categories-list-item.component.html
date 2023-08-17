@@ -1,0 +1,9 @@
+<div class="container">
+  <div class="category" *ngFor=" let category of categories" (click)="toggleCategory(category) "
+    [class.selected]="selectedcategories.includes(category)">
+    <img class="icon" [src]="category.src" [attr.data-value]="category.value">
+  </div>
+</div>
+<div class="container">
+  <mat-chip *ngFor="let category of selectedcategories" style="margin: 5px;">{{category.value}}</mat-chip>
+</div>

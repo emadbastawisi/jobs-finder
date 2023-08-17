@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="form-parent">
+    <form [formGroup]="signupForm" class="form">
+      <img class="logo" src="../../assets/logo-black.svg" alt="">
+      <h2 style="text-align: center;">Creat new account</h2>
+      <div class="form-field-parent">
+        <mat-form-field class="form-field">
+          <mat-label>Enter your username</mat-label><mat-icon class="icon">person</mat-icon>
+          <input type="text" matInput formControlName="username" placeholder="username">
+        </mat-form-field>
+        <mat-form-field class="form-field">
+          <mat-label>Enter your email</mat-label><mat-icon class="icon">email</mat-icon>
+          <input type="email" matInput formControlName="email" required email placeholder="Ex. pat@example.com">
+        </mat-form-field>
+        <mat-form-field class="form-field">
+          <mat-label>Enter your password</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required password>
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+        <div class="btn-parent">
+          <button mat-raised-button class="btn" color="primary" [disabled]="!signupForm.valid"
+            (click)="signup()">Signup</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,3 @@
+<mat-chip-listbox multiple="multiple" (change)="onChange($event)" aria-label="Fish selection">
+  <mat-chip-option *ngFor="let keyword of keywords.keywords.split(',')" [value]="keyword">{{keyword}}</mat-chip-option>
+</mat-chip-listbox>

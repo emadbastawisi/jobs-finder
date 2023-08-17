@@ -1,0 +1,19 @@
+.example-form-field {
+    width: 200px;
+  }
+.example-card {
+    width: 95%;
+    height: 95%;  
+    margin-bottom: 8px;
+    background: lightblue;
+
+  }  
+
+
+mat-grid-tile {
+  background: white;
+}
+grid-list{
+  width: max-content;
+  height: max-content;
+}  
