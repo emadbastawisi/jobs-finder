@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Keywords } from '../../utils/models/kewords.model';
+
 import { ClientsService } from '../../data-access/clients.service';
 
 @Component({
@@ -9,20 +9,29 @@ import { ClientsService } from '../../data-access/clients.service';
 })
 export class ClientsCategoriesComponent implements OnInit {
   private keywordsService = inject(ClientsService)
-  keywords: Keywords = {
-    keywords: '',
-  }
-  addKeyword(newSelectedCategory: string) {
-    this.selectedcategories = newSelectedCategory;
-    console.log(this.selectedcategories);
-  }
-  selectedcategories: string = '';
+  keywords: string = '';
 
+
+  updateSelectedKeyword(newSelectedCategory: string) {
+    this.selectedcategories = newSelectedCategory;
+    console.log(this.selectedcategories)
+  }
+
+  addNewKeyword(event: any) {
+
+    this.keywordsService.addClientKeyword(event).subscribe(
+      (data) => {
+        this.keywords = data
+      }
+    )
+
+  }
+
+  selectedcategories: string = '';
   ngOnInit(): void {
-    this.keywordsService.getKeywords().subscribe((keywords) => {
+    this.keywordsService.getClientKeywords().subscribe((keywords) => {
       this.keywords = keywords
     }
     )
   }
-
 }

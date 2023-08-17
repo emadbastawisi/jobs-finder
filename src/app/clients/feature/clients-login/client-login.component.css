@@ -1,8 +1,7 @@
 .container {
   width: 40%;
-  height: 80%;
   position: relative;
-  margin: 0 auto;
+  margin: 5rem auto 0;
 
 }
 
@@ -44,16 +43,11 @@
 }
 
 
-.form-label {
-  background-color: transparent;
-  font-size: 20px;
-  font-weight: 600;
-  margin: 10px;
-}
+
 
 .form-field {
   margin: 5px;
-  width: 60%;
+  width: 70%;
   height: 40%;
   border-radius: 5px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -76,6 +70,6 @@
 
 .btn {
   margin: 30px;
-  width: 60%;
+  width: 70%;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }

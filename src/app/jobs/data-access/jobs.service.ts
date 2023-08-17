@@ -12,11 +12,21 @@ export class JobsService {
 
   constructor() { }
 
-  headObj = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token')).set('Content-Type', 'application/json');
+  headObj = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
   // Refactored getJobs function to improve readability and adhere to code standards
-  getJobs(keywords: any): Observable<Job[]> {
+  getAllJobs(keywords: any): Observable<Job[]> {
     const url = `${environment.api.address}/jobs`; // Construct API endpoint URL
     const headers = this.headObj; // Assign headers object to a variable
     return this.http.post<Job[]>(url, keywords, { headers });
+  }
+  // refreshJobs() {
+  //   const url = `${environment.api.address}/jobs`; // Construct API endpoint URL
+  //   const headers = this.headObj; // Assign headers object to a variable
+  //   return this.http.get(url, { headers });
+  // }
+  getClientJobs(selectedKeywords: string): Observable<Job[]> {
+    const url = `${environment.api.address}/jobs/${selectedKeywords}`; // Construct API endpoint URL
+    const headers = this.headObj; // Assign headers object to a variable
+    return this.http.get<Job[]>(url, { headers });
   }
 }

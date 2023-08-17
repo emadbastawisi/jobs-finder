@@ -1,5 +1,14 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { category } from '../../utils/category.model';
+import { ThemePalette } from '@angular/material/core';
+
+
+
+export interface ChipColor {
+  name: string;
+  color: ThemePalette;
+}
+
 
 @Component({
   selector: 'app-categories-list-item',
@@ -26,16 +35,7 @@ export class CategoriesListItemComponent {
   }
 
   getSelectedCategoriesValues() {
-    return this.selectedcategories.map(category => category.value).join(',');
-  }
-
-  value: any;
-  onChange(event: any) {
-    this.value = event.value;
-    console.log(this.value);
-  }
-  addCategory() {
-    this.categories.push({ value: 'new', src: 'assets/angular.svg' });
+    return this.selectedcategories.map(category => category.name).join(',');
   }
 }
 

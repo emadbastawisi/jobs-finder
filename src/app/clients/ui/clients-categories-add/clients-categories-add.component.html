@@ -1,0 +1,7 @@
+<form class="container" [formGroup]="addCategory" (ngSubmit)="onSubmit()">
+  <mat-form-field class="example-full-width">
+    <mat-label matInput  required>Enter new category</mat-label>
+    <input matInput formControlName="newCategory" placeholder="angular">
+  </mat-form-field>
+  <button mat-raised-button color="primary" [disabled]="!addCategory.valid">Add new category</button>
+</form>

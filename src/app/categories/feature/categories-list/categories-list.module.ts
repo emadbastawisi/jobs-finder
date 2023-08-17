@@ -3,7 +3,10 @@ import { CommonModule } from '@angular/common';
 
 import { CategoriesListRoutingModule } from './categories-list-routing.module';
 import { CategoriesListComponent } from './categories-list.component';
-import { CategoriesListItemModule } from '../../ui/categories-list-item/categories-list-item.module';
+import { CategoriesListItemModule } from '../../ui/categories-list-item/categories-list-item.module';;
+
+import { ClientsCategoriesModule } from 'src/app/clients/feature/clients-categories/clients-categories.module';
+import { JobListModule } from 'src/app/jobs/feature/jobs-list/jobs-list.module';
 
 
 @NgModule({
@@ -13,7 +16,9 @@ import { CategoriesListItemModule } from '../../ui/categories-list-item/categori
   imports: [
     CommonModule,
     CategoriesListRoutingModule,
-    CategoriesListItemModule
+    CategoriesListItemModule,
+    JobListModule,
+
   ]
 })
 export class CategoriesListModule { }

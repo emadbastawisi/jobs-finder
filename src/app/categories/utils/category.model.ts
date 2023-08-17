@@ -1,5 +1,7 @@
+import { ThemePalette } from "@angular/material/core";
+
 export interface category {
-  value: string;
-  src: string;
+  name: string;
+  img: string;
 }
 

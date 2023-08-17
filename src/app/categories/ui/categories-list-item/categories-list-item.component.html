@@ -1,9 +1,12 @@
+<div style="display: flex; justify-content: center; margin-top: 20px;">
+  <h2>Select Recommended Categories</h2>
+</div>
 <div class="container">
   <div class="category" *ngFor=" let category of categories" (click)="toggleCategory(category) "
     [class.selected]="selectedcategories.includes(category)">
-    <img class="icon" [src]="category.src" [attr.data-value]="category.value">
+    <img class="icon" [src]="category.img" [attr.data-value]="category.name">
   </div>
 </div>
-<div class="container">
-  <mat-chip *ngFor="let category of selectedcategories" style="margin: 5px;">{{category.value}}</mat-chip>
+<div class="selectedContainer">
+  <mat-chip class="chips" selected *ngFor="let category of selectedcategories ">{{category.name}}</mat-chip>
 </div>

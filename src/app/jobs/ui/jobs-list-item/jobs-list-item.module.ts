@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { JobsListItemComponent } from './jobs-list-item.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 
 
@@ -11,7 +12,8 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [
     CommonModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MatGridListModule
   ],
   exports: [JobsListItemComponent]
 })

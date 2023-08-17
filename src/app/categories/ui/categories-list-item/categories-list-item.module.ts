@@ -5,11 +5,12 @@ import { MatChipsModule } from '@angular/material/chips';
 
 
 
+
 @NgModule({
   declarations: [CategoriesListItemComponent],
   imports: [
     CommonModule,
-    MatChipsModule
+    MatChipsModule,
   ],
   exports: [CategoriesListItemComponent]
 })

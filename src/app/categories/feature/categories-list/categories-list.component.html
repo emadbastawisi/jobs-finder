@@ -1,1 +1,3 @@
-<app-categories-list-item [categories]="categories" (newCategoryEvent)="addCategory($event)"></app-categories-list-item>
+<app-categories-list-item class="container" [categories]="categories"
+  (newCategoryEvent)="updateSelected($event)"></app-categories-list-item>
+<app-jobs-list [selectedKeywords]="SelectedCategories"></app-jobs-list>

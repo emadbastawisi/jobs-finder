@@ -1,1 +1,3 @@
-<app-clients-categories-list [keywords]="keywords" (newkeywordEvent)="addKeyword($event)"></app-clients-categories-list>
+<app-clients-categories-add (newkeywordEvent)="addNewKeyword($event)"></app-clients-categories-add>
+<app-clients-categories-list [keywords]="keywords" (newkeywordEvent)="updateSelectedKeyword($event)"></app-clients-categories-list>
+<app-jobs-list [selectedKeywords]="selectedcategories"></app-jobs-list>

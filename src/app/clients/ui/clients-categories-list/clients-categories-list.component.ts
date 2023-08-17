@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Keywords } from '../../utils/models/kewords.model';
 
 @Component({
   selector: 'app-clients-categories-list',
@@ -8,23 +7,15 @@ import { Keywords } from '../../utils/models/kewords.model';
 })
 export class ClientsCategoriesListComponent {
 
-  @Input() keywords: Keywords = {
-    keywords: ''
-  }
+
+  // get the keywords from the client-categories component
+  @Input() keywords: string = '';
+  // send the selected keywords to the client-categories component
   @Output() newkeywordEvent = new EventEmitter<string>();
-  selectedKeywords: Keywords[] = [];
 
-  UpdateSelectedKeywords(selectedKeywords: string) {
-    this.newkeywordEvent.emit(selectedKeywords);
-  }
-
-  getSelectedCategoriesValues() {
-    return this.selectedKeywords.map(keyword => keyword.keywords).join(',');
-  }
-
-  value: any;
+  // send the selected keywords to client-categories component when the selection changes
   onChange(event: any) {
-    this.value = event.value;
-    console.log(this.value);
+    const selectedKeywords = event.value.join(',');
+    this.newkeywordEvent.emit(selectedKeywords);
   }
 }

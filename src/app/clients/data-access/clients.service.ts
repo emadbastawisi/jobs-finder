@@ -1,10 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment.development';
-import { Keywords } from '../utils/models/kewords.model';
 import { UsersRegister } from '../utils/models/users-register.model';
+import { UsersKeyword } from '../utils/models/users-keywords.model';
 
 @Injectable({
   providedIn: 'root'
@@ -34,8 +33,12 @@ export class ClientsService {
   }
 
   // get user keywords
-  getKeywords(): Observable<Keywords> {
-    return this.http.get<Keywords>(environment.api.address + '/search', { headers: this.headObj })
+  getClientKeywords(): Observable<string> {
+    return this.http.get<string>(environment.api.address + '/search', { headers: this.headObj })
+  }
+  // add user keyword
+  addClientKeyword(keyword: UsersKeyword): Observable<any> {
+    return this.http.post(environment.api.address + '/search', keyword, { headers: this.headObj })
   }
 
 }

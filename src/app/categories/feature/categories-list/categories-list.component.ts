@@ -3,6 +3,7 @@ import { category } from '../../utils/category.model';
 
 import { CategoriesService } from '../../data-access/categories.service';
 
+
 @Component({
   selector: 'app-categories-list',
   templateUrl: './categories-list.component.html',
@@ -12,33 +13,31 @@ export class CategoriesListComponent implements OnInit {
   private categoriesService = inject(CategoriesService)
   categories: category[] = [
     {
-      value: 'Angular',
-      src: '../../assets/angular.svg'
+      name: 'Angular',
+      img: '../../assets/angular.svg'
     },
     {
-      value: 'React',
-      src: '../../assets/angular.svg'
+      name: 'React',
+      img: '../../assets/angular.svg'
     },
     {
-      value: 'Python',
-      src: '../../assets/angular.svg'
+      name: 'Python',
+      img: '../../assets/angular.svg'
     },
     {
-      value: 'Vue',
-      src: '../../assets/angular.svg'
+      name: 'Vue',
+      img: '../../assets/angular.svg'
     },
     {
-      value: 'Javascript',
-      src: '../../assets/angular.svg'
+      name: 'Javascript',
+      img: '../../assets/angular.svg'
     },
-
   ]
-  addCategory(newSelectedCategory: string) {
-    this.selectedcategories = newSelectedCategory;
-    console.log(this.selectedcategories);
-  }
-  selectedcategories: string = '';
+  SelectedCategories: string = '';
 
+  updateSelected(newSelectedCategories: string) {
+    this.SelectedCategories = newSelectedCategories;
+  }
   ngOnInit(): void {
     this.categoriesService.getCategories().subscribe(
       (data) => {
