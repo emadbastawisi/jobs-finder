@@ -1,22 +1,19 @@
 <div class="container">
-  <div class="form-parent">
-    <form [formGroup]="loginForm" class="form" (ngSubmit)="onSubmit()" method="post">
-      <img class="logo" src="../../assets/logo-black.svg" alt="">
-      <h2 style="text-align: center;">Login</h2>
-      <div class="form-field-parent">
-        <mat-form-field class="form-field">
-          <mat-label>Enter your email</mat-label><mat-icon class="icon">email</mat-icon>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form-parent">
+      <img class="logo" src="../../assets/logo-black.svg">
+
+        <mat-form-field appearance="outline">
+          <mat-label>Enter your email</mat-label>
           <input type="email" matInput formControlName="username" required>
+          <mat-icon matSuffix>email</mat-icon>
         </mat-form-field>
-        <mat-form-field class="form-field">
+
+        <mat-form-field appearance="outline">
           <mat-label>Enter your password</mat-label>
           <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required password>
           <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </mat-form-field>
-        <div class="btn-parent">
-          <button mat-raised-button class="btn" color="primary" [disabled]="!loginForm.valid">Login</button>
-        </div>
-      </div>
+
+        <button mat-raised-button  class="btn" color="primary" [disabled]="!loginForm.valid">Login</button>
     </form>
-  </div>
 </div>

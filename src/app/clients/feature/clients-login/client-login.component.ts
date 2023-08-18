@@ -23,6 +23,7 @@ export class ClientLoginComponent {
     const formData = new FormData();
     formData.append('username', this.loginForm.get('username').value);
     formData.append('password', this.loginForm.get('password').value);
+    console.log(formData);
     this.clientsService.login(formData).subscribe(
       (response: any) => {
         console.log(response);
