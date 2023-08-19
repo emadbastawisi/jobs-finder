@@ -18,15 +18,19 @@ export class ClientsCategoriesComponent implements OnInit {
   }
 
   addNewKeyword(event: any) {
-
     this.keywordsService.addClientKeyword(event).subscribe(
       (data) => {
         this.keywords = data
       }
     )
-
   }
-
+  deleteSelected() {
+    this.keywordsService.deleteClientKeyword(this.selectedcategories).subscribe(
+      (data :any) => {
+        this.keywords = data
+      }
+    )
+  }
   selectedcategories: string = '';
   ngOnInit(): void {
     this.keywordsService.getClientKeywords().subscribe((keywords) => {

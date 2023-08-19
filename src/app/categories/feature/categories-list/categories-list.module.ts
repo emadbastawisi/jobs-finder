@@ -18,7 +18,7 @@ import { JobListModule } from 'src/app/jobs/feature/jobs-list/jobs-list.module';
     CategoriesListRoutingModule,
     CategoriesListItemModule,
     JobListModule,
-
-  ]
+  ],
+  exports: [CategoriesListComponent]
 })
 export class CategoriesListModule { }

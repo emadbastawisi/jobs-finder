@@ -3,7 +3,6 @@ import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from 'src/environments/environment.development';
 import { UsersRegister } from '../utils/models/users-register.model';
-import { UsersKeyword } from '../utils/models/users-keywords.model';
 import { BehaviorSubject, debounceTime, exhaustMap } from 'rxjs';
 
 @Injectable({
@@ -62,11 +61,17 @@ export class ClientsService {
 
   // get user keywords
   getClientKeywords(): Observable<string> {
+    console.log(this.headObj)
     return this.http.get<string>(environment.api.address + '/search', { headers: this.headObj })
   }
   // add user keyword
-  addClientKeyword(keyword: UsersKeyword): Observable<any> {
+  addClientKeyword(keyword: string): Observable<any> {
     return this.http.post(environment.api.address + '/search', keyword, { headers: this.headObj })
   }
 
+  // delete user keyword
+  deleteClientKeyword(keyword: string) : Observable<any> {
+    console.log(this.headObj)
+    return this.http.patch<any>(environment.api.address + '/search/' + keyword, null, { headers: this.headObj })
+  }
 }

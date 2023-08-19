@@ -23,15 +23,7 @@ export class JobsListComponent {
 
   pageSlice: Job[] = [];
   // get all the jobs from the api
-  OnGetAllJobs() {
-    this.jobsService.getAllJobs(this.selectedKeywords).subscribe(
-      (data) => {
-        console.log(data)
-        this.jobs = data
-      },
-      (error) => console.log(error)
-    );
-  }
+
   // get the jobs that match the selected keywords from the api
   OnGetClientSelectedJobs() {
     if (this.selectedKeywords === '') {
