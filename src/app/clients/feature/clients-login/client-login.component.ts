@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ClientsService } from '../../data-access/clients.service';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 
 @Component({
@@ -15,7 +15,6 @@ export class ClientLoginComponent {
   hide = true
   clientsService = inject(ClientsService)
   Router = inject(Router)
-  snackBar = inject(MatSnackBar)
   loginForm: any = new FormGroup({
     username: new FormControl('', (Validators.required, Validators.email)),
     password: new FormControl('', (Validators.required))
@@ -32,7 +31,7 @@ export class ClientLoginComponent {
         localStorage.setItem('token', response.access_token);
         localStorage.setItem('username', response.username);
         window.location.reload();
-        this.snackBar.open('Acount Created Successfully', 'Close');
+        ;
       },
       (err) => console.log(err)
     );

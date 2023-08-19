@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment.development';
 import { ClientsService } from '../../data-access/clients.service';
 import { UsersRegister } from '../../utils/models/users-register.model';
-import { Observable, debounceTime, exhaustMap, switchMap, take } from 'rxjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable, debounceTime, switchMap } from 'rxjs';
+
 
 
 @Component({
@@ -16,7 +16,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ClientSignupComponent implements OnInit {
   clientsService = inject(ClientsService)
   Router = inject(Router)
-  snackBar = inject(MatSnackBar)
   hide = true
   api = environment.api.address
   username$ = new Observable<boolean>
@@ -51,7 +50,6 @@ export class ClientSignupComponent implements OnInit {
       (data) => {
         console.log(data)
         window.location.reload();
-        this.snackBar.open('Acount Created Successfully', 'Close');
       },
       (err) => {
         if (err.error.detail == "User already registered ")

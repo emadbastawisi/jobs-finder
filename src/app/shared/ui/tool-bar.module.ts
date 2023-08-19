@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { MatDialogModule } from '@angular/material/dialog';
 import { AppRoutingModule } from 'src/app/app-routing.module';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 
 
@@ -19,7 +19,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatButtonModule,
     MatDialogModule,
     AppRoutingModule,
-    MatSnackBarModule
+
 
   ],
   exports: [

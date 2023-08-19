@@ -17,7 +17,6 @@ export class ToolBarComponent {
   openLoginDialog() {
     this.dialog.open(ClientLoginComponent);
   }
-
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('username');
