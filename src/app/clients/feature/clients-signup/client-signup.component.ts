@@ -5,6 +5,8 @@ import { environment } from 'src/environments/environment.development';
 import { ClientsService } from '../../data-access/clients.service';
 import { UsersRegister } from '../../utils/models/users-register.model';
 import { Observable, debounceTime, switchMap } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { signup } from '../../data-access/store/actions';
 
 
 
@@ -14,12 +16,21 @@ import { Observable, debounceTime, switchMap } from 'rxjs';
   styleUrls: ['./client-signup.component.css']
 })
 export class ClientSignupComponent implements OnInit {
+
+
   clientsService = inject(ClientsService)
   Router = inject(Router)
+  store = inject(Store)
   hide = true
   api = environment.api.address
   username$ = new Observable<boolean>
   email$ = new Observable<boolean>
+
+  signupForm = new FormGroup({
+    username: new FormControl('', (Validators.required)),
+    email: new FormControl('', (Validators.required, Validators.email)),
+    password: new FormControl('', (Validators.required, Validators.minLength(6)))
+  })
 
   ngOnInit(): void {
     this.username$ = this.clientsService.checkUsername()
@@ -32,29 +43,21 @@ export class ClientSignupComponent implements OnInit {
       switchMap(async (changedValue) => this.clientsService.checkEmailApi(changedValue)),).subscribe()
   }
 
-  signupForm = new FormGroup({
-    username: new FormControl('', (Validators.required)),
-    email: new FormControl('', (Validators.required, Validators.email)),
-    password: new FormControl('', (Validators.required, Validators.minLength(6)))
-
-  })
   signup() {
-    const user: UsersRegister = {
-      username: this.signupForm.value.username!,
-      email: this.signupForm.value.email!,
-      password: this.signupForm.value.password!
-
-    }
-    console.log(user);
-    this.clientsService.register(user).subscribe(
-      (data) => {
-        console.log(data)
-        window.location.reload();
-      },
-      (err) => {
-        if (err.error.detail == "User already registered ")
-          alert("User already registered")
-      }
-    );
+    const request: UsersRegister = this.signupForm.getRawValue()
+    this.store.dispatch(signup({ request }))
   }
+
+  // signup() {
+  //   this.clientsService.register(this.signupForm.getRawValue()).subscribe(
+  //     (data) => {
+  //       console.log(data)
+  //       window.location.reload();
+  //     },
+  //     (err) => {
+  //       if (err.error.detail == "User already registered ")
+  //         alert("User already registered")
+  //     }
+  //   );
+  // }
 }
