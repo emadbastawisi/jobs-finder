@@ -4,6 +4,10 @@ import { ToolBarComponent } from './tool-bar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 
+import { MatDialogModule } from '@angular/material/dialog';
+import { AppRoutingModule } from 'src/app/app-routing.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 
 
@@ -12,7 +16,11 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [
     CommonModule,
     MatToolbarModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule,
+    AppRoutingModule,
+    MatSnackBarModule
+
   ],
   exports: [
     ToolBarComponent

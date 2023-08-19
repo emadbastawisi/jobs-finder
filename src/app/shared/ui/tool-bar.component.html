@@ -1,8 +1,13 @@
 <mat-toolbar color="primary">
   <a href="/home"><img class="logo" src="../../assets/logo-white.svg" alt=""></a>
-  <a mat-button color="white" href="clients/categories" class="taps">categories</a>
+  <a mat-button color="white" routerLink="/categories" class="taps">categories</a>
   <span class="example-spacer"></span>
-  <a mat-button color="white" href="/clients/signup" *ngIf="username == undefined">Sign Up</a>
-  <a mat-button color="white" href="clients/login" *ngIf="username  == undefined">Login</a>
-  <a mat-button color="white" href="clients/data" *ngIf="username != undefined">{{username}}</a>
+  <a mat-button color="white" (click)="openLoginDialog()" *ngIf="username  == undefined">Login</a>
+  <a mat-button color="white" (click)="openSignUpDialog()" *ngIf="username == undefined">SignUp</a>
+  <a mat-button color="white" routerLink="clients/profile" *ngIf="username != undefined">{{username}}</a>
+  <a mat-button color="white" routerLink="/home" (click)="logout()" *ngIf="username != undefined">Logout</a>
+
 </mat-toolbar>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

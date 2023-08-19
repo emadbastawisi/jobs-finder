@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ClientLoginComponent } from 'src/app/clients/feature/clients-login/client-login.component';
+import { ClientSignupComponent } from 'src/app/clients/feature/clients-signup/client-signup.component';
 
 @Component({
   selector: 'app-tool-bar',
@@ -7,4 +10,19 @@ import { Component } from '@angular/core';
 })
 export class ToolBarComponent {
   username = localStorage.getItem('username');
+  private dialog = inject(MatDialog);
+  openSignUpDialog() {
+    this.dialog.open(ClientSignupComponent);
+  }
+  openLoginDialog() {
+    this.dialog.open(ClientLoginComponent);
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    window.location.reload();
+    return;
+  }
+
 }
