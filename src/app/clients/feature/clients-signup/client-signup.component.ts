@@ -7,6 +7,7 @@ import { UsersRegister } from '../../utils/models/users-register.model';
 import { Observable, debounceTime, switchMap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { signup } from '../../data-access/store/actions';
+import { selectIsSubmitting } from '../../data-access/store/reducers';
 
 
 
@@ -32,6 +33,9 @@ export class ClientSignupComponent implements OnInit {
     password: new FormControl('', (Validators.required, Validators.minLength(6)))
   })
 
+  isSubmitting$ = this.store.select(selectIsSubmitting)
+
+  constructor() { }
   ngOnInit(): void {
     this.username$ = this.clientsService.checkUsername()
     this.email$ = this.clientsService.checkEmail()

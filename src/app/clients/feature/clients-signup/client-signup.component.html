@@ -37,3 +37,4 @@
   <button mat-raised-button class="btn" color="primary"
     [disabled]="(signupForm.invalid || !(username$ | async) || !(email$ | async))" (click)="signup()">Signup</button>
 </form>
+<button [disabled]="isSubmitting$|async">{{isSubmitting$ | async}}</button>

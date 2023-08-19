@@ -7,8 +7,9 @@ import { ToolBarModule } from 'src/app/shared/ui/tool-bar.module';
 
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { StoreModule, provideStore } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { authFeatureKey, authReducer } from './clients/data-access/store/reducers';
 
 
 
@@ -32,6 +33,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
       trace: false,
       traceLimit: 75,
     }),
+    StoreModule.forFeature(authFeatureKey, authReducer),
+
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],
