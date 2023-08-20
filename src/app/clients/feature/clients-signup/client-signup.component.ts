@@ -6,7 +6,7 @@ import { ClientsService } from '../../data-access/clients.service';
 import { UsersRegister } from '../../utils/models/users-register.model';
 import { Observable, debounceTime, switchMap } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { signup } from '../../data-access/store/actions';
+import { authActions } from '../../data-access/store/actions';
 import { selectIsSubmitting } from '../../data-access/store/reducers';
 
 
@@ -18,12 +18,10 @@ import { selectIsSubmitting } from '../../data-access/store/reducers';
 })
 export class ClientSignupComponent implements OnInit {
 
-
+  hide = true
   clientsService = inject(ClientsService)
   Router = inject(Router)
   store = inject(Store)
-  hide = true
-  api = environment.api.address
   username$ = new Observable<boolean>
   email$ = new Observable<boolean>
 
@@ -49,7 +47,7 @@ export class ClientSignupComponent implements OnInit {
 
   signup() {
     const request: UsersRegister = this.signupForm.getRawValue()
-    this.store.dispatch(signup({ request }))
+    this.store.dispatch(authActions.signup({ request }))
   }
 
   // signup() {

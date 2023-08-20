@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from 'src/environments/environment.development';
-import { UsersRegister } from '../utils/models/users-register.model';
+import { UsersRegister, UsersRegisterResponse } from '../utils/models/users-register.model';
 import { BehaviorSubject, debounceTime, exhaustMap } from 'rxjs';
 
 @Injectable({
@@ -55,8 +55,8 @@ export class ClientsService {
   }
 
   // register function to register user
-  register(user: UsersRegister): Observable<any> {
-    return this.http.post(environment.api.address + '/users', user)
+  register(user: UsersRegister): Observable<UsersRegisterResponse> {
+    return this.http.post<UsersRegisterResponse>(environment.api.address + '/users', user)
   }
 
   // get user keywords

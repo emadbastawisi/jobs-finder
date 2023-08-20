@@ -10,7 +10,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { authFeatureKey, authReducer } from './clients/data-access/store/reducers';
-
+import { EffectsModule } from '@ngrx/effects';
+import  * as authEffects  from './clients/data-access/store/effects';
 
 
 
@@ -34,6 +35,7 @@ import { authFeatureKey, authReducer } from './clients/data-access/store/reducer
       traceLimit: 75,
     }),
     StoreModule.forFeature(authFeatureKey, authReducer),
+    EffectsModule.forRoot(authEffects),
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
