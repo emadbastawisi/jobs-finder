@@ -3,8 +3,8 @@
   <a mat-button color="white" routerLink="/categories" class="taps">categories</a>
   <span class="example-spacer"></span>
   <a mat-button color="white" (click)="openLoginDialog()" *ngIf="username  == undefined">Login</a>
-  <a mat-button color="white" (click)="openSignUpDialog()" *ngIf="username == undefined">SignUp</a>
-  <a mat-button color="white" routerLink="clients/profile" *ngIf="username != undefined">{{username}}</a>
+  <a mat-button color="white" routerLink="clients/signup" *ngIf="username == undefined">SignUp</a>
+  <a mat-button color="white" routerLink="clients/categories" *ngIf="username != undefined">{{username}}</a>
   <a mat-button color="white" routerLink="/home" (click)="logout()" *ngIf="username != undefined">Logout</a>
 
 </mat-toolbar>

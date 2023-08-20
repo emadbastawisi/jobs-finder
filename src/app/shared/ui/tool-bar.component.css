@@ -19,5 +19,14 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  
+}
+
+@media screen and (max-width: 768px) {
+  .logo {
+    height: 50px;
+  }
+
+  .taps {
+    margin-left: 10px;
+  }
 }

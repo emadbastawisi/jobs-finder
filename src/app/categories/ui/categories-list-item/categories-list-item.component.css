@@ -5,7 +5,6 @@
   gap: 0.5rem;
   justify-content: center;
   align-items: center;
-
 }
 
 .selectedContainer {
@@ -14,7 +13,6 @@
   align-items: center;
   margin-top: 0.5rem;
   width: 100%;
-
 }
 
 .chips {
@@ -26,6 +24,7 @@
   width: 100px;
   height: 100px;
   border-radius: 10%;
+  border: 1px solid #ffffff;
 }
 
 .icon {
@@ -34,12 +33,27 @@
 }
 
 .selected {
-  border: thick double #32a1ce;
+  border: 1px solid #3f51b5;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (max-width: 768px) {
+  .container {
+    flex-wrap: wrap;
+  }
+
   .category {
     gap: 0.5rem;
+    width: 60px;
+    height: 60px;
   }
+
+  .chips {
+    margin: 0 0.2rem 0.2rem;
+
+  }
+
+  .selectedContainer {
+    flex-wrap: wrap;
+  }
+
 }
-  

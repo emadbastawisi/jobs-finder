@@ -11,9 +11,9 @@ import { ClientSignupComponent } from 'src/app/clients/feature/clients-signup/cl
 export class ToolBarComponent {
   username = localStorage.getItem('username');
   private dialog = inject(MatDialog);
-  openSignUpDialog() {
-    this.dialog.open(ClientSignupComponent);
-  }
+  // openSignUpDialog() {
+  //   this.dialog.open(ClientSignupComponent);
+  // }
   openLoginDialog() {
     this.dialog.open(ClientLoginComponent);
   }

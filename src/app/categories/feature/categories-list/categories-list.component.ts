@@ -20,19 +20,31 @@ export class CategoriesListComponent implements OnInit {
     },
     {
       name: 'React',
-      img: '../../assets/angular.svg'
+      img: '../../assets/react.svg'
     },
     {
       name: 'Python',
-      img: '../../assets/angular.svg'
+      img: '../../assets/python.svg'
     },
     {
-      name: 'Vue',
-      img: '../../assets/angular.svg'
+      name: 'JavaScript',
+      img: '../../assets/javascript.svg'
     },
     {
-      name: 'Javascript',
-      img: '../../assets/angular.svg'
+      name: 'Android',
+      img: '../../assets/android.svg'
+    },
+    {
+      name: 'flutter',
+      img: '../../assets/flutter.svg'
+    },
+    {
+      name: 'sales',
+      img: '../../assets/sales.svg'
+    },
+    {
+      name: 'web',
+      img: '../../assets/web.svg'
     },
   ]
   SelectedCategories: string = '';
@@ -46,7 +58,7 @@ export class CategoriesListComponent implements OnInit {
     this.categoriesService.getCategories().subscribe(
       (data) => {
         console.log(data)
-      } 
+      }
     )
   }
 }

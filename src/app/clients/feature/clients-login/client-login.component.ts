@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ClientsService } from '../../data-access/clients.service';
 import { Router } from '@angular/router';
+import { delay } from 'rxjs';
 
 
 
@@ -14,7 +15,7 @@ export class ClientLoginComponent {
 
   hide = true
   clientsService = inject(ClientsService)
-  Router = inject(Router)
+  router = inject(Router)
   loginForm: any = new FormGroup({
     username: new FormControl('', (Validators.required, Validators.email)),
     password: new FormControl('', (Validators.required))
@@ -30,8 +31,8 @@ export class ClientLoginComponent {
         console.log(response);
         localStorage.setItem('token', response.access_token);
         localStorage.setItem('username', response.username);
+        this.router.navigate(['/home']);
         window.location.reload();
-        ;
       },
       (err) => console.log(err)
     );
