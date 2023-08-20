@@ -1,13 +1,13 @@
 <mat-card class="example-card">
   <mat-card-header>
     <mat-card-title-group>
-      <mat-card-title>{{ job.title }}</mat-card-title>
-      <mat-card-subtitle>{{ job.company }}-{{ job.location }}</mat-card-subtitle>
-      <mat-card-subtitle>{{ job.type }}</mat-card-subtitle>
-      <mat-card-subtitle>{{ posted_at(job.created_at) }}</mat-card-subtitle>
+      <mat-card-title class="font-size">{{ job.title }}</mat-card-title>
+      <mat-card-subtitle class="font-size">{{ job.company }}-{{ job.location }}</mat-card-subtitle>
+      <mat-card-subtitle class="font-size">{{ job.type }}</mat-card-subtitle>
+      <mat-card-subtitle class="font-size">{{ posted_at(job.created_at) }}</mat-card-subtitle>
     </mat-card-title-group>
   </mat-card-header>
-  <mat-card-content class="text-limit">
+  <mat-card-content class="font-size">
     {{ job.skills }}
   </mat-card-content>
   <mat-card-actions>

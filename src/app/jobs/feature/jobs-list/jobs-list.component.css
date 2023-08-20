@@ -3,8 +3,22 @@
   margin: 1rem auto;
 }
 
-.job-card {
 
-  height: 80%;
-
+.job-list{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 1rem;
+  margin: 0 auto;
+  width: 100%;
 }
+.job-list .job-card{
+  width: calc(100% - 1rem);
+}
+@media screen and (min-width: 768px) {
+  .job-list .job-card{
+    width: calc(50% - 2rem);
+  }
+}
+  

@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { category } from '../../utils/category.model';
 
 import { CategoriesService } from '../../data-access/categories.service';
+// import { JobsService } from 'src/app/jobs/data-access/jobs.service';
 
 
 @Component({
@@ -10,7 +11,8 @@ import { CategoriesService } from '../../data-access/categories.service';
   styleUrls: ['./categories-list.component.css']
 })
 export class CategoriesListComponent implements OnInit {
-  private categoriesService = inject(CategoriesService)
+  categoriesService = inject(CategoriesService)
+  // jobService = inject(JobsService)
   categories: category[] = [
     {
       name: 'Angular',
@@ -37,12 +39,14 @@ export class CategoriesListComponent implements OnInit {
 
   updateSelected(newSelectedCategories: string) {
     this.SelectedCategories = newSelectedCategories;
+    // this.jobService.selectedKeywords.set(this.SelectedCategories);
+    // this.jobService.getClientJobs();
   }
   ngOnInit(): void {
     this.categoriesService.getCategories().subscribe(
       (data) => {
         console.log(data)
-      }
+      } 
     )
   }
 }

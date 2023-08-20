@@ -2,28 +2,29 @@
   width: 100%;
   height: 11%;
   display: flex;
+  gap: 0.5rem;
   justify-content: center;
   align-items: center;
 
 }
 
 .selectedContainer {
-  margin-top: 1rem ;
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 0.5rem;
+  width: 100%;
+
 }
 
 .chips {
-  margin: 0 0.5rem;
+  margin: 0 0.2rem;
 }
+
 
 .category {
   width: 100px;
   height: 100px;
-  margin-left: 10px;
-  margin-right: 10px;
   border-radius: 10%;
 }
 
@@ -35,3 +36,10 @@
 .selected {
   border: thick double #32a1ce;
 }
+
+@media screen and (min-width: 768px) {
+  .category {
+    gap: 0.5rem;
+  }
+}
+  
