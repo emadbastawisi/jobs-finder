@@ -1,20 +1,22 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Injectable, computed, inject, signal } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from 'src/environments/environment.development';
 import { UsersRegister, UsersRegisterResponse } from '../utils/models/users-register.model';
-import { BehaviorSubject, debounceTime, exhaustMap } from 'rxjs';
+import { BehaviorSubject, take } from 'rxjs';
+import { UsersKeyword } from '../utils/models/users-keywords.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientsService {
-
+  http = inject(HttpClient);
   private username$ = new BehaviorSubject<boolean>(true);
   private email$ = new BehaviorSubject<boolean>(true);
-  http = inject(HttpClient);
-  headObj = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'))
-  constructor() { }
+  private clientCategories = signal<string>('')
+  // selector for client categories
+  clientCats = computed(() => this.clientCategories());
+
 
   //  username avilabelity
   checkUsername(): Observable<boolean> {
@@ -59,19 +61,38 @@ export class ClientsService {
     return this.http.post<UsersRegisterResponse>(environment.api.address + '/users', user)
   }
 
+
+
   // get user keywords
-  getClientKeywords(): Observable<string> {
-    console.log(this.headObj)
-    return this.http.get<string>(environment.api.address + '/search', { headers: this.headObj })
+  getClientCategories() {
+    this.http.get<string>(environment.api.address + '/search').pipe(
+      take(1)
+    ).subscribe(
+      (data: string) => {
+        this.clientCategories.set(data)
+      }
+    )
   }
   // add user keyword
-  addClientKeyword(keyword: string): Observable<any> {
-    return this.http.post(environment.api.address + '/search', keyword, { headers: this.headObj })
+  addClientCategory(keyword: string) {
+    const request: UsersKeyword = { keywords: keyword }
+    this.http.post(environment.api.address + '/search', request).pipe(
+      take(1)
+    ).subscribe(
+      (data) => {
+        this.clientCategories.set(data.toString())
+      }
+    )
   }
-
   // delete user keyword
-  deleteClientKeyword(keyword: string) : Observable<any> {
-    console.log(this.headObj)
-    return this.http.patch<any>(environment.api.address + '/search/' + keyword, null, { headers: this.headObj })
+  deleteClientCategory(keyword: string) {
+    const request: UsersKeyword = { keywords: keyword }
+    this.http.patch<any>(environment.api.address + '/search/', request).pipe(
+      take(1))
+      .subscribe(
+        (data: string) => {
+          this.clientCategories.set(data)
+        }
+      )
   }
 }

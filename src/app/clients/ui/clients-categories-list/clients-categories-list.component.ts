@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { JobsService } from 'src/app/jobs/data-access/jobs.service';
 
 @Component({
   selector: 'app-clients-categories-list',
@@ -6,7 +7,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./clients-categories-list.component.css']
 })
 export class ClientsCategoriesListComponent {
-
+  jobsService = inject(JobsService);
 
   // get the keywords from the client-categories component
   @Input() keywords: string = '';

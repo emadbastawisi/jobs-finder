@@ -1,9 +1,9 @@
 <h2 style="text-align: center; ">Customize your Categories</h2>
 <div class="container">
-  <app-clients-categories-list [keywords]="keywords" (newkeywordEvent)="updateSelectedKeyword($event)">
+  <app-clients-categories-list [keywords]="clientsService.clientCats()"
+    (newkeywordEvent)="updateSelectedKeyword($event)">
   </app-clients-categories-list>
-  <app-clients-categories-add (newkeywordEvent)="addNewKeyword($event)"></app-clients-categories-add>
+  <app-clients-categories-add (newkeywordEvent)="addNewCategory($event)"></app-clients-categories-add>
   <button mat-raised-button class="btn" color="primary" (click)="deleteSelected()">Remove Selected</button>
 </div>
 <app-jobs-list [selectedKeywords]="selectedcategories"></app-jobs-list>
-

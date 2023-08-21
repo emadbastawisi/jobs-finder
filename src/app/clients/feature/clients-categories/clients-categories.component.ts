@@ -8,34 +8,21 @@ import { ClientsService } from '../../data-access/clients.service';
   styleUrls: ['./clients-categories.component.css']
 })
 export class ClientsCategoriesComponent implements OnInit {
-  private keywordsService = inject(ClientsService)
-  keywords: string = '';
-
+  clientsService = inject(ClientsService)
 
   updateSelectedKeyword(newSelectedCategory: string) {
     this.selectedcategories = newSelectedCategory;
-    console.log(this.selectedcategories)
   }
 
-  addNewKeyword(event: any) {
-    this.keywordsService.addClientKeyword(event).subscribe(
-      (data) => {
-        this.keywords = data
-      }
-    )
-  }
-  deleteSelected() {
-    this.keywordsService.deleteClientKeyword(this.selectedcategories).subscribe(
-      (data :any) => {
-        this.keywords = data
-      }
-    )
-  }
   selectedcategories: string = '';
   ngOnInit(): void {
-    this.keywordsService.getClientKeywords().subscribe((keywords) => {
-      this.keywords = keywords
-    }
-    )
+    this.clientsService.getClientCategories()
+  }
+
+  addNewCategory(category: string) {
+    this.clientsService.addClientCategory(category)
+  }
+  deleteSelected() {
+    this.clientsService.deleteClientCategory(this.selectedcategories)
   }
 }

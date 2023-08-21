@@ -1,6 +1,7 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, signal, computed, inject } from '@angular/core';
 import { category } from '../../utils/category.model';
 import { ThemePalette } from '@angular/material/core';
+import { JobsService } from 'src/app/jobs/data-access/jobs.service';
 
 
 
@@ -16,27 +17,28 @@ export interface ChipColor {
   styleUrls: ['./categories-list-item.component.css']
 })
 export class CategoriesListItemComponent {
-  @Input() categories: category[] = []
-  @Output() newCategoryEvent = new EventEmitter<string>();
-  selectedcategories: category[] = [];
-
-  UpdateSelectedCategories(selectedcategories: string) {
-    this.newCategoryEvent.emit(selectedcategories);
+  jobsService = inject(JobsService);
+  @Input() set categories(value: category[] | undefined) {
+    this.cats.set(value);
   }
+  @Output() newCategoryEvent = new EventEmitter<string>();
 
-  toggleCategory(category: category) {
-    if (this.selectedcategories.includes(category)) {
-      this.selectedcategories = this.selectedcategories.filter(selectedIcon => selectedIcon !== category);
-      this.UpdateSelectedCategories(this.getSelectedCategoriesValues());
+
+  // cats short for categories
+  cats = signal<category[] | undefined>([])
+  selectedCats = signal<category[]>([])
+  selectedList = computed(() => this.selectedCats().map(category => category.name).join(','));
+
+  toggleCat(category: category) {
+    if (this.selectedCats().includes(category)) {
+      this.selectedCats.update(selectedCat => selectedCat.filter(selectedCat => selectedCat.name !== category.name));
+      this.newCategoryEvent.emit(this.selectedList());
     } else {
-      this.selectedcategories.push(category);
-      this.UpdateSelectedCategories(this.getSelectedCategoriesValues());
+      this.selectedCats.mutate(selectedCats => selectedCats.push(category));
+      this.newCategoryEvent.emit(this.selectedList());
     }
   }
 
-  getSelectedCategoriesValues() {
-    return this.selectedcategories.map(category => category.name).join(',');
-  }
 }
 
 

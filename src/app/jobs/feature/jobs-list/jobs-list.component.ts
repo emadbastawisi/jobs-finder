@@ -1,7 +1,6 @@
-import { Component, Input, Signal, inject, signal } from '@angular/core';
+import { Component, Input, inject, OnInit } from '@angular/core';
 import { JobsService } from 'src/app/jobs/data-access/jobs.service';
-import { Job } from '../../utils/job.model';
-import { PageEvent } from '@angular/material/paginator';
+
 
 
 
@@ -11,11 +10,20 @@ import { PageEvent } from '@angular/material/paginator';
   styleUrls: ['./jobs-list.component.css']
 })
 
-export class JobsListComponent {
+export class JobsListComponent implements OnInit {
   // inject the jobs service
   jobsService = inject(JobsService);
   // takes selected keywords from the client-categories-list component or categories-list component
   @Input() selectedKeywords: string = '';
+
+  ngOnInit(): void {
+    this.jobsService.resetState();
+  }
+
+  onGetJobs() {
+    this.jobsService.getClientJobs(this.selectedKeywords);
+  }
 }
+
 
 
