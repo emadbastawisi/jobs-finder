@@ -9,12 +9,23 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: #fafafa;
 }
 
-app-root {
-
+app-root,
+app-tool-bar {
   height: 100%;
   display: flex;
   flex-direction: column;
 }
+
+/* 
+[data-theme="dark"] {
+
+  --color-bg: #000000;
+  --color-text: #fff;
+}
+
+[data-theme="light"] {
+  --color-bg: #fafafa;
+  --color-text: #000000;
+} */

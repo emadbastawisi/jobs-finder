@@ -8,8 +8,10 @@
   margin-top: 10px;
 }
 
-.taps {
-  margin-left: 30px;
+.themeIcon {
+  margin: 0.5rem;
+  cursor: pointer;
+
 }
 
 .container {

@@ -23,5 +23,16 @@ export class ToolBarComponent {
     window.location.reload();
     return;
   }
-
+  darktheme = false
+  theme() {
+    this.darktheme = !this.darktheme
+    localStorage.setItem('darktheme', this.darktheme.toString())
+    document.body.classList.toggle('dark-theme');
+  }
+  ngOnInit() {
+    if (localStorage.getItem('darktheme') === 'true') {
+      this.darktheme = true
+      document.body.classList.add('dark-theme');
+    }
+  }
 }

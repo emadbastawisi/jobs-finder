@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { MatDialogModule } from '@angular/material/dialog';
 import { AppRoutingModule } from 'src/app/app-routing.module';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
@@ -19,6 +20,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
     MatButtonModule,
     MatDialogModule,
     AppRoutingModule,
+    MatIconModule
 
 
   ],
