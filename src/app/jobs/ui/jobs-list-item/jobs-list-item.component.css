@@ -1,6 +1,20 @@
 .card {
   height: 100%;
-  box-shadow: none;
+  /* box-shadow: none;
   background-color: transparent;
-  border: 1px solid #3f51b5;
+  border: 1px solid #3f51b5; */
+  background-color: #ffffff;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  border-radius: 20px;
+  display: grid;
+
+
+}
+
+.btn {
+  margin-left: 0.5rem;
+  border-radius: 20px;
+  color: #ffffff;
+  background-color: #3f51b5;
+  align-self: flex-end;
 }

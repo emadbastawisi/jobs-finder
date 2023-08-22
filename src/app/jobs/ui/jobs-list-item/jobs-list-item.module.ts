@@ -13,7 +13,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     CommonModule,
     MatCardModule,
     MatButtonModule,
-    MatGridListModule
+    MatGridListModule,
   ],
   exports: [JobsListItemComponent]
 })

@@ -7,6 +7,6 @@
     <img class="icon" [src]="category.img" [attr.data-value]="category.name">
   </div>
 </div>
-<div class="selectedContainer ">
-  <mat-chip class="chips" selected *ngFor="let category of selectedCats() ">{{category.name}}</mat-chip>
+<div class="selectedContainer " *ngIf="selectedCats().length">
+  <mat-chip mat-raised-button class="chips" *ngFor="let category of selectedCats() ">{{category.name}}</mat-chip>
 </div>

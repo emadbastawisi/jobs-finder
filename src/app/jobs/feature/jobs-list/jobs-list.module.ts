@@ -6,6 +6,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { JobsListComponent } from './jobs-list.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 
 
 
@@ -17,7 +19,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatGridListModule,
     JobsListItemModule,
     MatButtonModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
   ],
   exports: [JobsListComponent]
 })
