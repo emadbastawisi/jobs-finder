@@ -3,15 +3,16 @@
   /* box-shadow: none;
   background-color: transparent;
   border: 1px solid #3f51b5; */
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  box-shadow: var(--box-shadow);
   border-radius: 20px;
   display: grid;
-
+  background-color: var(--bg-color);
 
 }
 
 .btn {
   margin-left: 0.5rem;
+  margin-bottom: 0.5rem;
   border-radius: 20px;
   align-self: flex-end;
 }

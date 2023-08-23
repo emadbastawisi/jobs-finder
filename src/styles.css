@@ -9,6 +9,10 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #fafafa;
+  --box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  --bg-color: white;
+  color: black;
 }
 
 app-root,
@@ -17,6 +21,17 @@ app-tool-bar {
   display: flex;
   flex-direction: column;
 }
+
+body[class*="dark-theme"] {
+  background-color: #212121;
+  --bg-color: #303030;
+  --box-shadow: none;
+  color: white
+}
+
+
+
+
 
 /* 
 [data-theme="dark"] {

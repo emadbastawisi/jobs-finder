@@ -1,6 +1,4 @@
-<div style="display: flex; justify-content: center; margin-top: 20px;">
-  <h2>Select Recommended Categories</h2>
-</div>
+<h3 class="container">Select Recomended Categories</h3>
 <div class="container">
   <div class="category" *ngFor=" let category of cats()" (click)="toggleCat(category)"
     [class.selected]="selectedCats().includes(category)">

@@ -1,12 +1,15 @@
 .container {
   display: flex;
-  margin: 0 auto;
+  flex-wrap: wrap;
+  margin: 0.5rem auto;
   gap: 0.5rem;
   justify-content: center;
   align-items: center;
   padding: 1rem;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   border-radius: 20px;
+  background-color: var(--bg-color);
+  box-shadow: var(--box-shadow);
+
 }
 
 .selectedContainer {
@@ -15,8 +18,9 @@
   align-items: center;
   margin: 0.5rem auto;
   padding: 1rem;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   border-radius: 20px;
+  background-color: var(--bg-color);
+  box-shadow: var(--box-shadow);
 }
 
 .chips {
