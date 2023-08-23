@@ -1,7 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment.development';
 import { ClientsService } from '../../data-access/clients.service';
 import { UsersRegister } from '../../utils/models/users-register.model';
 import { Observable, debounceTime, switchMap } from 'rxjs';
@@ -50,16 +49,4 @@ export class ClientSignupComponent implements OnInit {
     this.store.dispatch(authActions.signup({ request }))
   }
 
-  // signup() {
-  //   this.clientsService.register(this.signupForm.getRawValue()).subscribe(
-  //     (data) => {
-  //       console.log(data)
-  //       window.location.reload();
-  //     },
-  //     (err) => {
-  //       if (err.error.detail == "User already registered ")
-  //         alert("User already registered")
-  //     }
-  //   );
-  // }
 }

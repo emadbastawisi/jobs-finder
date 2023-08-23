@@ -1,7 +1,5 @@
 .container {
-
   margin: 1rem auto;
-
 }
 
 .form-parent {
@@ -24,4 +22,9 @@
 .btn {
   margin: 40px 0 0 0;
   width: 248px;
+}
+
+.hint-error {
+  color: red;
+  text-align: center;
 }

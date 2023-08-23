@@ -2,10 +2,11 @@
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form-parent">
     <img class="logo" src="../../assets/logo-black.svg">
 
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" [ngClass]="">
       <mat-label>Enter your email</mat-label>
-      <input type="email" matInput formControlName="username" required>
+      <input type="email" matInput formControlName="username" required email >
       <mat-icon matSuffix>email</mat-icon>
+
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -13,6 +14,7 @@
       <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required password>
       <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
     </mat-form-field>
+    <mat-hint class="hint-error">{{error$()}}</mat-hint>
     <button mat-raised-button class="btn" color="primary" [disabled]="!loginForm.valid">Login</button>
   </form>
 </div>

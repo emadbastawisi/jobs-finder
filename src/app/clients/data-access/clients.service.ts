@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment.development';
 import { UsersRegister, UsersRegisterResponse } from '../utils/models/users-register.model';
 import { BehaviorSubject, take } from 'rxjs';
 import { UsersKeyword } from '../utils/models/users-keywords.model';
+import { UsersLogin, UsersLoginResponse } from '../utils/models/users-login';
 
 @Injectable({
   providedIn: 'root'
@@ -42,10 +43,9 @@ export class ClientsService {
       )
   }
 
-
   // login function to login user
-  login(user: any): Observable<any> {
-    return this.http.post(environment.api.address + '/login', user)
+  login(user: FormData): Observable<UsersLoginResponse> {
+    return this.http.post<UsersLoginResponse>(environment.api.address + '/login', user)
   }
 
   // logout function to logout user
