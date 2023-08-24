@@ -2,20 +2,23 @@
   margin-top: 1rem;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
-}
-.btn {
-  width: 100px;
-  min-height: 56px;
-  margin-top: 0.2rem;
+  
 }
 
-@media screen and (max-width: 768px) {
-  .container {
-    flex-wrap: wrap;
-  }
-  .btn {
-    margin: 0 0.2rem 0.2rem;
-  }
+.options {
+  display: flex;
+  margin: 1rem;
+  padding: 1rem;
+  background-color: var(--bg-color);
+  box-shadow: var(--box-shadow);
+  border-radius: 20px;
 }
-  
+
+.btn {
+  width: 5rem;
+  min-height: 3.5rem;
+}
+
+@media screen and (max-width: 768px) {}

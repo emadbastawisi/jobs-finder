@@ -13,7 +13,7 @@ export class ClientsCategoriesAddComponent {
   @Output() newkeywordEvent = new EventEmitter<string>();
 
   addCategory: any = new FormGroup({
-    newCategory: new FormControl('', Validators.required),
+    newCategory: new FormControl('', Validators.minLength(3)),
   })
   // send the selected keywords to client-categories component when the selection changes
   onSubmit() {
