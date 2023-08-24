@@ -1,8 +1,19 @@
 .container {
   margin: 0  auto;
   width: fit-content;
-  font-size: 200px;
+
 }
 .chips {
   height: 56px;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    flex-wrap: wrap;
+  }
+
+  .chips {
+    margin: 0 0.2rem 0.2rem;
+  }
+
 }

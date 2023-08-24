@@ -8,6 +8,9 @@ import { UsersRegisterResponse } from '../../utils/models/users-register.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { UsersLoginResponse } from '../../utils/models/users-login';
+import { AuthService } from 'src/app/auth/auth.service';
+import { ToolBarComponent } from 'src/app/shared/ui/toolbar/toolbar.component';
+import { MatDialog } from '@angular/material/dialog';
 
 export const signupEffect = createEffect(
   (actions$ = inject(Actions), clientsService = inject(ClientsService)) => {
@@ -66,20 +69,51 @@ export const loginEffect = createEffect(
 )
 
 export const loginSuccessEffect = createEffect(
-  (actions$ = inject(Actions), router = inject(Router)) => {
+  (actions$ = inject(Actions), router = inject(Router), dialog = inject(MatDialog)) => {
     return actions$.pipe(
       ofType(authActions.loginSuccess),
       tap((value) => {
-        console.log(value);
         localStorage.setItem('token', value.response.access_token)
-        localStorage.setItem('username', value.response.username)
-        router.navigate(['/home'])
-        window.location.reload();
+        dialog.closeAll()
+        router.navigateByUrl('/home')
       })
     )
   }
   , { dispatch: false, functional: true }
 )
 
+export const logoutEffect = createEffect(
+  (actions$ = inject(Actions), router = inject(Router)) => {
+    return actions$.pipe(
+      ofType(authActions.logout),
+      tap(() => {
+        localStorage.removeItem('token')
+        router.navigateByUrl('/')
+      })
+    )
+  }
+  , { dispatch: false, functional: true }
+)
+
+export const getCurrentUserEffect = createEffect(
+  (actions$ = inject(Actions), authService = inject(AuthService)) => {
+    return actions$.pipe(
+      ofType(authActions.getCurrentUser),
+      switchMap(() => {
+        return authService.getCurrentUser().pipe(
+          map((response) => {
+            return authActions.getCurrentUserSuccess({ response })
+          }),
+          catchError(() => {
+            return of(
+              authActions.getCurrentUserFailure()
+            )
+          })
+        )
+      })
+    )
+  }
+  , { functional: true }
+)
 
 

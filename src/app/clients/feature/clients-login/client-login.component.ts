@@ -21,7 +21,6 @@ export class ClientLoginComponent {
   router = inject(Router)
   store = inject(Store)
   isSubmitting$ = this.store.selectSignal(selectIsSubmitting)
-  currentUser$ = this.store.selectSignal(selectCurrentUser)
   error$ = this.store.selectSignal(selectValidationErrors)
   
 
@@ -41,7 +40,6 @@ export class ClientLoginComponent {
   ngOnInit(): void {
     // clear errors state on load
     this.store.dispatch(authActions.loginReset())
-
   }
 
 }

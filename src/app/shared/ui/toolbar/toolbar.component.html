@@ -1,0 +1,11 @@
+<mat-toolbar color="primary">
+  <a routerLink="/home"><img class="logo" src="../../assets/logo-white.svg"></a>
+  <a mat-button routerLink="/categories" class="taps">categories</a>
+  <span class="example-spacer"></span>
+  <a mat-button (click)="openLoginDialog()" *ngIf="currentUser$()  == undefined">Login</a>
+  <a mat-button routerLink="clients/signup" *ngIf="currentUser$() == undefined">SignUp</a>
+  <a mat-button routerLink="clients/categories" *ngIf="currentUser$() != undefined">{{currentUser$()?.username}}</a>
+  <a mat-button routerLink="/home" (click)="logout()" *ngIf="currentUser$() != undefined">Logout</a>
+  <mat-icon class="themeIcon" *ngIf="!darktheme" (click)="theme()">light_mode</mat-icon>
+  <mat-icon class="themeIcon" *ngIf="darktheme" (click)="theme()">dark_mode</mat-icon>
+</mat-toolbar>

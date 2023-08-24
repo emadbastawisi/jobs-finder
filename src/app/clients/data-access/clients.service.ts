@@ -1,46 +1,31 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from 'src/environments/environment.development';
 import { UsersRegister, UsersRegisterResponse } from '../utils/models/users-register.model';
-import { BehaviorSubject, take } from 'rxjs';
+import { take } from 'rxjs';
 import { UsersKeyword } from '../utils/models/users-keywords.model';
-import { UsersLogin, UsersLoginResponse } from '../utils/models/users-login';
+import { UsersLoginResponse } from '../utils/models/users-login';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientsService {
   http = inject(HttpClient);
-  private username$ = new BehaviorSubject<boolean>(true);
-  private email$ = new BehaviorSubject<boolean>(true);
   private clientCategories = signal<string>('')
   // selector for client categories
   clientCats = computed(() => this.clientCategories());
 
 
-  //  username avilabelity
-  checkUsername(): Observable<boolean> {
-    return this.username$
-  }
   // check username availability with api
-  checkUsernameApi(username: string | null) {
-    this.http.get<boolean>(environment.api.address + '/users/username/' + username)
-      .subscribe(
-        data => { this.username$.next(data) }
-      )
+  checkUsernameApi(username: string | null):Observable<boolean> {
+     return this.http.get<boolean>(environment.api.address + '/users/username/' + username)
   }
 
-  //  username avilabelity
-  checkEmail(): Observable<boolean> {
-    return this.email$
-  }
   // check username availability with api
-  checkEmailApi(email: string | null) {
-    this.http.get<boolean>(environment.api.address + '/users/email/' + email)
-      .subscribe(
-        data => { this.email$.next(data) }
-      )
+  checkEmailApi(email: string | null) : Observable<boolean> {
+    return this.http.get<boolean>(environment.api.address + '/users/email/' + email)
+
   }
 
   // login function to login user
@@ -49,7 +34,6 @@ export class ClientsService {
   }
 
   // logout function to logout user
-
   logout() {
     localStorage.removeItem('token')
     localStorage.removeItem('username')
@@ -60,8 +44,6 @@ export class ClientsService {
   register(user: UsersRegister): Observable<UsersRegisterResponse> {
     return this.http.post<UsersRegisterResponse>(environment.api.address + '/users', user)
   }
-
-
 
   // get user keywords
   getClientCategories() {

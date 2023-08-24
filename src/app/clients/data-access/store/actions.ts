@@ -1,6 +1,6 @@
 import { createActionGroup, emptyProps, props } from "@ngrx/store";
 import { UsersRegister, UsersRegisterError, UsersRegisterResponse } from "../../utils/models/users-register.model";
-import { UsersLogin, UsersLoginError, UsersLoginResponse } from "../../utils/models/users-login";
+import { UsersLogin, UsersLoginError, UsersLoginResponse, currentUser } from "../../utils/models/users-login";
 
 // export const signup = createAction('[Clients] Signup', props<{ request: UsersRegister }>())
 
@@ -14,6 +14,10 @@ export const authActions = createActionGroup({
     loginSuccess: props<{ response: UsersLoginResponse }>(),
     loginFailure: props<{ errors: UsersLoginError}>(),
     loginReset: emptyProps(),
+    logout: emptyProps(),
+    getCurrentUser: emptyProps(),
+    getCurrentUserSuccess: props<{ response: currentUser }>(),
+    getCurrentUserFailure: emptyProps(),
   },
 });
 

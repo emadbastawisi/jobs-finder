@@ -1,15 +1,20 @@
 import { Component, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { authActions } from 'src/app/clients/data-access/store/actions';
+import { selectCurrentUser } from 'src/app/clients/data-access/store/reducers';
 import { ClientLoginComponent } from 'src/app/clients/feature/clients-login/client-login.component';
 import { ClientSignupComponent } from 'src/app/clients/feature/clients-signup/client-signup.component';
 
 @Component({
-  selector: 'app-tool-bar',
-  templateUrl: './tool-bar.component.html',
-  styleUrls: ['./tool-bar.component.css']
+  selector: 'app-toolbar',
+  templateUrl: './toolbar.component.html',
+  styleUrls: ['./toolbar.component.css']
 })
 export class ToolBarComponent {
-  username = localStorage.getItem('username');
+
+  store = inject(Store)
+  currentUser$ = this.store.selectSignal(selectCurrentUser)
   private dialog = inject(MatDialog);
   // openSignUpDialog() {
   //   this.dialog.open(ClientSignupComponent);
@@ -17,15 +22,16 @@ export class ToolBarComponent {
   openLoginDialog() {
     this.dialog.open(ClientLoginComponent);
   }
+
   closeLoginDialog() {
     this.dialog.closeAll();
   }
+
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
-    window.location.reload();
-    return;
+    this.store.dispatch(authActions.logout());
   }
+
+  // themes
   darktheme = false
   theme() {
     this.darktheme = !this.darktheme
@@ -33,9 +39,12 @@ export class ToolBarComponent {
     document.body.classList.toggle('dark-theme');
   }
   ngOnInit() {
+    // load theme profile
     if (localStorage.getItem('darktheme') === 'true') {
       this.darktheme = true
       document.body.classList.add('dark-theme');
     }
+    // get current user
+    this.store.dispatch(authActions.getCurrentUser())
   }
 }

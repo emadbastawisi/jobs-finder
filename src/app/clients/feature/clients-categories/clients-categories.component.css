@@ -9,3 +9,13 @@
   min-height: 56px;
   margin-top: 0.2rem;
 }
+
+@media screen and (max-width: 768px) {
+  .container {
+    flex-wrap: wrap;
+  }
+  .btn {
+    margin: 0 0.2rem 0.2rem;
+  }
+}
+  
