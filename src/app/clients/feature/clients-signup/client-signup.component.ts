@@ -26,8 +26,8 @@ export class ClientSignupComponent implements OnInit {
   // creat signup form with custom validators
   signupForm = new FormGroup({
     username: new FormControl('', (Validators.required), CustomeValidators.usernameAvailable(this.clientsService)),
-    email: new FormControl('', (Validators.required, Validators.email), CustomeValidators.emailAvailable(this.clientsService)),
-    password: new FormControl('', (Validators.required, Validators.minLength(6)))
+    email: new FormControl('', [Validators.required, Validators.email], CustomeValidators.emailAvailable(this.clientsService)),
+    password: new FormControl('', [Validators.required, Validators.minLength(6)])
   })
 
   constructor() { }
@@ -63,7 +63,7 @@ export class CustomeValidators {
         debounceTime(1000),
         switchMap((changedValue) => CS.checkEmailApi(changedValue)),
         take(1),
-        map((isAvailable : boolean) => {
+        map((isAvailable: boolean) => {
           return isAvailable === true ? null : { emailTaken: true };
         })
       );

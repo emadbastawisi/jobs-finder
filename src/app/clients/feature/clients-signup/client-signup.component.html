@@ -4,16 +4,25 @@
     <mat-label>Enter your username</mat-label>
     <input type="text" matInput formControlName="username" required>
     <mat-icon matSuffix>person</mat-icon>
-    <mat-hint style="color: red;" *ngIf="signupForm.controls.username.errors?.['usernameTaken'] && signupForm.controls.username.dirty">This username is already taken</mat-hint>
-    <mat-hint style="color: green;" *ngIf="signupForm.controls.username.valid && signupForm.controls.username.dirty">This username is available</mat-hint>
+    <mat-hint style="color: red;"
+      *ngIf="signupForm.controls.username.errors?.['usernameTaken'] && signupForm.controls.username.dirty">This username
+      is already taken</mat-hint>
+    <mat-hint style="color: green;"
+      *ngIf="signupForm.controls.username.valid && signupForm.controls.username.dirty">This username is
+      available</mat-hint>
   </mat-form-field>
   <mat-form-field appearance="outline" class="form-field">
     <mat-label>Enter your email</mat-label>
     <input type="email" matInput formControlName="email" required email>
     <mat-icon matSuffix>email</mat-icon>
-    <mat-hint style="color: red;"*ngIf=" signupForm.controls.email.errors?.['email'] && signupForm.controls.email.dirty">Please enter a valid email</mat-hint>
-    <mat-hint style="color: red;" *ngIf=" signupForm.controls.email.errors?.['emailTaken'] && signupForm.controls.email.dirty">This email is already registered</mat-hint>
-    <mat-hint style="color: green;" *ngIf=" signupForm.controls.email.valid && signupForm.controls.email.dirty">This email is available</mat-hint>
+    <mat-hint style="color: red;"
+      *ngIf=" signupForm.controls.email.errors?.['email'] && signupForm.controls.email.dirty">Please enter a valid
+      email</mat-hint>
+    <mat-hint style="color: red;"
+      *ngIf=" signupForm.controls.email.errors?.['emailTaken'] && signupForm.controls.email.dirty">This email is already
+      registered</mat-hint>
+    <mat-hint style="color: green;" *ngIf=" signupForm.controls.email.valid && signupForm.controls.email.dirty">This
+      email is available</mat-hint>
   </mat-form-field>
   <mat-form-field appearance="outline" class="form-field">
     <mat-label>Enter your password</mat-label>
@@ -22,6 +31,10 @@
       [attr.aria-pressed]="hide">
       <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
     </button>
+    <mat-hint *ngIf=" signupForm.controls.password.errors?.['minlength'] && signupForm.controls.password.dirty">
+      Password is 6 characters minmum
+    </mat-hint>
   </mat-form-field>
-  <button mat-raised-button class="btn" color="primary" [disabled]="signupForm.invalid || isSubmitting$()" (click)="signup()">Signup</button>
+  <button mat-raised-button class="btn" color="primary" [disabled]="signupForm.invalid || isSubmitting$()"
+    (click)="signup()">Signup</button>
 </form>

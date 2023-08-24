@@ -22,11 +22,11 @@ export class ClientLoginComponent {
   store = inject(Store)
   isSubmitting$ = this.store.selectSignal(selectIsSubmitting)
   error$ = this.store.selectSignal(selectValidationErrors)
-  
+
 
   loginForm: any = new FormGroup({
-    username: new FormControl('', (Validators.required, Validators.email)),
-    password: new FormControl('', (Validators.required))
+    username: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6)])
   })
 
   onSubmit() {

@@ -4,7 +4,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  
+
 }
 
 .options {
@@ -21,4 +21,9 @@
   min-height: 3.5rem;
 }
 
-@media screen and (max-width: 768px) {}
+@media screen and (max-width: 768px) {
+  .btn {
+    font-size: 0.8rem;
+    width: 2.5rem;
+  }
+}
