@@ -10,9 +10,10 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: #fafafa;
+  color: black;
   --box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   --bg-color: white;
-  color: black;
+  --primary-color: #3f51b5;
 }
 
 app-root,
@@ -24,9 +25,11 @@ app-tool-bar {
 
 body[class*="dark-theme"] {
   background-color: #212121;
+  color: white;
+  --primary-color: #e91e63;
   --bg-color: #303030;
   --box-shadow: none;
-  color: white
+
 }
 
 
