@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 import { authActions } from 'src/app/clients/data-access/store/actions';
 import { selectCurrentUser } from 'src/app/clients/data-access/store/reducers';
 import { ClientLoginComponent } from 'src/app/clients/feature/clients-login/client-login.component';
-import { ClientSignupComponent } from 'src/app/clients/feature/clients-signup/client-signup.component';
 
 @Component({
   selector: 'app-toolbar',
@@ -16,15 +15,9 @@ export class ToolBarComponent {
   store = inject(Store)
   currentUser$ = this.store.selectSignal(selectCurrentUser)
   private dialog = inject(MatDialog);
-  // openSignUpDialog() {
-  //   this.dialog.open(ClientSignupComponent);
-  // }
+
   openLoginDialog() {
     this.dialog.open(ClientLoginComponent);
-  }
-
-  closeLoginDialog() {
-    this.dialog.closeAll();
   }
 
   logout() {

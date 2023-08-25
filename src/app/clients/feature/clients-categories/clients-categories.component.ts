@@ -7,7 +7,7 @@ import { ClientsService } from '../../data-access/clients.service';
   templateUrl: './clients-categories.component.html',
   styleUrls: ['./clients-categories.component.css']
 })
-export class ClientsCategoriesComponent implements OnInit {
+export class ClientsCategoriesComponent {
   clientsService = inject(ClientsService)
 
   updateSelectedKeyword(newSelectedCategory: string) {
@@ -15,9 +15,6 @@ export class ClientsCategoriesComponent implements OnInit {
   }
 
   selectedcategories: string = '';
-  ngOnInit(): void {
-    this.clientsService.getClientCategories()
-  }
 
   addNewCategory(category: string) {
     this.clientsService.addClientCategory(category)
@@ -25,4 +22,5 @@ export class ClientsCategoriesComponent implements OnInit {
   deleteSelected() {
     this.clientsService.deleteClientCategory(this.selectedcategories)
   }
+
 }

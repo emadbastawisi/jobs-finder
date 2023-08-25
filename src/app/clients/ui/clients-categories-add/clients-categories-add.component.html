@@ -1,8 +1,8 @@
-<form class="container" [formGroup]="addCategory" (ngSubmit)="onSubmit()">
+<form class="container" [formGroup]="addCategory" #formDirective="ngForm" (ngSubmit)="onSubmit(formDirective)">
   <mat-form-field appearance="outline" class="form-field" subscriptSizing="dynamic">
     <mat-label matInput required>Enter new category</mat-label>
     <input matInput formControlName="newCategory">
   </mat-form-field>
   <button mat-raised-button class="btn" color="primary"
-    [disabled]="!addCategory.valid || !addCategory.dirty">Add</button>
+    [disabled]="addCategory.invalid || !addCategory.dirty || (addCategory.controls['newCategory'].value.length < 3) ">Add</button>
 </form>

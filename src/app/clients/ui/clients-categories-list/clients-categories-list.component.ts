@@ -10,7 +10,7 @@ export class ClientsCategoriesListComponent {
   jobsService = inject(JobsService);
 
   // get the keywords from the client-categories component
-  @Input() keywords: string = '';
+  @Input() keywords: string | null = null;
   // send the selected keywords to the client-categories component
   @Output() newkeywordEvent = new EventEmitter<string>();
 

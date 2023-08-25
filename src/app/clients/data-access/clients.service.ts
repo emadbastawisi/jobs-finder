@@ -12,18 +12,18 @@ import { UsersLoginResponse } from '../utils/models/users-login';
 })
 export class ClientsService {
   http = inject(HttpClient);
-  private clientCategories = signal<string>('')
+  private clientCategories = signal<string | null>('')
   // selector for client categories
   clientCats = computed(() => this.clientCategories());
 
 
   // check username availability with api
-  checkUsernameApi(username: string | null):Observable<boolean> {
-     return this.http.get<boolean>(environment.api.address + '/users/username/' + username)
+  checkUsernameApi(username: string | null): Observable<boolean> {
+    return this.http.get<boolean>(environment.api.address + '/users/username/' + username)
   }
 
   // check username availability with api
-  checkEmailApi(email: string | null) : Observable<boolean> {
+  checkEmailApi(email: string | null): Observable<boolean> {
     return this.http.get<boolean>(environment.api.address + '/users/email/' + email)
 
   }
@@ -52,6 +52,9 @@ export class ClientsService {
     ).subscribe(
       (data: string) => {
         this.clientCategories.set(data)
+      },
+      (error) => {
+        this.clientCategories.set(null)
       }
     )
   }

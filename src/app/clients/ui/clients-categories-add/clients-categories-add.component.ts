@@ -12,13 +12,14 @@ export class ClientsCategoriesAddComponent {
   // send the new keyword to the client-categories component
   @Output() newkeywordEvent = new EventEmitter<string>();
 
-  addCategory: any = new FormGroup({
-    newCategory: new FormControl<string>('', [Validators.required, Validators.minLength(3)]),
+  addCategory: FormGroup = new FormGroup({
+    newCategory: new FormControl<string>('', [Validators.minLength(3)]),
   })
   // send the selected keywords to client-categories component when the selection changes
-  onSubmit() {
-    this.newkeywordEvent.emit(this.addCategory.get('newCategory').value);
+  onSubmit(formDirective: any) {
+    this.newkeywordEvent.emit(this.addCategory.get('newCategory')!.value);
     this.addCategory.reset();
+    formDirective.resetForm();
   }
 
 }
