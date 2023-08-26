@@ -25,9 +25,10 @@ export class ClientSignupComponent implements OnInit {
 
   // creat signup form with custom validators
   signupForm = new FormGroup({
-    username: new FormControl('', (Validators.required), CustomeValidators.usernameAvailable(this.clientsService)),
+    first_name: new FormControl('', (Validators.required)),
+    last_name: new FormControl('', (Validators.required)),
     email: new FormControl('', [Validators.required, Validators.email], CustomeValidators.emailAvailable(this.clientsService)),
-    password: new FormControl('', [Validators.required, Validators.minLength(6)])
+    password: new FormControl('', [Validators.required, Validators.minLength(8)])
   })
 
   constructor() { }

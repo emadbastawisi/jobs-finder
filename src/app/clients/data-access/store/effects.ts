@@ -39,7 +39,7 @@ export const signupSuccessEffect = createEffect(
     return actions$.pipe(
       ofType(authActions.signupSuccess),
       tap(() => {
-        router.navigateByUrl('/clients/login')
+        router.navigateByUrl('/clients/setup')
       })
     )
   }

@@ -9,10 +9,10 @@ export const authActions = createActionGroup({
   events: {
     signup: props<{ request: UsersRegister }>(),
     signupSuccess: props<{ response: UsersRegisterResponse }>(),
-    signupFailure: props<{ errors: UsersRegisterError}>(),
+    signupFailure: props<{ errors: UsersRegisterError }>(),
     login: props<{ request: FormData }>(),
     loginSuccess: props<{ response: UsersLoginResponse }>(),
-    loginFailure: props<{ errors: UsersLoginError}>(),
+    loginFailure: props<{ errors: UsersLoginError }>(),
     loginReset: emptyProps(),
     logout: emptyProps(),
     getCurrentUser: emptyProps(),
@@ -24,4 +24,6 @@ export const authActions = createActionGroup({
 
 
 
-    
+
+
+

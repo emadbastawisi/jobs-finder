@@ -1,5 +1,6 @@
 export interface UsersRegister {
-  username: string | null;
+  first_name: string | null;
+  last_name: string | null;
   email: string | null;
   password: string | null;
 }
@@ -10,5 +11,5 @@ export interface UsersRegisterResponse {
   created_at: string | null;
 }
 export interface UsersRegisterError {
-  [key :string]: string[]
+  [key: string]: string[]
 }

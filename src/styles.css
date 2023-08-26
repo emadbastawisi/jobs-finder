@@ -9,7 +9,7 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: #fafafa;
+  background-color: rgb(245 245 245);
   color: black;
   --box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   --bg-color: white;
