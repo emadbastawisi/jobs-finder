@@ -11,14 +11,13 @@ import { authFeatureKey, authReducer } from './clients/data-access/store/reducer
 import { EffectsModule } from '@ngrx/effects';
 import * as authEffects from './clients/data-access/store/effects';
 import { AuthInterceptor } from './auth/auth.interceptor';
-import { ClientsSetupComponent } from './clients/feature/clients-setup/clients-setup.component';
+
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ClientsSetupComponent,
   ],
   imports: [
     BrowserModule,

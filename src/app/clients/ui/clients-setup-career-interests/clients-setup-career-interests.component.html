@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="header">
+    <p>Step 1/3</p>
+    <h3>Career Interests</h3>
+    <p>Providing this information enables us to recommend better opportunities to you.</p>
+  </div>
+  <div class="content">
+    <div class="card1">
+      <h4>What is your current career level?</h4>
+
+      <mat-chip-listbox aria-label="Career level selection" (change)="careerLevelChange($event)">
+        <mat-chip-option *ngFor="let careerLevel of careerLevelList">{{careerLevel}}</mat-chip-option>
+      </mat-chip-listbox>
+    </div>
+    <div class="card2">
+      <h4>What type(s) of job are you open to? — You can choose more than one Job type</h4>
+      <mat-chip-listbox aria-label="Job type selection" multiple="multiple" (change)="jobTypeChange($event)">
+        <mat-chip-option *ngFor="let jobType of jobTypeList">{{jobType}}</mat-chip-option>
+
+      </mat-chip-listbox>
+    </div>
+    <div class="card3">
+      <h4>What job categories are you interested in? — Add 1 or more.</h4>
+      <form>
+        <mat-form-field class="example-chip-list">
+          <mat-label>Perfered Categories</mat-label>
+          <mat-chip-grid #chipGrid aria-label="Category selection">
+            <mat-chip-row *ngFor="let category of categories" (removed)="remove(category)">
+              {{category}}
+              <button matChipRemove [attr.aria-label]="'remove ' + category">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+          </mat-chip-grid>
+          <input placeholder="Add Category" #categoryInput [formControl]="categoryCtrl" [matChipInputFor]="chipGrid"
+            [matAutocomplete]="auto" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="add($event)" />
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+            <mat-option *ngFor="let category of filteredCategories | async" [value]="category">
+              {{category}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
+    </div>
+    <div class="card4">
+      <h4>What is the minimum salary you would accept? — Add a net salary (i.e., final amount you want after taxes and
+        insurance).</h4>
+      <span>
+        <app-input type="number" label="minimum salary" 
+        [Control]="salaryCtrl" icon="paid"></app-input>
+      </span>
+      <span>In EGP</span>
+      <mat-checkbox  (change)="hideSalaryChange($event)">Hide my minmum salary from companys</mat-checkbox>
+    </div>
+  </div>
+</div>

@@ -1,1 +1,28 @@
-<p>clients-setup works!</p>
+<mat-stepper [linear]="true" #stepper>
+  <mat-step [stepControl]="signupForm">
+    <form [formGroup]="signupForm">
+      <ng-template matStepLabel>Fill out your name</ng-template>
+        <app-clients-setup-career-interests></app-clients-setup-career-interests>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="signinForm" label="Fill out your address">
+    <form [formGroup]="signinForm">
+
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-stepper>
