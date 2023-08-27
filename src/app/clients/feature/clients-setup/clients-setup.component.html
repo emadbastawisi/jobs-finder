@@ -1,8 +1,8 @@
-<mat-stepper [linear]="true" #stepper>
+<mat-stepper [linear]="false" #stepper>
   <mat-step [stepControl]="signupForm">
     <form [formGroup]="signupForm">
       <ng-template matStepLabel>Fill out your name</ng-template>
-        <app-clients-setup-career-interests></app-clients-setup-career-interests>
+      <app-clients-setup-career-interests></app-clients-setup-career-interests>
       <div>
         <button mat-button matStepperNext>Next</button>
       </div>

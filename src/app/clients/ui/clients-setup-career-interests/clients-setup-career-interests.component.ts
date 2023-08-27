@@ -14,49 +14,24 @@ import { CareerInterests } from '../../utils/models/career-interests.model';
   styleUrls: ['./clients-setup-career-interests.component.css']
 })
 export class ClientsSetupCareerInterestsComponent implements OnInit {
+
+  careerLevelList = ['Student', 'Entry Level', 'Experienced', 'Manager', 'Senior Management', 'Not specified'];
+  jobTypeList = ['Full Time', 'Part Time', 'Freelance', 'Internship', 'Temporary', 'Shift Based', 'Work From Home', 'Volunteering', 'Student Activity'];
+
   careerInterestsForm = new FormGroup({
     careerLevel: new FormControl('', Validators.required),
-    jobType: new FormControl('', [Validators.required, Validators.maxLength(3)]),
-    categories: new FormControl([''], Validators.required),
+    jobType: new FormControl('', Validators.required),
+    categories: new FormControl('', Validators.required),
     minSalary: new FormControl(0, Validators.required),
     hideSalary: new FormControl(false)
   })
 
-  careerInterests = signal<CareerInterests>(
-    { careerLevel: '', jobType: '', categories: [''], minSalary: 0, hideSalary: false }
-  );
-  careerLevelChange(event: any) {
-    console.log(event.value);
-    this.careerInterests.mutate((state) => {
-      state.careerLevel = event.value;
-    });
-  }
-  jobTypeChange(event: any) {
-    console.log(event.value);
-    this.careerInterests.mutate((state) => {
-      state.jobType = event.value;
-    });
-  }
-
-  hideSalaryChange(event: any) {
-    console.log(event);
-    this.careerInterests.mutate((state) => {
-      state.minSalary = event.checked;
-    });
-  }
-  salaryCtrl = new FormControl(0, Validators.required);
-
   ngOnInit(): void {
-    this.salaryCtrl.valueChanges.subscribe((value: number | null) => {
-      this.careerInterests.mutate((state) => {
-        state.minSalary = value!;
-      });
-    });
+
   }
 
 
-  careerLevelList = ['Student', 'Entry Level', 'Experienced', 'Manager', 'Senior Management', 'Not specified'];
-  jobTypeList = ['Full Time', 'Part Time', 'Freelance', 'Internship', 'Temporary', 'Shift Based', 'Work From Home', 'Volunteering', 'Student Activity'];
+
   separatorKeysCodes: number[] = [ENTER, COMMA];
   categoryCtrl = new FormControl('', Validators.required);
 
@@ -82,10 +57,6 @@ export class ClientsSetupCareerInterestsComponent implements OnInit {
     // Add our category
     if (value) {
       this.categories.push(value);
-      this.careerInterests.mutate((state) => {
-        state.categories = this.categories;
-      }
-      );
     }
 
     // Clear the input value
@@ -99,10 +70,6 @@ export class ClientsSetupCareerInterestsComponent implements OnInit {
 
     if (index >= 0) {
       this.categories.splice(index, 1);
-      this.careerInterests.mutate((state) => {
-        state.categories = this.categories;
-      }
-      );
 
       this.announcer.announce(`Removed ${category}`);
     }

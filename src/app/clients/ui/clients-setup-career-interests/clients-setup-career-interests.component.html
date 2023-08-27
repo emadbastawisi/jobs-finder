@@ -16,9 +16,10 @@
         <app-chips [Control]="careerInterestsForm.controls.jobType" [multiple]="true"
           [chipsList]="jobTypeList"></app-chips>
       </div>
-      <!-- <div class="card3">
+      <div class="card3">
         <h4>What job categories are you interested in? — Add 1 or more.</h4>
-        <form>
+        <app-chips-autocomplete></app-chips-autocomplete>
+        <!-- <form>
           <mat-form-field class="example-chip-list">
             <mat-label>Perfered Categories</mat-label>
             <mat-chip-grid #chipGrid aria-label="Category selection">
@@ -38,8 +39,8 @@
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>
-        </form>
-      </div> -->
+        </form> -->
+      </div>
       <div class="card4">
         <h4>What is the minimum salary you would accept? — Add a net salary (i.e., final amount you want after taxes and
           insurance).</h4>

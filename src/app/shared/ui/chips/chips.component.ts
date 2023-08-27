@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
+import { MatChipsModule } from '@angular/material/chips';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
@@ -15,17 +15,15 @@ export class ChipsComponent {
   @Input() chipsList: string[] = [""];
   @Input() Control: FormControl = new FormControl();
   @Input() multiple: boolean = false;
+  @Input() max: number = 99;
 
-  list: string[] = [''];
-
+  selectedIdList: any = []
   onChange(event: any) {
-    this.list = event.value;
-    console.log(this.list.length);
-    if (this.list.length < 3) {
-      this.Control.enable();
+    if (event.value) {
+      this.selectedIdList = event.value
     }
     else {
-      // this.Control.disable();
+      this.selectedIdList = []
     }
   }
 }

@@ -28,6 +28,7 @@ import { ClientsSetupCareerInterestsModule } from '../../ui/clients-setup-career
     FormsModule,
     MatIconModule,
     MatChipsModule,
+
   ],
   exports: [
     ClientsSetupComponent,
