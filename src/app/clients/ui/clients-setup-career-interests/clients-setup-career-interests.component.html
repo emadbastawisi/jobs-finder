@@ -10,23 +10,11 @@
         <h4>What is your current career level?</h4>
         <app-chips [Control]="careerInterestsForm.controls.careerLevel" [multiple]="false"
           [chipsList]="careerLevelList"></app-chips>
-        <!-- <mat-chip-listbox aria-label="Career level selection" ngDefaultControl
-          [formControl]="careerInterestsForm.controls.careerLevel">
-          <mat-chip-option *ngFor="let careerLevel of careerLevelList">{{careerLevel}}</mat-chip-option>
-        </mat-chip-listbox>
-        <mat-error *ngIf="careerInterestsForm.controls.careerLevel.invalid &&
-          careerInterestsForm.controls.careerLevel.dirty ">This field is required*</mat-error> -->
       </div>
       <div class="card2">
         <h4>What type(s) of job are you open to? — You can choose more than one Job type</h4>
         <app-chips [Control]="careerInterestsForm.controls.jobType" [multiple]="true"
           [chipsList]="jobTypeList"></app-chips>
-        <!-- <mat-chip-listbox aria-label="Job type selection" multiple ngDefaultControl
-          [formControl]="careerInterestsForm.controls.jobType">
-          <mat-chip-option *ngFor="let jobType of jobTypeList">{{jobType}}</mat-chip-option>
-        </mat-chip-listbox>
-        <mat-error *ngIf="careerInterestsForm.controls.jobType.invalid &&
-                          careerInterestsForm.controls.jobType.dirty ">This field is required*</mat-error> -->
       </div>
       <!-- <div class="card3">
         <h4>What job categories are you interested in? — Add 1 or more.</h4>
