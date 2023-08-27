@@ -1,6 +1,6 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, ElementRef, OnInit, ViewChild, inject, signal } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Observable } from 'rxjs';
@@ -13,7 +13,15 @@ import { CareerInterests } from '../../utils/models/career-interests.model';
   templateUrl: './clients-setup-career-interests.component.html',
   styleUrls: ['./clients-setup-career-interests.component.css']
 })
-export class ClientsSetupCareerInterestsComponent implements OnInit{
+export class ClientsSetupCareerInterestsComponent implements OnInit {
+  careerInterestsForm = new FormGroup({
+    careerLevel: new FormControl('', Validators.required),
+    jobType: new FormControl('', [Validators.required, Validators.maxLength(3)]),
+    categories: new FormControl([''], Validators.required),
+    minSalary: new FormControl(0, Validators.required),
+    hideSalary: new FormControl(false)
+  })
+
   careerInterests = signal<CareerInterests>(
     { careerLevel: '', jobType: '', categories: [''], minSalary: 0, hideSalary: false }
   );
@@ -36,7 +44,7 @@ export class ClientsSetupCareerInterestsComponent implements OnInit{
       state.minSalary = event.checked;
     });
   }
-  salaryCtrl = new FormControl(0 , Validators.required);
+  salaryCtrl = new FormControl(0, Validators.required);
 
   ngOnInit(): void {
     this.salaryCtrl.valueChanges.subscribe((value: number | null) => {
@@ -44,15 +52,13 @@ export class ClientsSetupCareerInterestsComponent implements OnInit{
         state.minSalary = value!;
       });
     });
-    }
-  
+  }
 
 
-
-  careerLevelList = ['Student', 'Entry Level', 'Experienced', 'Senior Management', 'Not specified'];
+  careerLevelList = ['Student', 'Entry Level', 'Experienced', 'Manager', 'Senior Management', 'Not specified'];
   jobTypeList = ['Full Time', 'Part Time', 'Freelance', 'Internship', 'Temporary', 'Shift Based', 'Work From Home', 'Volunteering', 'Student Activity'];
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  categoryCtrl = new FormControl('' , Validators.required);
+  categoryCtrl = new FormControl('', Validators.required);
 
   filteredCategories: Observable<string[]>;
   categories: string[] = [''];

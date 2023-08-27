@@ -8,6 +8,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatInputModule } from '@angular/material/input';
+import { ChipsComponent } from 'src/app/shared/ui/chips/chips.component';
 
 
 
@@ -24,7 +26,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatChipsModule,
     FormsModule,
     MatFormFieldModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatInputModule,
+    ChipsComponent
   ],
   exports: [
     ClientsSetupCareerInterestsComponent
