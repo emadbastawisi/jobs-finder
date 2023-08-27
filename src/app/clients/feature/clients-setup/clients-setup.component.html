@@ -1,14 +1,15 @@
-<mat-stepper [linear]="false" #stepper>
+<mat-stepper [linear]="false" #stepper class="stepper">
   <mat-step [stepControl]="signupForm">
     <form [formGroup]="signupForm">
-      <ng-template matStepLabel>Fill out your name</ng-template>
+      <ng-template matStepLabel>Career Interests</ng-template>
       <app-clients-setup-career-interests></app-clients-setup-career-interests>
       <div>
         <button mat-button matStepperNext>Next</button>
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="signinForm" label="Fill out your address">
+  <mat-step [stepControl]="signinForm" >
+    <ng-template matStepLabel>Genral Info</ng-template>
     <form [formGroup]="signinForm">
 
       <div>
@@ -17,8 +18,8 @@
       </div>
     </form>
   </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
+  <mat-step >
+    <ng-template matStepLabel>Professional Info</ng-template>
 
     <div>
       <button mat-button matStepperPrevious>Back</button>

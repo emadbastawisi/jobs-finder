@@ -1,20 +1,19 @@
-<form [formGroup]="userForm" novalidate>
-  <!-- Favorite fruits -->
-  <mat-form-field appearance="outline" style="width: 100%;">
-    <mat-chip-grid #fruitList required formControlName="fruits">
-      <mat-chip-row *ngFor="let fruit of user.fruits" [removable]="removable" (removed)="remove(fruit)">
-        {{fruit.name}}
+
+  <mat-form-field appearance="outline" style="width : 100% ">
+    <mat-chip-grid #chipList [formControl]="Control">
+      <mat-chip-row *ngFor="let chip of selectedChips" [removable]="removable" (removed)="remove(chip)">
+        {{chip}}
         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
       </mat-chip-row>
     </mat-chip-grid>
-    <input #fruitInput placeholder="Add your favorite fruits" [matChipInputFor]="fruitList"
+    <input placeholder="{{placeholder}}" [matChipInputFor]="chipList"
       [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-      (matChipInputTokenEnd)="addFruit($event)" [matAutocomplete]="fruitsAutocomplete" formControlName="fruitInput" />
-    <mat-autocomplete #fruitsAutocomplete="matAutocomplete" (optionSelected)="selectFruit($event);">
-      <mat-option *ngFor="let fruit of filteredFruits$ | async" [value]="fruit">
-        {{fruit.name}}
+      (matChipInputTokenEnd)="addChip($event)" [matAutocomplete]="chipsAutocomplete" [formControl]="chipInput" />
+      <mat-icon matSuffix>arrow_drop_down</mat-icon>
+    <mat-autocomplete #chipsAutocomplete="matAutocomplete" (optionSelected)="selectChip($event);">
+      <mat-option *ngFor="let chip of filteredChips$ | async" [value]="chip">
+        {{chip}}
       </mat-option>
     </mat-autocomplete>
-    <mat-error>At least 1 fruit need to be added</mat-error>
+    <mat-error>At least 1 need to be added</mat-error>
   </mat-form-field>
-</form>

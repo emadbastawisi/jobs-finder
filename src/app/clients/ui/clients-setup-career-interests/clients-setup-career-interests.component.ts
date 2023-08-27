@@ -21,8 +21,8 @@ export class ClientsSetupCareerInterestsComponent implements OnInit {
   careerInterestsForm = new FormGroup({
     careerLevel: new FormControl('', Validators.required),
     jobType: new FormControl('', Validators.required),
-    categories: new FormControl('', Validators.required),
-    minSalary: new FormControl(0, Validators.required),
+    categories: new FormControl([], Validators.required),
+    minSalary: new FormControl( null, Validators.required),
     hideSalary: new FormControl(false)
   })
 
@@ -52,6 +52,7 @@ export class ClientsSetupCareerInterestsComponent implements OnInit {
   }
 
   add(event: MatChipInputEvent): void {
+    console.log(event);
     const value = (event.value || '').trim();
 
     // Add our category
