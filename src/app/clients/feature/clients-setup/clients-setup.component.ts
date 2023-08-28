@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-clients-setup',
@@ -21,8 +21,12 @@ export class ClientsSetupComponent {
     birthdate: new FormControl('', Validators.required),
     gender: new FormControl('', Validators.required),
     nationality: new FormControl('', Validators.required),
-    address: new FormControl('', Validators.required),
     phone: new FormControl('', Validators.required),
+    address: new FormGroup({
+      country: new FormControl('', Validators.required),
+      city: new FormControl('', Validators.required),
+      area: new FormControl('', Validators.required),
+    }),
   });
 
   signinForm = new FormGroup({
