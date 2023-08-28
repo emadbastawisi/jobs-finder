@@ -7,23 +7,27 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 @Component({
   selector: 'app-chips',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatChipsModule, MatFormFieldModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatChipsModule,
+    MatFormFieldModule,
+  ],
   templateUrl: './chips.component.html',
-  styleUrls: ['./chips.component.css']
+  styleUrls: ['./chips.component.css'],
 })
 export class ChipsComponent {
-  @Input() chipsList: string[] = [""];
+  @Input() chips: string[] = [''];
   @Input() Control: FormControl = new FormControl();
   @Input() multiple: boolean = false;
   @Input() max: number = 99;
 
-  selectedIdList: any = []
+  selectedList: any = [];
   onChange(event: any) {
     if (event.value) {
-      this.selectedIdList = event.value
-    }
-    else {
-      this.selectedIdList = []
+      this.selectedList = event.value;
+    } else {
+      this.selectedList = [];
     }
   }
 }

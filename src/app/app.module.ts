@@ -7,18 +7,16 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { authFeatureKey, authReducer } from './clients/data-access/store/reducers';
+import {
+  authFeatureKey,
+  authReducer,
+} from './clients/data-access/store/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import * as authEffects from './clients/data-access/store/effects';
 import { AuthInterceptor } from './auth/auth.interceptor';
 
-
-
-
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -35,16 +33,15 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     }),
     StoreModule.forFeature(authFeatureKey, authReducer),
     EffectsModule.forRoot(authEffects),
-
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
-      multi: true
-    }
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

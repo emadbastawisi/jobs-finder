@@ -11,7 +11,7 @@ import { InputComponent } from 'src/app/shared/ui/input/input.component';
 import { ClientsSetupComponent } from './clients-setup.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { ClientsSetupCareerInterestsModule } from '../../ui/clients-setup-career-interests/clients-setup-career-interests.module';
-
+import { ClientsSetupGeneralInfoModule } from '../../ui/clients-setup-general-info/clients-setup-general-info.module';
 
 @NgModule({
   declarations: [ClientsSetupComponent],
@@ -19,6 +19,7 @@ import { ClientsSetupCareerInterestsModule } from '../../ui/clients-setup-career
     CommonModule,
     ClientsSetupRoutingModule,
     ClientsSetupCareerInterestsModule,
+    ClientsSetupGeneralInfoModule,
     MatButtonModule,
     MatStepperModule,
     MatFormFieldModule,
@@ -28,10 +29,7 @@ import { ClientsSetupCareerInterestsModule } from '../../ui/clients-setup-career
     FormsModule,
     MatIconModule,
     MatChipsModule,
-
   ],
-  exports: [
-    ClientsSetupComponent,
-  ]
+  exports: [ClientsSetupComponent],
 })
-export class ClientsSetupModule { }
+export class ClientsSetupModule {}

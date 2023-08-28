@@ -1,0 +1,41 @@
+<div>
+  <form [formGroup]="FormGroup">
+    <div class="card">
+      <h4>Your Personal Info</h4>
+      <app-input
+        [Control]="getControl('first_name')"
+        label="First Name"
+        type="text"
+      ></app-input>
+      <app-input
+        [Control]="getControl('last_name')"
+        label="Last Name"
+        type="text"
+      ></app-input>
+      <app-date-picker [label]="'Enter your birthdate'"></app-date-picker>
+      <app-chips
+        [chips]="genderChips"
+        [Control]="getControl('gender')"
+      ></app-chips>
+      <app-select
+        [label]="'Nationality'"
+        [list]="countryList"
+        [Control]="getControl('nationality')"
+      ></app-select>
+    </div>
+    <div class="card">
+      <h4>Your Location</h4>
+      <!-- <app-select [label]="'Country'" [list]="countryList"></app-select>
+      <app-select [label]="'City'" [list]="cityList"></app-select>
+      <app-select [label]="'Area'" [list]="areaList" ]></app-select> -->
+    </div>
+    <div class="card">
+      <h4>Contact Information</h4>
+      <app-input
+        [Control]="getControl('phone')"
+        label="Phone Number"
+        type="number"
+      ></app-input>
+    </div>
+  </form>
+</div>

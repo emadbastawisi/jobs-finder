@@ -1,24 +1,31 @@
 <mat-stepper [linear]="false" #stepper class="stepper">
-  <mat-step [stepControl]="signupForm">
-    <form [formGroup]="signupForm">
+  <mat-step [stepControl]="careerInterestsForm" class="step">
+    <form [formGroup]="careerInterestsForm">
       <ng-template matStepLabel>Career Interests</ng-template>
-      <app-clients-setup-career-interests></app-clients-setup-career-interests>
-      <div>
-        <button mat-button matStepperNext>Next</button>
+      <app-clients-setup-career-interests
+        [FormGroup]="careerInterestsForm"
+      ></app-clients-setup-career-interests>
+      <div class="footer">
+        <button class="btn" color="primary" mat-raised-button matStepperNext>
+          Save and Continue
+        </button>
       </div>
+      <!-- <p>{{ careerInterestsForm.value | json }}</p> -->
     </form>
   </mat-step>
-  <mat-step [stepControl]="signinForm" >
+  <mat-step [stepControl]="signinForm">
     <ng-template matStepLabel>Genral Info</ng-template>
     <form [formGroup]="signinForm">
-
+      <app-clients-setup-general-info
+        [FormGroup]="generalInfoForm"
+      ></app-clients-setup-general-info>
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>
       </div>
     </form>
   </mat-step>
-  <mat-step >
+  <mat-step>
     <ng-template matStepLabel>Professional Info</ng-template>
 
     <div>

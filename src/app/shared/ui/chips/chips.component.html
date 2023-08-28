@@ -1,10 +1,26 @@
-<mat-chip-listbox [multiple]="multiple" ngDefaultControl [formControl]="Control" (change)="onChange($event)">
-  <mat-chip-option *ngFor="let chip of chipsList "
-    [disabled]="!(selectedIdList.includes(chip)) && selectedIdList.length > max && multiple  ? true : false">{{chip}}
+<mat-chip-listbox
+  [multiple]="multiple"
+  ngDefaultControl
+  [formControl]="Control"
+  (change)="onChange($event)"
+>
+  <mat-chip-option
+    *ngFor="let chip of chips"
+    [disabled]="
+      !selectedList.includes(chip) && selectedList.length > max && multiple
+        ? true
+        : false
+    "
+    >{{ chip }}
   </mat-chip-option>
 </mat-chip-listbox>
-<mat-error *ngIf="(Control.errors?.['required'])&& Control.dirty">This field is required*</mat-error>
-<mat-error *ngIf="(Control.errors?.['minlength']| keyvalue )&& Control.dirty ">Choose at least
-  {{Control.errors?.['minlength'].requiredLength}} options</mat-error>
-<mat-error *ngIf="(Control.errors?.['maxlength']| keyvalue )&& Control.dirty ">Max options are
-  {{Control.errors?.['maxlength'].requiredLength}} </mat-error>
+<mat-error *ngIf="(Control.errors?.['required'])&& Control.dirty"
+  >This field is required*</mat-error
+>
+<mat-error *ngIf="(Control.errors?.['minlength']| keyvalue )&& Control.dirty "
+  >Choose at least
+  {{Control.errors?.['minlength'].requiredLength}} options</mat-error
+>
+<mat-error *ngIf="(Control.errors?.['maxlength']| keyvalue )&& Control.dirty "
+  >Max options are {{Control.errors?.['maxlength'].requiredLength}}
+</mat-error>

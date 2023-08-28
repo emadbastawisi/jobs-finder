@@ -2,36 +2,63 @@
   <div class="header">
     <p>Step 1/3</p>
     <h3>Career Interests</h3>
-    <p>Providing this information enables us to recommend better opportunities to you.</p>
+    <p>
+      Providing this information enables us to recommend better opportunities to
+      you.
+    </p>
   </div>
   <div class="content">
-    <form [formGroup]="careerInterestsForm">
+    <form [formGroup]="FormGroup">
       <div class="card">
         <h4>What is your current career level?</h4>
-        <app-chips [Control]="careerInterestsForm.controls.careerLevel" [multiple]="false"
-          [chipsList]="careerLevelList">
+        <app-chips
+          class="chips"
+          [Control]="getControl('careerLevel')"
+          [multiple]="false"
+          [chips]="careerLevelList"
+        >
         </app-chips>
       </div>
       <div class="card">
-        <h4>What type(s) of job are you open to? — You can choose more than one Job type</h4>
-        <app-chips [Control]="careerInterestsForm.controls.jobType" [multiple]="true" [chipsList]="jobTypeList">
+        <h4>
+          What type(s) of job are you open to? — You can choose more than one
+          Job type
+        </h4>
+        <app-chips
+          class="chips"
+          [Control]="getControl('jobType')"
+          [multiple]="true"
+          [chips]="jobTypeList"
+        >
         </app-chips>
       </div>
       <div class="card">
         <h4>What job categories are you interested in? — Add 1 or more.</h4>
-        <app-chips-autocomplete [chips]="categoriesList" [Control]="careerInterestsForm.controls.categories"
-          [placeholder]="'Add Category'"></app-chips-autocomplete>
+        <app-chips-autocomplete
+          class="chips"
+          [chips]="categoriesList"
+          [Control]="getControl('categories')"
+          [placeholder]="'Add Category'"
+        ></app-chips-autocomplete>
       </div>
       <div class="card">
-        <h4>What is the minimum salary you would accept? —
-          Add a net salary (i.e., final amount you want after taxes and insurance).</h4>
+        <h4>
+          What is the minimum salary you would accept? — Add a net salary (i.e.,
+          final amount you want after taxes and insurance).
+        </h4>
         <span>
-          <app-input type="number" label="minimum salary" [Control]="careerInterestsForm.controls.minSalary"
-            icon="paid"></app-input>
+          <app-input
+            type="number"
+            label="minimum salary"
+            [Control]="getControl('minSalary')"
+            icon="paid"
+          ></app-input>
         </span>
         <span> EGP / Month</span>
-        <mat-checkbox formControlName="hideSalary">Hide my minmum salary from companys</mat-checkbox>
-        <p>{{careerInterestsForm.value | json}}</p>
+        <mat-checkbox formControlName="hideSalary"
+          >Hide my minmum salary from companys</mat-checkbox
+        >
+        <p>{{ FormGroup.value | json }}</p>
       </div>
     </form>
   </div>
