@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AcceptValidator,
+  MaxSizeValidator,
+} from '@angular-material-components/file-input';
 
 @Component({
   selector: 'app-clients-setup',
@@ -24,12 +28,14 @@ export class ClientsSetupComponent {
     phone: new FormControl('', Validators.required),
     address: new FormGroup({
       country: new FormControl('', Validators.required),
-      city: new FormControl('', Validators.required),
-      area: new FormControl('', Validators.required),
     }),
   });
 
-  signinForm = new FormGroup({
-    first_name: new FormControl('', Validators.required),
+  professionalInfoForm: FormGroup = new FormGroup({
+    cv: new FormControl('', [
+      Validators.required,
+      MaxSizeValidator(5 * 1024 * 1024),
+      AcceptValidator(' .pdf, .doc, .docx'),
+    ]),
   });
 }

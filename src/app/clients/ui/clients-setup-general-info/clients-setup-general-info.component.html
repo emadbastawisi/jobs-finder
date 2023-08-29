@@ -17,29 +17,20 @@
         [chips]="genderChips"
         [Control]="getControl('gender')"
       ></app-chips>
-      <app-select
+      <app-country-state-city
+        [Control]="getControl('nationality')"
+      ></app-country-state-city>
+      <!-- <app-select
         [label]="'Nationality'"
         [list]="countryList()"
         [Control]="getControl('nationality')"
-      ></app-select>
+      ></app-select> -->
     </div>
-    <div class="card" formGroupName="address">
+    <div class="card">
       <h4>Your Location</h4>
-      <app-select
-        [label]="'Country'"
-        [list]="countryList()"
-        [Control]="getAddressControl('country')"
-      ></app-select>
-      <app-select
-        [label]="'City'"
-        [list]="cityList()"
-        [Control]="getAddressControl('city')"
-      ></app-select>
-      <app-select
-        [label]="'Area'"
-        [list]="areaList()"
-        [Control]="getAddressControl('area')"
-      ></app-select>
+      <app-country-state-city
+        [FormGroup]="getFormGroup('address')"
+      ></app-country-state-city>
     </div>
     <div class="card">
       <h4>Contact Information</h4>
@@ -47,8 +38,9 @@
         [Control]="getControl('phone')"
         label="Phone Number"
         type="number"
+        icon="phone"
       ></app-input>
     </div>
   </form>
-  <p>{{ FormGroup.value.address | json }} {{ selectedCountry() }}</p>
+  <p>{{ FormGroup.value | json }}</p>
 </div>

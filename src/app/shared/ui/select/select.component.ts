@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -22,4 +22,9 @@ export class SelectComponent {
   @Input() label: string = '';
   @Input() Control: FormControl = new FormControl();
   @Input() list!: string[];
+  @Output() change = new EventEmitter<string>();
+
+  onChange(event: any) {
+    this.change.emit(event);
+  }
 }

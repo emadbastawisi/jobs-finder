@@ -13,9 +13,9 @@
       <!-- <p>{{ careerInterestsForm.value | json }}</p> -->
     </form>
   </mat-step>
-  <mat-step [stepControl]="signinForm">
+  <mat-step [stepControl]="generalInfoForm">
     <ng-template matStepLabel>Genral Info</ng-template>
-    <form [formGroup]="signinForm">
+    <form [formGroup]="generalInfoForm">
       <app-clients-setup-general-info
         [FormGroup]="generalInfoForm"
       ></app-clients-setup-general-info>
@@ -25,9 +25,11 @@
       </div>
     </form>
   </mat-step>
-  <mat-step>
+  <mat-step [stepControl]="professionalInfoForm">
     <ng-template matStepLabel>Professional Info</ng-template>
-
+    <app-clients-setup-professional-info
+      [FormGroup]="professionalInfoForm"
+    ></app-clients-setup-professional-info>
     <div>
       <button mat-button matStepperPrevious>Back</button>
       <button mat-button (click)="stepper.reset()">Reset</button>

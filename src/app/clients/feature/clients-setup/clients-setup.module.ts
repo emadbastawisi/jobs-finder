@@ -12,6 +12,7 @@ import { ClientsSetupComponent } from './clients-setup.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { ClientsSetupCareerInterestsModule } from '../../ui/clients-setup-career-interests/clients-setup-career-interests.module';
 import { ClientsSetupGeneralInfoModule } from '../../ui/clients-setup-general-info/clients-setup-general-info.module';
+import { ClientsSetupProfessionalInfoModule } from '../../ui/clients-setup-professional-info/clients-setup-professional-info.module';
 
 @NgModule({
   declarations: [ClientsSetupComponent],
@@ -20,6 +21,7 @@ import { ClientsSetupGeneralInfoModule } from '../../ui/clients-setup-general-in
     ClientsSetupRoutingModule,
     ClientsSetupCareerInterestsModule,
     ClientsSetupGeneralInfoModule,
+    ClientsSetupProfessionalInfoModule,
     MatButtonModule,
     MatStepperModule,
     MatFormFieldModule,

@@ -1,13 +1,39 @@
 <mat-form-field appearance="outline" class="form-field">
-  <mat-label>{{label}}</mat-label>
-  <input type="{{type}}" matInput [formControl]="Control">
-  <button *ngIf="type === 'password'" mat-icon-button matSuffix (click)="hide = !hide"
-    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+  <mat-label>{{ label }}</mat-label>
+  <ng-container *ngIf="type == 'number'">
+    <input
+      type="text"
+      matInput
+      [formControl]="Control"
+      (input)="validateNumberInput($event)"
+      (change)="onChange($event)"
+    />
+  </ng-container>
+  <ng-container *ngIf="type !== 'number'">
+    <input
+      type="{{ type }}"
+      matInput
+      [formControl]="Control"
+      (change)="onChange($event)"
+    />
+  </ng-container>
+  <button
+    *ngIf="type === 'password'"
+    mat-icon-button
+    matSuffix
+    (click)="hide = !hide"
+    [attr.aria-label]="'Hide password'"
+    [attr.aria-pressed]="hide"
+  >
+    <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
   </button>
-  <mat-icon *ngIf="type !== 'password'" matSuffix>{{icon}}</mat-icon>
+  <mat-icon *ngIf="type !== 'password'" matSuffix>{{ icon }}</mat-icon>
   <mat-error *ngIf="Control.errors && Control.dirty">
-    <mat-hint *ngFor="let error of Control.errors | keyvalue">{{errorMessages[error.key]}}</mat-hint>
+    <mat-hint *ngFor="let error of Control.errors | keyvalue">{{
+      errorMessages[error.key]
+    }}</mat-hint>
   </mat-error>
-  <mat-hint style="color: green;" *ngIf=" Control.valid && Control.dirty">{{greenHintMessages[greenHint]}}</mat-hint>
+  <mat-hint style="color: green" *ngIf="Control.valid && Control.dirty">{{
+    greenHintMessages[greenHint]
+  }}</mat-hint>
 </mat-form-field>

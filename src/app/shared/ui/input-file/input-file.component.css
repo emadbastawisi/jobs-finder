@@ -1,0 +1,21 @@
+.file-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.file-drop-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  width: 300px;
+  border: 2px dashed #ccc;
+  margin-top: 20px;
+  background-color: aqua;
+}
+
+.file-name {
+  margin-top: 20px;
+}
