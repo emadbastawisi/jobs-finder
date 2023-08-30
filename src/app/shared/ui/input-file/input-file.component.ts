@@ -52,7 +52,9 @@ export class InputFileComponent {
 
   @HostListener('dragover', ['$event'])
   onDragOver(event: DragEvent) {
-    console.log('DragOver');
+    if (this.success) {
+      return;
+    }
     event.preventDefault();
     event.stopPropagation();
     this.dragover = true;
@@ -60,7 +62,9 @@ export class InputFileComponent {
 
   @HostListener('dragleave', ['$event'])
   onDragLeave(event: DragEvent) {
-    console.log('DragLeave');
+    if (this.success) {
+      return;
+    }
     event.preventDefault();
     if (
       (event.currentTarget as HTMLElement).contains(event.relatedTarget as Node)
@@ -73,6 +77,8 @@ export class InputFileComponent {
   @HostListener('drop', ['$event'])
   onDrop(event: DragEvent) {
     if (this.success) {
+          event.preventDefault();
+    this.dragover = false;
       return;
     }
     event.preventDefault();
