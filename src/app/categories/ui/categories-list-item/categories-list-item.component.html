@@ -1,4 +1,4 @@
-<h3 class="container">Select Recomended Categories</h3>
+<h3 class="card">Select Recomended Categories</h3>
 <div class="container">
   <div class="category" *ngFor=" let category of cats()" (click)="toggleCat(category)"
     [class.selected]="selectedCats().includes(category)">

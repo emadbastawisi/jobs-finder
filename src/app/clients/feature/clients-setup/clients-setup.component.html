@@ -19,9 +19,9 @@
       <app-clients-setup-general-info
         [FormGroup]="generalInfoForm"
       ></app-clients-setup-general-info>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
+      <div class="footer">
+        <button class="btn" color="primary" mat-button matStepperPrevious>Back</button>
+        <button class="btn" color="primary" mat-button matStepperNext>Next</button>
       </div>
     </form>
   </mat-step>
@@ -30,9 +30,9 @@
     <app-clients-setup-professional-info
       [FormGroup]="professionalInfoForm"
     ></app-clients-setup-professional-info>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
+    <div class="footer">
+      <button class="btn" color="primary" mat-button matStepperPrevious>Back</button>
+      <button class="btn" color="primary" mat-button (click)="stepper.reset()">Reset</button>
     </div>
   </mat-step>
 </mat-stepper>
