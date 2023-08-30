@@ -1,5 +1,12 @@
 import { Component } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormControl,
+  FormGroup,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import {
   AcceptValidator,
   MaxSizeValidator,
@@ -32,10 +39,53 @@ export class ClientsSetupComponent {
   });
 
   professionalInfoForm: FormGroup = new FormGroup({
-    cv: new FormControl('', [
+    cv: new FormControl(null, [
       Validators.required,
-      MaxSizeValidator(5 * 1024 * 1024),
-      AcceptValidator(' .pdf, .doc, .docx'),
+      this.fileTypeValidator(['pdf', 'doc', 'docx']),
+      this.fileSizeValidator(5 * 1024 * 1024),
+      this.fileCountValidator(1),
     ]),
   });
+
+  fileTypeValidator(allowedExtensions: string[]): ValidatorFn {
+    return (control: AbstractControl) => {
+      const files = control.value as FileList;
+      if (!files) return null;
+
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const extension = file!.name.split('.').pop()!.toLowerCase();
+        if (!allowedExtensions.includes(extension)) {
+          return { invalidFileType: true };
+        }
+      }
+      return null;
+    };
+  }
+
+  fileSizeValidator(maxSizeInBytes: number): ValidatorFn {
+    return (control: AbstractControl) => {
+      const files = control.value as FileList;
+      if (!files) return null;
+
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        if (file!.size > maxSizeInBytes) {
+          return { invalidFileSize: true };
+        }
+      }
+      return null;
+    };
+  }
+  fileCountValidator(maxFileCount: number): ValidatorFn {
+    return (control: AbstractControl) => {
+      const files = control.value as FileList;
+      if (!files) return null;
+
+      if (files.length > maxFileCount) {
+        return { invalidFileCount: true };
+      }
+      return null;
+    };
+  }
 }

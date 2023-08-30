@@ -1,1 +1,84 @@
+<div
+  class="dropzone"
+  [class.dragover]="dragover"
+  (drop)="onDrop($event)"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave($event)"
+>
+  <input
+    type="file"
+    #fileInput
+    (change)="onFileInput($event)"
+    [accept]="accept"
+    hidden
+  />
+  <ng-container>
+    <mat-icon *ngIf="Control.value == null" class="icon" color="primary"
+      >cloud_upload</mat-icon
+    >
+    <mat-icon *ngIf="Control.errors == null" class="icon" color="primary"
+      >done</mat-icon
+    >
+    <mat-icon
+      *ngIf="Control.errors && !Control.errors?.['required']"
+      class="icon"
+      color="warn"
+    >
+      error
+    </mat-icon>
+  </ng-container>
 
+  <ng-container *ngIf="Control.errors && !Control.errors?.['required']">
+    <mat-error *ngFor="let error of Control.errors | keyvalue">{{
+      getErrorMessage(error.key)
+    }}</mat-error>
+  </ng-container>
+  <ng-container *ngIf="success">
+    <ng-container
+      *ngTemplateOutlet="
+        successTemplate;
+        context: { control: Control, fileInput: fileInput }
+      "
+    ></ng-container>
+  </ng-container>
+  <ng-container *ngIf="!success">
+    <ng-container
+      *ngTemplateOutlet="
+        newFileTemplate;
+        context: { control: Control, fileInput: fileInput }
+      "
+    ></ng-container>
+  </ng-container>
+</div>
+
+<ng-template #newFileTemplate let-control="control" let-fileInput="fileInput">
+  <p style="font-size: 1rem">Drag and drop or click to upload your CV</p>
+  <p style="font-size: 0.75rem">
+    Supported files: .docx, .doc or .pdf, with maximum size of 5MB
+  </p>
+  <button mat-raised-button color="primary" (click)="fileInput.click()">
+    Select File
+  </button>
+</ng-template>
+
+<ng-template #successTemplate let-control="control" let-fileInput="fileInput">
+  <p style="margin: 2rem 1rem 2rem">
+    {{ control.value[0].name }} ({{
+      control.value[0].size / 1024 > 1000
+        ? (control.value[0].size / 1024 / 1024).toFixed(1) + " MB"
+        : (control.value[0].size / 1024).toFixed(1) + " KB"
+    }})
+    <mat-icon
+      color="warn"
+      style="font-size: 2rem; width: fit-content"
+      (click)="removeFile()"
+      >delete</mat-icon
+    >
+  </p>
+
+  <p>
+    <button mat-raised-button color="primary" (click)="fileInput.click()">
+      Upload New
+    </button>
+  </p>
+</ng-template>
