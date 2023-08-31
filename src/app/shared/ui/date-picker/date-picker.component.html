@@ -1,7 +1,14 @@
-<mat-form-field appearance="outline">
-  <mat-label>{{ label }}</mat-label>
-  <input matInput [max]="maxDate" [min]="minDate" [matDatepicker]="picker" />
-  <mat-hint>MM/DD/YYYY</mat-hint>
-  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>{{ label }}</mat-label>
+    <input
+      matInput
+      [max]="maxDate"
+      [min]="minDate"
+      [matDatepicker]="picker"
+      [formControl]="Control"
+    />
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker startView="multi-year"></mat-datepicker>
+  </mat-form-field>

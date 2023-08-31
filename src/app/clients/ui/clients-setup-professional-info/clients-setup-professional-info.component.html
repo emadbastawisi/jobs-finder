@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="flex-pack">
+  <div class="flex-col">
     <p>Step 1/3</p>
     <h3 class="title">Career Interests</h3>
     <p>
@@ -7,8 +7,8 @@
       you.
     </p>
   </div>
-  <div class="flex-pack">
-    <div class="form">
+  <div class="flex-col">
+    <form [formGroup]="FormGroup" class="form">
       <div class="card">
         <h4 class="subtitle">Start by uploading your CV</h4>
         <app-input-file
@@ -16,6 +16,48 @@
           accept=", .doc, .docx, .pdf"
         ></app-input-file>
       </div>
-    </div>
+      <div class="card">
+        <app-select
+          label="Years of Experience"
+          [Control]="getControl('years_of_experience')"
+          [list]="yearsOfExperienceList"
+        ></app-select>
+      </div>
+      <div class="card">
+        <app-input
+          [Control]="getArrayControl(groupIndex, 'job_title')"
+          label="Job Title"
+          type="text"
+        ></app-input>
+        <app-input
+          [Control]="getArrayControl(groupIndex, 'company')"
+          label="Job Title"
+          type="text"
+        ></app-input>
+        <app-chips-autocomplete
+          class="chips"
+          [chips]="jobCategoryList"
+          [Control]="getArrayControl(groupIndex, 'job_category')"
+          [placeholder]="'Add Category'"
+        ></app-chips-autocomplete>
+        <app-chips
+          label="Experience Type"
+          [Control]="getArrayControl(groupIndex, 'experience_type')"
+          [multiple]="false"
+          [chips]="experienceTypeList"
+        ></app-chips>
+        <app-date-picker
+          [label]="'Enter your birthdate'"
+          [Control]="getArrayControl(groupIndex, 'start_date')"
+          [format]="'my'"
+        ></app-date-picker>
+        <app-date-picker
+          [label]="'Enter your birthdate'"
+          [Control]="getArrayControl(groupIndex, 'end_date')"
+          [format]="'my'"
+        ></app-date-picker>
+      </div>
+    </form>
   </div>
+  <p>{{ FormGroup.value | json}}</p>
 </div>

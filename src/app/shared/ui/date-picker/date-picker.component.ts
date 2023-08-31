@@ -4,6 +4,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-date-picker',
@@ -14,12 +15,15 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatInputModule,
     MatFormFieldModule,
     MatNativeDateModule,
+    ReactiveFormsModule
   ],
   templateUrl: './date-picker.component.html',
   styleUrls: ['./date-picker.component.css'],
 })
 export class DatePickerComponent {
   @Input() label: string = '';
+  @Input() Control: FormControl = new FormControl();
+  @Input() format: string = '';
   maxDate: Date;
   minDate: Date;
 
@@ -29,4 +33,16 @@ export class DatePickerComponent {
     this.minDate = new Date(currentYear - 80, 0, 1);
     this.maxDate = new Date(currentYear - 18, 0, 1);
   }
+
+
+
+openDatePicker(dp :any) {
+  dp.open();
+}
+
+closeDatePicker(eventData: any, dp?:any) {
+  this.Control.setValue(eventData);
+  dp.close();
+}
+
 }

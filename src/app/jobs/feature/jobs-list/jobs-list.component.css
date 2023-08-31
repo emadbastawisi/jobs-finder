@@ -19,6 +19,11 @@
 .job-list .job-card {
   width: calc(100% - 1rem);
 }
+.paginator{
+  margin-top: 1rem;
+    width: 100%;
+    background-color: unset;
+}
 
 @media screen and (min-width: 768px) {
   .job-list .job-card {

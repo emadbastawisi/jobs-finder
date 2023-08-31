@@ -7,10 +7,6 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import {
-  AcceptValidator,
-  MaxSizeValidator,
-} from '@angular-material-components/file-input';
 
 @Component({
   selector: 'app-clients-setup',
@@ -27,12 +23,12 @@ export class ClientsSetupComponent {
   });
 
   generalInfoForm: FormGroup = new FormGroup({
-    first_name: new FormControl('', Validators.required),
-    last_name: new FormControl('', Validators.required),
-    birthdate: new FormControl('', Validators.required),
-    gender: new FormControl('', Validators.required),
-    nationality: new FormControl('', Validators.required),
-    phone: new FormControl('', Validators.required),
+    first_name: new FormControl<string>('', Validators.required),
+    last_name: new FormControl<string>('', Validators.required),
+    birthdate: new FormControl<string>(new Date().toISOString(), Validators.required),
+    gender: new FormControl<string>('', Validators.required),
+    nationality: new FormControl<string>('', Validators.required),
+    phone: new FormControl<string>('', Validators.required),
     address: new FormGroup({
       country: new FormControl('', Validators.required),
     }),
@@ -44,6 +40,18 @@ export class ClientsSetupComponent {
       this.fileTypeValidator(['pdf', 'doc', 'docx']),
       this.fileSizeValidator(5 * 1024 * 1024),
       this.fileCountValidator(1),
+    ]),
+    years_of_experience: new FormControl ('0', Validators.required),
+    experience : new FormArray([
+      new FormGroup({
+        job_title: new FormControl('', Validators.required),
+        company: new FormControl('', Validators.required),
+        job_category: new FormControl([], Validators.required),
+        experience_type: new FormControl('', Validators.required),
+        start_date: new FormControl('', Validators.required),
+        end_date: new FormControl('', Validators.required),
+        work_there: new FormControl(false),
+      }),
     ]),
   });
 

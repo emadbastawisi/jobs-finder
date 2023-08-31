@@ -36,19 +36,18 @@ body[class*="dark-theme"] {
 
 .titel {
   font-size: 1.5rem;
-  font-weight: 500;
   margin: 0.5rem 0;
 }
 
 .subtitle {
   font-size: 1rem;
-  font-weight: 500;
   margin: 0.5rem 0;
+  
 }
 
 .card {
   flex-wrap: wrap;
-  margin: 2rem auto;
+  margin: 1rem auto;
   gap: 0.5rem;
   justify-content: center;
   align-items: center;
@@ -58,16 +57,28 @@ body[class*="dark-theme"] {
   box-shadow: var(--box-shadow);
 }
 
-.flex-pack{
+.container{
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+max-width: 1200px;
+margin: 0 auto;
+padding : 0 1rem;
+}
+
+.flex-col {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
 }
-.container{
+
+.flex-row {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   width: 100%;
