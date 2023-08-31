@@ -1,0 +1,27 @@
+.small-chip {
+  height: 30px;
+}
+.medium-chip {
+  height: 40px;
+}
+.large-chip {
+  height: 50px;
+}
+.xlarge-chip {
+  height: 56px;
+}
+
+@media screen and (max-width: 768px) {
+
+  .medium-chip {
+    height: 30px;
+  }
+  .large-chip {
+    height: 35px;
+  }
+  .xlarge-chip {
+    height: 40px;
+  }
+}
+  
+

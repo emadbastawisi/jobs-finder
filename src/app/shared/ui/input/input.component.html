@@ -1,7 +1,8 @@
-<mat-form-field appearance="outline" class="form-field">
+<mat-form-field appearance="outline" class="full-width">
   <mat-label>{{ label }}</mat-label>
   <ng-container *ngIf="type == 'number'">
     <input
+      
       type="text"
       matInput
       [formControl]="Control"

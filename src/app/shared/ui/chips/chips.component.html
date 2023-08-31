@@ -1,10 +1,16 @@
-<mat-chip-listbox
+<mat-chip-listbox class="full-width"
   [multiple]="multiple"
   ngDefaultControl
   [formControl]="Control"
   (change)="onChange($event)"
 >
-  <mat-chip-option
+  <mat-chip-option 
+      [ngClass]="{
+      'small-chip': size === 'small',
+      'medium-chip': size === 'medium',
+      'large-chip': size === 'large',
+      'xlarge-chip': size === 'xlarge',
+    }"
     *ngFor="let chip of chips"
     [disabled]="
       !selectedList.includes(chip) && selectedList.length > max && multiple

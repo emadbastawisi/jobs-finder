@@ -9,7 +9,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class ClientsSetupGeneralInfoComponent implements OnInit {
   @Input() FormGroup!: FormGroup;
 
-  genderChips = ['Male', 'Female'];
+  genderChips = [' Male ', 'Female'];
 
   getControl(controlName: string): FormControl {
     return this.FormGroup.get(controlName) as FormControl;

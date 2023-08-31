@@ -8,11 +8,11 @@
     </p>
   </div>
   <div class="flex-col">
-    <form [formGroup]="FormGroup" class="form">
+    <form [formGroup]="FormGroup" class="full-width">
       <div class="card">
         <h4 class="subtitle">What is your current career level?</h4>
         <app-chips
-          class="chips"
+          size="large"
           [Control]="getControl('careerLevel')"
           [multiple]="false"
           [chips]="careerLevelList"
@@ -25,7 +25,7 @@
           Job type
         </h4>
         <app-chips
-          class="chips"
+          size="large"
           [Control]="getControl('jobType')"
           [multiple]="true"
           [chips]="jobTypeList"

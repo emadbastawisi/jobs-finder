@@ -1,38 +1,44 @@
 <div class="container">
   <div class="flex-col">
-    <p>Step 1/3</p>
-    <h3 class="title">Career Interests</h3>
-    <p>
-      Providing this information enables us to recommend better opportunities to
-      you.
-    </p>
+    <p>Step 2/3</p>
+    <h3 class="title">General Info</h3>
+    <p>Tell companies more about yourself.</p>
   </div>
   <div class="flex-col">
     <form [formGroup]="FormGroup" class="form">
       <div class="card">
-        <h4>Your Personal Info</h4>
-        <app-input
-          [Control]="getControl('first_name')"
-          label="First Name"
-          type="text"
-        ></app-input>
-        <app-input
-          [Control]="getControl('last_name')"
-          label="Last Name"
-          type="text"
-        ></app-input>
-        <app-date-picker 
-        [label]="'Enter your birthdate'"
-        [Control]="getControl('birthdate')"
-        [format]="'dmy'"
-        ></app-date-picker>
-        <app-chips
-          [chips]="genderChips"
-          [Control]="getControl('gender')"
-        ></app-chips>
-        <app-country-state-city
-          [Control]="getControl('nationality')"
-        ></app-country-state-city>
+        <h4 class="subtitle">Your Personal Info</h4>
+        <div class="flex-row" style="gap: 0.5rem">
+          <app-input
+            class="half-width"
+            [Control]="getControl('first_name')"
+            label="First Name"
+            type="text"
+          ></app-input>
+          <app-input
+            class="half-width"
+            [Control]="getControl('last_name')"
+            label="Last Name"
+            type="text"
+          ></app-input>
+        </div>
+        <div class="flex-row" style="justify-content: space-between;">
+          <app-date-picker 
+            style="width : 40%; margin-top: 20px;"
+            [label]="'Enter your birthdate'"
+            [Control]="getControl('birthdate')"
+          ></app-date-picker>
+          <app-chips
+            size="xlarge"
+            [chips]="genderChips"
+            [Control]="getControl('gender')"
+          ></app-chips>
+
+          <app-country-state-city
+            style="width : 40%; margin-top: 20px;"
+            [Control]="getControl('nationality')"
+          ></app-country-state-city>
+        </div>
       </div>
       <div class="card">
         <h4>Your Location</h4>
@@ -42,6 +48,7 @@
       </div>
       <div class="card">
         <h4>Contact Information</h4>
+
         <app-input
           [Control]="getControl('phone')"
           label="Phone Number"

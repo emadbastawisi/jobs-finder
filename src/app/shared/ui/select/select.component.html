@@ -1,4 +1,4 @@
-<mat-form-field appearance="outline">
+<mat-form-field appearance="outline" class="full-width">
   <mat-label>{{ label }}</mat-label>
   <mat-select [formControl]="Control" required (valueChange)="onChange($event)">
     <mat-option *ngFor="let item of list" [value]="item">

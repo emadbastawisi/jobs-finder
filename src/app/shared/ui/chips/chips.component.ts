@@ -21,6 +21,7 @@ export class ChipsComponent {
   @Input() Control: FormControl = new FormControl();
   @Input() multiple: boolean = false;
   @Input() max: number = 99;
+  @Input() size: string = 'small';
 
   selectedList: any = [];
   onChange(event: any) {

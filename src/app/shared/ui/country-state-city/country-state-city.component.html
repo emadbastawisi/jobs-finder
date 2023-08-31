@@ -1,26 +1,32 @@
 <ng-container *ngIf="FormGroup">
-  <app-select
-    [label]="'Country'"
-    [list]="countryList()"
-    [Control]="getControl('country')"
-    (change)="onCountrySelected($event)"
-  ></app-select>
-  <app-select
-    *ngIf="cityList().length !== 0"
-    [label]="'State'"
-    [list]="cityList()"
-    [Control]="getControl('state')"
-    (change)="onStateSelected($event)"
-  ></app-select>
-  <app-select
-    *ngIf="areaList().length !== 0"
-    [label]="'City'"
-    [list]="areaList()"
-    [Control]="getControl('city')"
-  ></app-select>
+  <div class="flex-row" style="gap: 1rem ; justify-content: flex-start">
+    <app-select
+      style="width: 33%"
+      [label]="'Country'"
+      [list]="countryList()"
+      [Control]="getControl('country')"
+      (change)="onCountrySelected($event)"
+    ></app-select>
+    <app-select
+      style="width: 33%"
+      *ngIf="cityList().length !== 0"
+      [label]="'State'"
+      [list]="cityList()"
+      [Control]="getControl('state')"
+      (change)="onStateSelected($event)"
+    ></app-select>
+    <app-select
+      style="width: 33%"
+      *ngIf="areaList().length !== 0"
+      [label]="'City'"
+      [list]="areaList()"
+      [Control]="getControl('city')"
+    ></app-select>
+  </div>
 </ng-container>
 <ng-container *ngIf="Control">
   <app-select
+    class="full-width"
     [label]="'Country'"
     [list]="countryList()"
     [Control]="Control"
