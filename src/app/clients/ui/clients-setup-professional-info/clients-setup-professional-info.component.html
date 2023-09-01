@@ -19,40 +19,50 @@
           label="Years of Experience"
           [Control]="getControl('years_of_experience')"
           [list]="yearsOfExperienceList"
+          (change)="onYearsOfExperienceChange($event)"
         ></app-select>
       </div>
+      <ng-container
+        *ngIf="
+          getControl('years_of_experience').value !== 'No Experience' &&
+          getControl('years_of_experience').value !== null
+        "
+      >
+        <h4 class="subtitle">What is your work experience?</h4>
+        <div class="card">
+          <app-work-experience-form
+            [FormGroup]="getFormGroup('work_experience')"
+          ></app-work-experience-form>
+          <div class="option-btns">
+            <button
+              mat-raised-button
+              color="primary"
+              [disabled]="getFormGroup('work_experience').invalid"
+            >
+              Save
+            </button>
+            <button
+              mat-raised-button
+              color="primary"
+              [disabled]="getFormGroup('work_experience').invalid"
+            >
+              Save & Add More
+            </button>
+            <button mat-raised-button color="primary">Cancel</button>
+          </div>
+        </div>
+      </ng-container>
       <div class="card">
-        <app-input
-          [Control]="getArrayControl(groupIndex, 'job_title')"
-          label="Job Title"
-          type="text"
-        ></app-input>
-        <app-input
-          [Control]="getArrayControl(groupIndex, 'company')"
-          label="Company/Organization"
-          type="text"
-        ></app-input>
-        <app-chips-autocomplete
-          class="chips"
-          [chips]="jobCategoryList"
-          [Control]="getArrayControl(groupIndex, 'job_category')"
-          [placeholder]="'Add Category'"
-        ></app-chips-autocomplete>
+        <h4 class="subtitle">What is your current education level?</h4>
         <app-chips
           size="large"
-          label="Experience Type"
-          [Control]="getArrayControl(groupIndex, 'experience_type')"
-          [multiple]="false"
-          [chips]="experienceTypeList"
+          [Control]="getControl('education_level')"
+          [chips]="educationLevelList"
         ></app-chips>
-        <app-date-picker
-          [label]="'Start date'"
-          [Control]="getArrayControl(groupIndex, 'start_date')"
-        ></app-date-picker>
-        <app-date-picker
-          [label]="'End date'"
-          [Control]="getArrayControl(groupIndex, 'end_date')"
-        ></app-date-picker>
+        <ng-container>
+          <app-degree-details-form [FormGroup]="getFormGroup('degree_details')">
+          </app-degree-details-form>
+        </ng-container>
       </div>
     </form>
   </div>

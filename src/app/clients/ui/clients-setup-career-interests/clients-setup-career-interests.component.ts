@@ -1,6 +1,6 @@
 import { Component, Input, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import * as list from '../../utils/models/list'
+import * as list from '../../shared/utils/list';
 
 @Component({
   selector: 'app-clients-setup-career-interests',
