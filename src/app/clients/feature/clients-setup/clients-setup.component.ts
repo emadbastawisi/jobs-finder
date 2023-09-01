@@ -42,17 +42,34 @@ export class ClientsSetupComponent {
       this.fileCountValidator(1),
     ]),
     years_of_experience: new FormControl(null, Validators.required),
-    experience: new FormArray([
-      new FormGroup({
-        job_title: new FormControl('', Validators.required),
-        company: new FormControl('', Validators.required),
-        job_category: new FormControl([], Validators.required),
-        experience_type: new FormControl('', Validators.required),
-        start_date: new FormControl('', Validators.required),
-        end_date: new FormControl('', Validators.required),
-        work_there: new FormControl(false),
-      }),
-    ]),
+    work_experience: new FormGroup({
+      job_title: new FormControl('', Validators.required),
+      company: new FormControl('', Validators.required),
+      job_category: new FormControl([], Validators.required),
+      experience_type: new FormControl('', Validators.required),
+      start_date: new FormControl('', Validators.required),
+      end_date: new FormControl('', Validators.required),
+      work_there: new FormControl(false),
+    }),
+    education_level: new FormControl('', Validators.required),
+    degree_details: new FormGroup({
+      field_of_study: new FormControl('', Validators.required),
+      university: new FormControl('', Validators.required),
+      degree_year: new FormControl('', Validators.required),
+      grade: new FormControl('', Validators.required),
+    }),
+    highschool_details: new FormGroup({
+      school_name: new FormControl('', Validators.required),
+      certificate_name: new FormControl('', Validators.required),
+      language_of_study: new FormControl('', Validators.required),
+      graduation_date: new FormControl('', Validators.required),
+      grade: new FormControl('', Validators.required),
+    }),
+    language: new FormGroup({
+      language: new FormControl('', Validators.required),
+      proficiency: new FormControl('', Validators.required),
+    }),
+    skills: new FormControl([], Validators.required),
   });
 
   fileTypeValidator(allowedExtensions: string[]): ValidatorFn {
