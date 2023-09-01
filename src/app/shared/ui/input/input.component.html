@@ -2,7 +2,7 @@
   <mat-label>{{ label }}</mat-label>
   <ng-container *ngIf="type == 'number'">
     <input
-      
+      [placeholder]="placeholder"
       type="text"
       matInput
       [formControl]="Control"

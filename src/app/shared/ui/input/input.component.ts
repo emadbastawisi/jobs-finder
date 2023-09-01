@@ -27,6 +27,7 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class InputComponent {
   @Input() label: string = '';
+  @Input() placeholder: string = '';
   @Input() type: string = '';
   @Input() Control: FormControl = new FormControl();
   @Input() greenHint: string = '';
