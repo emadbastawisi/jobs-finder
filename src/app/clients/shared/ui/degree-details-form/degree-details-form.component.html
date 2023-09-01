@@ -1,0 +1,25 @@
+<h4 class="subtitle">Degree details</h4>
+<app-input-chips
+  placeholder="'e.g., Bussiness , Accounting' "
+  [Control]="getControl('field_of_study')"
+  label="Field(s) of study"
+  type="text"
+></app-input-chips>
+<app-input-autocomplete
+  label="University / Institution"
+  placeholder="'e.g., Cairo University, Mansoura University'"
+  type="text"
+  [Control]="getControl('university')"
+  [list]="universitiesList"
+></app-input-autocomplete>
+<h4 class="subtitle">When did you get your degree or when do you expect it</h4>
+<app-select-autocomplete
+  label="Degree Year"
+  [Control]="getControl('degree_year')"
+  [list]="years"
+></app-select-autocomplete>
+<app-select-autocomplete
+  label="Grade"
+  [Control]="getControl('grade')"
+  [list]="gradeList"
+></app-select-autocomplete>
