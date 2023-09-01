@@ -1,0 +1,48 @@
+<form [formGroup]="FormGroup"></form>
+<h4 class="subtitle">What is your work experience?</h4>
+<div class="flex-col">
+  <app-input
+    [Control]="getControl('job_title')"
+    label="Job Title"
+    type="text"
+  ></app-input>
+  <app-input
+    [Control]="getControl('company')"
+    label="Company/Organization"
+    type="text"
+  ></app-input>
+
+  <app-chips-autocomplete
+    class="chips"
+    [chips]="jobCategoryList"
+    [Control]="getControl('job_category')"
+    [placeholder]="'Add Category'"
+  ></app-chips-autocomplete>
+  <p>Experience Type*</p>
+  <app-chips
+    size="large"
+    label="Experience Type"
+    [Control]="getControl('experience_type')"
+    [multiple]="false"
+    [chips]="experienceTypeList"
+  ></app-chips>
+  <app-date-picker
+    [label]="'Start date'"
+    [Control]="getControl('start_date')"
+  ></app-date-picker>
+  <app-date-picker
+    *ngIf="getControl('work_there').value === false"
+    [label]="'End date'"
+    [Control]="getControl('end_date')"
+  ></app-date-picker>
+  <mat-checkbox
+    [formControl]="getControl('work_there')"
+    (change)="onWorkThereChange($event)"
+  >
+    >I currently work there</mat-checkbox
+  >
+  <!-- <div class="option-btns">
+          <button mat-raised-button color="primary" [disabled]="FormGroup.invalid"> Save </button>
+          <button mat-raised-button color="primary" > Cancel </button>
+        </div> -->
+</div>
