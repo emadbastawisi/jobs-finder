@@ -2,9 +2,15 @@
   width: 100%;
 }
 .label {
-  color: var(--secondry-font-color);
-  font-size: 1rem;
-  font-style: normal;
-  letter-spacing: -0.35px;
-  line-height: 22px;
+width: 50%;
+}
+
+@media screen and (max-width: 768px) {
+  .label {
+width: 100%;
+  }
+  .flex-row {
+    flex-direction: column;
+  }
+  
 }
