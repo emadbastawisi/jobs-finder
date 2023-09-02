@@ -58,11 +58,53 @@
           size="large"
           [Control]="getControl('education_level')"
           [chips]="educationLevelList"
+          (change)="onEducationLevelChange($event)"
         ></app-chips>
-        <ng-container>
-          <app-degree-details-form [FormGroup]="getFormGroup('degree_details')">
-          </app-degree-details-form>
+        <ng-container
+          *ngIf="getControl('education_level').value !== 'High School'"
+        >
+          <app-degree-details-form
+            type="degree"
+            [FormGroup]="getFormGroup('degree_details')"
+          ></app-degree-details-form>
         </ng-container>
+        <ng-container
+          *ngIf="getControl('education_level').value === 'High School'"
+        >
+          <app-degree-details-form
+            type="highschool"
+            [FormGroup]="getFormGroup('highschool_details')"
+          ></app-degree-details-form>
+        </ng-container>
+      </div>
+      <div class="card">
+        <h4 class="subtitle">
+          What languages do you know? - you can add one or more
+        </h4>
+        <app-input-autocomplete
+          label="Language"
+          placeholder="e.g., Arabic, English"
+          [Control]="getFormGroupControl('language', 'language_name')"
+          [list]="languageList"
+        ></app-input-autocomplete>
+        <app-select
+          label="Proficiency"
+          [Control]="getFormGroupControl('language', 'proficiency')"
+          [list]="proficiencyLevelList"
+        ></app-select>
+        <button mat-raised-button color="primary">Add</button>
+      </div>
+      <div class="card">
+        <h4 class="subtitle">
+          What skills, tools, technologies and fields of expertise do you have?
+          — Add up to 30
+        </h4>
+        <app-chips-autocomplete
+          label="Skills"
+          placeholder="e.g., HTML, CSS"
+          [Control]="getControl('skills')"
+          [chips]="skillsList"
+        ></app-chips-autocomplete>
       </div>
     </form>
   </div>

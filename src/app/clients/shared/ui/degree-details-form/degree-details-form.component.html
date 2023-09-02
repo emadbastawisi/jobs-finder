@@ -1,25 +1,66 @@
-<h4 class="subtitle">Degree details</h4>
-<app-input-chips
-  placeholder="'e.g., Bussiness , Accounting' "
-  [Control]="getControl('field_of_study')"
-  label="Field(s) of study"
-  type="text"
-></app-input-chips>
-<app-input-autocomplete
-  label="University / Institution"
-  placeholder="'e.g., Cairo University, Mansoura University'"
-  type="text"
-  [Control]="getControl('university')"
-  [list]="universitiesList"
-></app-input-autocomplete>
-<h4 class="subtitle">When did you get your degree or when do you expect it</h4>
-<app-select-autocomplete
-  label="Degree Year"
-  [Control]="getControl('degree_year')"
-  [list]="years"
-></app-select-autocomplete>
-<app-select-autocomplete
-  label="Grade"
-  [Control]="getControl('grade')"
-  [list]="gradeList"
-></app-select-autocomplete>
+<ng-container *ngIf="type === 'degree'; else highschool">
+  <form [formGroup]="FormGroup">
+    <h4 class="subtitle">Degree details</h4>
+    <app-input-chips
+      placeholder="e.g., Bussiness , Accounting "
+      [Control]="getControl('field_of_study')"
+      label="Field(s) of study"
+      type="text"
+    ></app-input-chips>
+    <app-input-autocomplete
+      label="University / Institution"
+      placeholder="e.g., Cairo University, Mansoura University"
+      [Control]="getControl('university')"
+      [list]="universitiesList"
+    ></app-input-autocomplete>
+    <h4 class="subtitle">
+      When did you get your degree or when do you expect it
+    </h4>
+    <app-select-autocomplete
+      label="Degree Year"
+      [Control]="getControl('degree_year')"
+      [list]="years"
+    ></app-select-autocomplete>
+    <app-select
+      label="Grade"
+      [Control]="getControl('degree_grade')"
+      [list]="gradeList"
+    ></app-select>
+  </form>
+</ng-container>
+
+<ng-template #highschool>
+  <form [formGroup]="FormGroup">
+    <h4 class="subtitle">Degree details</h4>
+    <app-input
+      placeholder="e.g., Orouba language school "
+      [Control]="getControl('school_name')"
+      label="School Name"
+      [type]="'text'"
+    ></app-input>
+    <app-select-autocomplete
+      label="Certificate Name"
+      placeholder="Select..."
+      [Control]="getControl('certificate_name')"
+      [list]="highschoolCertificateList"
+    ></app-select-autocomplete>
+
+    <app-select-autocomplete
+      label="Language Of Study"
+      placeholder="e.g., Arabic, English"
+      [Control]="getControl('language_of_study')"
+      [list]="languageList"
+    ></app-select-autocomplete>
+    <app-select-autocomplete
+      label="Graduation Year"
+      placeholder="Select..."
+      [Control]="getControl('graduation_year')"
+      [list]="years"
+    ></app-select-autocomplete>
+    <app-select
+      label="Grade"
+      [Control]="getControl('highschool_grade')"
+      [list]="gradeList"
+    ></app-select>
+  </form>
+</ng-template>

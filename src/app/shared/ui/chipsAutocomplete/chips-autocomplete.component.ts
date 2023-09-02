@@ -23,7 +23,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatOptionModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { ENTER, COMMA } from '@angular/cdk/keycodes';
+import { ENTER, COMMA, I } from '@angular/cdk/keycodes';
 import { Observable, startWith, map } from 'rxjs';
 // import { User } from './user';
 // import { Fruit } from './fruit';
@@ -55,7 +55,7 @@ export class ChipsAutocompleteComponent {
   public removable = true;
   public addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-
+  @Input() label = '';
   @Input() chips = [''];
   @Input() Control: FormControl = new FormControl();
   @Input() placeholder: string = '';
@@ -122,7 +122,7 @@ export class ChipsAutocompleteComponent {
     const filterValue =
       value === null || value instanceof Object ? '' : value.toLowerCase();
     const matches = this.chips.filter((chip) =>
-      chip.toLowerCase().includes(filterValue)
+      chip.toLowerCase().startsWith(filterValue)
     );
     const formValue = this.Control!.value;
     return formValue === null

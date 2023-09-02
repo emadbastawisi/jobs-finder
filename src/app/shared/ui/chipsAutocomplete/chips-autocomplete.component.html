@@ -1,4 +1,5 @@
 <mat-form-field appearance="outline" class="full-width">
+  <mat-label>{{ label }}</mat-label>
   <mat-chip-grid #chipList [formControl]="Control">
     <mat-chip-row
       *ngFor="let chip of selectedChips"

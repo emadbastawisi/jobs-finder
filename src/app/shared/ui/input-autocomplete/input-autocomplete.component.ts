@@ -32,7 +32,7 @@ import {
 export class InputAutocompleteComponent {
   @Input() label = '';
   @Input() placeholder = '';
-  @Input() type = '';
+  @Input() type = 'text';
   @Input() Control: FormControl = new FormControl();
   @Input() list: string[] = [];
 

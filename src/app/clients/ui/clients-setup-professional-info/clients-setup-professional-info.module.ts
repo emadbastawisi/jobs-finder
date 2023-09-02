@@ -11,12 +11,14 @@ import { DatePickerComponent } from 'src/app/shared/ui/date-picker/date-picker.c
 import { MatButtonModule } from '@angular/material/button';
 import { WorkExperienceFormModule } from '../../shared/ui/work-experience/work-experience-form.module';
 import { DegreeDetailsFormModule } from '../../shared/ui/degree-details-form/degree-details-form.module';
+import { InputAutocompleteComponent } from 'src/app/shared/ui/input-autocomplete/input-autocomplete.component';
 
 @NgModule({
   declarations: [ClientsSetupProfessionalInfoComponent],
   imports: [
     CommonModule,
     InputComponent,
+    InputAutocompleteComponent,
     ReactiveFormsModule,
     InputFileComponent,
     SelectComponent,

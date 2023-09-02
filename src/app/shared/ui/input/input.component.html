@@ -1,6 +1,6 @@
 <mat-form-field appearance="outline" class="full-width">
   <mat-label>{{ label }}</mat-label>
-  <ng-container *ngIf="type == 'number'">
+  <ng-container *ngIf="type === 'number'">
     <input
       [placeholder]="placeholder"
       type="text"
@@ -12,7 +12,7 @@
   </ng-container>
   <ng-container *ngIf="type !== 'number'">
     <input
-      type="{{ type }}"
+      [type]="type"
       matInput
       [formControl]="Control"
       (change)="onChange($event)"
