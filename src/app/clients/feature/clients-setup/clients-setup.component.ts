@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   AbstractControl,
   FormArray,
@@ -7,6 +7,12 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { setupActions } from '../../data-access/store/actions';
+import {
+  selectIsSubmittingSetup,
+  selectUserProfileSetup,
+} from '../../data-access/store/reducers';
 
 @Component({
   selector: 'app-clients-setup',
@@ -14,12 +20,16 @@ import {
   styleUrls: ['./clients-setup.component.css'],
 })
 export class ClientsSetupComponent {
+  store = inject(Store);
+  isSubmitting$ = this.store.selectSignal(selectIsSubmittingSetup);
+  userProfile$ = this.store.selectSignal(selectUserProfileSetup);
+
   careerInterestsForm: FormGroup = new FormGroup({
-    careerLevel: new FormControl('', Validators.required),
-    jobType: new FormControl('', Validators.required),
-    categories: new FormControl([], Validators.required),
-    minSalary: new FormControl(null, Validators.required),
-    hideSalary: new FormControl(false),
+    career_level: new FormControl('', Validators.required),
+    job_types: new FormControl('', Validators.required),
+    job_categories: new FormControl([], Validators.required),
+    min_salary: new FormControl(null, Validators.required),
+    hide_min_salary: new FormControl(false),
   });
 
   generalInfoForm: FormGroup = new FormGroup({
@@ -112,5 +122,18 @@ export class ClientsSetupComponent {
       }
       return null;
     };
+  }
+
+  careerInterestsFormSubmit() {
+    console.log(this.careerInterestsForm.getRawValue());
+
+    if (this.careerInterestsForm.valid) {
+      const Data = this.careerInterestsForm.getRawValue();
+      Data.job_types = Data.job_types.join(',');
+      Data.job_categories = Data.job_categories.join(',');
+      this.store.dispatch(setupActions.careerInterest({ request: Data }));
+    } else {
+      this.careerInterestsForm.markAllAsTouched();
+    }
   }
 }

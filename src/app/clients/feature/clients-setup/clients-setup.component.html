@@ -6,7 +6,12 @@
         [FormGroup]="careerInterestsForm"
       ></app-clients-setup-career-interests>
       <div class="footer">
-        <button class="btn" color="primary" mat-raised-button matStepperNext>
+        <button
+          class="btn"
+          color="primary"
+          mat-raised-button
+          (click)="careerInterestsFormSubmit()"
+        >
           Save and Continue
         </button>
       </div>
@@ -20,8 +25,12 @@
         [FormGroup]="generalInfoForm"
       ></app-clients-setup-general-info>
       <div class="footer">
-        <button class="btn" color="primary" mat-button matStepperPrevious>Back</button>
-        <button class="btn" color="primary" mat-button matStepperNext>Next</button>
+        <button class="btn" color="primary" mat-button matStepperPrevious>
+          Back
+        </button>
+        <button class="btn" color="primary" mat-button matStepperNext>
+          Next
+        </button>
       </div>
     </form>
   </mat-step>
@@ -31,8 +40,12 @@
       [FormGroup]="professionalInfoForm"
     ></app-clients-setup-professional-info>
     <div class="footer">
-      <button class="btn" color="primary" mat-button matStepperPrevious>Back</button>
-      <button class="btn" color="primary" mat-button (click)="stepper.reset()">Reset</button>
+      <button class="btn" color="primary" mat-button matStepperPrevious>
+        Back
+      </button>
+      <button class="btn" color="primary" mat-button (click)="stepper.reset()">
+        Reset
+      </button>
     </div>
   </mat-step>
 </mat-stepper>

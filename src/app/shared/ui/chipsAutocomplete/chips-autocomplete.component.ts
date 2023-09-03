@@ -61,7 +61,7 @@ export class ChipsAutocompleteComponent {
   @Input() placeholder: string = '';
 
   chipInput: FormControl = new FormControl(null);
-  selectedChips: string[] = [];
+  selectedChips: string[] = this.Control!.value || [];
 
   public filteredChips$!: Observable<string[]>;
 
@@ -70,6 +70,8 @@ export class ChipsAutocompleteComponent {
       startWith(''),
       map((value) => this.chipFilter(value))
     );
+    // console.log(this.Control!.value);
+    // this.selectedChips = this.Control!.value;
   }
 
   public selectChip(event: MatAutocompleteSelectedEvent): void {

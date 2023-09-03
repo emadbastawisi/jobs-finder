@@ -2,7 +2,7 @@
   <mat-label>{{ label }}</mat-label>
   <mat-chip-grid #chipList [formControl]="Control">
     <mat-chip-row
-      *ngFor="let chip of selectedChips"
+      *ngFor="let chip of Control.value"
       [removable]="removable"
       (removed)="remove(chip)"
     >

@@ -10,6 +10,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import {
   authFeatureKey,
   authReducer,
+  setupFeatureKey,
+  setupReducer,
 } from './clients/data-access/store/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import * as authEffects from './clients/data-access/store/effects';
@@ -32,6 +34,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
       traceLimit: 75,
     }),
     StoreModule.forFeature(authFeatureKey, authReducer),
+    StoreModule.forFeature(setupFeatureKey, setupReducer),
     EffectsModule.forRoot(authEffects),
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

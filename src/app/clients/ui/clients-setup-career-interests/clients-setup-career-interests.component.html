@@ -13,7 +13,7 @@
         <h4 class="subtitle">What is your current career level?</h4>
         <app-chips
           size="large"
-          [Control]="getControl('careerLevel')"
+          [Control]="getControl('career_level')"
           [multiple]="false"
           [chips]="careerLevelList"
         >
@@ -26,7 +26,7 @@
         </h4>
         <app-chips
           size="large"
-          [Control]="getControl('jobType')"
+          [Control]="getControl('job_types')"
           [multiple]="true"
           [chips]="jobTypeList"
         >
@@ -40,7 +40,7 @@
           class="chips"
           label="Job Category"
           [chips]="categoriesList"
-          [Control]="getControl('categories')"
+          [Control]="getControl('job_categories')"
           [placeholder]="'Add Category'"
         ></app-chips-autocomplete>
       </div>
@@ -50,12 +50,12 @@
           <app-input
             type="number"
             label="minimum salary"
-            [Control]="getControl('minSalary')"
+            [Control]="getControl('min_salary')"
             icon="paid"
           ></app-input>
         </span>
         <span> EGP / Month</span>
-        <mat-checkbox formControlName="hideSalary"
+        <mat-checkbox formControlName="hide_min_salary"
           >Hide my minmum salary from companys</mat-checkbox
         >
         <p>{{ FormGroup.value | json }}</p>

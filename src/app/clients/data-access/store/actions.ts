@@ -1,6 +1,20 @@
-import { createActionGroup, emptyProps, props } from "@ngrx/store";
-import { UsersRegister, UsersRegisterError, UsersRegisterResponse } from "../../utils/models/users-register.model";
-import { UsersLogin, UsersLoginError, UsersLoginResponse, currentUser } from "../../utils/models/users-login";
+import { createActionGroup, emptyProps, props } from '@ngrx/store';
+import {
+  UsersRegister,
+  UsersRegisterError,
+  UsersRegisterResponse,
+} from '../../utils/models/users-register.model';
+import {
+  UsersLogin,
+  UsersLoginError,
+  UsersLoginResponse,
+  currentUser,
+} from '../../utils/models/users-login';
+import {
+  ResponseError,
+  UserCareerInterests,
+  UserProfile,
+} from '../../utils/models/userProfile.models';
 
 // export const signup = createAction('[Clients] Signup', props<{ request: UsersRegister }>())
 
@@ -21,9 +35,14 @@ export const authActions = createActionGroup({
   },
 });
 
-
-
-
-
-
-
+export const setupActions = createActionGroup({
+  source: 'Setup',
+  events: {
+    getUserProfile: emptyProps(),
+    getUserProfileSuccess: props<{ response: UserProfile }>(),
+    getUserProfileFailure: props<{ errors: ResponseError }>(),
+    careerInterest: props<{ request: UserCareerInterests }>(),
+    careerInterestSuccess: props<{ response: UserProfile }>(),
+    careerInterestFailure: props<{ errors: ResponseError }>(),
+  },
+});

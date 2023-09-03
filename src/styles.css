@@ -60,14 +60,13 @@ body[class*="dark-theme"] {
 }
 
 .container{
-  
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-max-width: 1200px;
-margin: 0 auto;
-padding : 0 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding : 0 1rem;
 }
 
 .flex-col {

@@ -9,6 +9,10 @@ import {
 import { take } from 'rxjs';
 import { UsersKeyword } from '../utils/models/users-keywords.model';
 import { UsersLoginResponse } from '../utils/models/users-login';
+import {
+  UserCareerInterests,
+  UserProfile,
+} from '../utils/models/userProfile.models';
 
 @Injectable({
   providedIn: 'root',
@@ -57,50 +61,18 @@ export class ClientsService {
     );
   }
 
-  // get user keywords
-  getClientCategories() {
-    this.http
-      .get<string>(environment.api.address + '/search')
-      .pipe(take(1))
-      .subscribe(
-        (data: string) => {
-          this.clientCategories.set(data);
-        },
-        (error) => {
-          this.clientCategories.set(null);
-        }
-      );
-  }
-  // add user keyword
-  addClientCategory(keyword: string) {
-    const request: UsersKeyword = { keywords: keyword };
-    this.http
-      .post(environment.api.address + '/search', request)
-      .pipe(take(1))
-      .subscribe((data) => {
-        this.clientCategories.set(data.toString());
-      });
-  }
-  // delete user keyword
-  deleteClientCategory(keyword: string) {
-    const request: UsersKeyword = { keywords: keyword };
-    this.http
-      .patch<any>(environment.api.address + '/search/', request)
-      .pipe(take(1))
-      .subscribe((data: string) => {
-        this.clientCategories.set(data);
-      });
+  // get user profile
+  getUserProfile(): Observable<UserProfile> {
+    return this.http.get<UserProfile>(
+      environment.api.address + '/users/profile'
+    );
   }
 
-  headers = new HttpHeaders()
-    .set('Accept', 'application/json')
-    .set('user-email', 'emadbastawisi@outlook.com')
-    .set(
-      'api-token',
-      'JJaNjicEehp92nWyLtQok3EIFlxIXIFy-VdujYxiLvAXIJ66AivNWsXeE-tNiUfFXCo'
+  careerInterest(request: UserCareerInterests): Observable<UserProfile> {
+    console.log(request);
+    return this.http.post<UserProfile>(
+      environment.api.address + '/users/addCareerInerests',
+      request
     );
-  url = 'https://www.universal-tutorial.com/api/getaccesstoken';
-  getApiToken(): Observable<any> {
-    return this.http.get(this.url, { headers: this.headers });
   }
 }
