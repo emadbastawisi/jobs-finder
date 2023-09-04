@@ -13,6 +13,7 @@ import {
 import {
   ResponseError,
   UserCareerInterests,
+  UserPersonalInfo,
   UserProfile,
 } from '../../utils/models/userProfile.models';
 
@@ -38,11 +39,15 @@ export const authActions = createActionGroup({
 export const setupActions = createActionGroup({
   source: 'Setup',
   events: {
+    moveToNextStep: emptyProps(),
     getUserProfile: emptyProps(),
     getUserProfileSuccess: props<{ response: UserProfile }>(),
     getUserProfileFailure: props<{ errors: ResponseError }>(),
     careerInterest: props<{ request: UserCareerInterests }>(),
     careerInterestSuccess: props<{ response: UserProfile }>(),
     careerInterestFailure: props<{ errors: ResponseError }>(),
+    generalInfo: props<{ request: UserPersonalInfo }>(),
+    generalInfoSuccess: props<{ response: UserProfile }>(),
+    generalInfoFailure: props<{ errors: ResponseError }>(),
   },
 });

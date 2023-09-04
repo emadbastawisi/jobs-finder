@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import {
   AbstractControl,
   FormArray,
@@ -13,16 +13,20 @@ import {
   selectIsSubmittingSetup,
   selectUserProfileSetup,
 } from '../../data-access/store/reducers';
+import { MatStepper } from '@angular/material/stepper';
+import { ClientsService } from '../../data-access/clients.service';
 
 @Component({
   selector: 'app-clients-setup',
   templateUrl: './clients-setup.component.html',
   styleUrls: ['./clients-setup.component.css'],
 })
-export class ClientsSetupComponent {
+export class ClientsSetupComponent implements OnInit {
   store = inject(Store);
+  clientsService = inject(ClientsService);
   isSubmitting$ = this.store.selectSignal(selectIsSubmittingSetup);
   userProfile$ = this.store.selectSignal(selectUserProfileSetup);
+  @ViewChild('stepper') stepper!: MatStepper;
 
   careerInterestsForm: FormGroup = new FormGroup({
     career_level: new FormControl('', Validators.required),
@@ -41,6 +45,8 @@ export class ClientsSetupComponent {
     phone: new FormControl<string>('', Validators.required),
     address: new FormGroup({
       country: new FormControl('', Validators.required),
+      state: new FormControl('', Validators.required),
+      city: new FormControl('', Validators.required),
     }),
   });
 
@@ -124,9 +130,12 @@ export class ClientsSetupComponent {
     };
   }
 
+  ngOnInit() {
+    this.clientsService.moveToNextStep$.subscribe(() => {
+      this.stepper.next();
+    });
+  }
   careerInterestsFormSubmit() {
-    console.log(this.careerInterestsForm.getRawValue());
-
     if (this.careerInterestsForm.valid) {
       const Data = this.careerInterestsForm.getRawValue();
       Data.job_types = Data.job_types.join(',');
@@ -136,4 +145,22 @@ export class ClientsSetupComponent {
       this.careerInterestsForm.markAllAsTouched();
     }
   }
+
+  generalInfoFormSubmit() {
+    if (this.generalInfoForm.valid) {
+      const Data = this.generalInfoForm.getRawValue();
+      Data.birthdate = Data.birthdate.toISOString();
+      Data.address = this.addressToStr(Data.address);
+      console.log(Data);
+      this.store.dispatch(setupActions.generalInfo({ request: Data }));
+    }
+  }
+  addressToStr(address: {[key: string]: string}): string {
+    const keys = ['country', 'state', 'city'];
+    const values = keys.map(key => address[key] || '');
+    return values.join(',');
+  }
+
+
+
 }

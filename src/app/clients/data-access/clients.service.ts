@@ -6,11 +6,12 @@ import {
   UsersRegister,
   UsersRegisterResponse,
 } from '../utils/models/users-register.model';
-import { take } from 'rxjs';
+import { Subject, take } from 'rxjs';
 import { UsersKeyword } from '../utils/models/users-keywords.model';
 import { UsersLoginResponse } from '../utils/models/users-login';
 import {
   UserCareerInterests,
+  UserPersonalInfo,
   UserProfile,
 } from '../utils/models/userProfile.models';
 
@@ -19,16 +20,11 @@ import {
 })
 export class ClientsService {
   http = inject(HttpClient);
-  private clientCategories = signal<string | null>('');
+  private _moveToNextStep = new Subject<void>();
+  moveToNextStep$ = this._moveToNextStep.asObservable();
 
-  // selector for client categories
-  clientCats = computed(() => this.clientCategories());
-
-  // check username availability with api
-  checkUsernameApi(username: string | null): Observable<boolean> {
-    return this.http.get<boolean>(
-      environment.api.address + '/users/username/' + username
-    );
+  moveToNextStep() {
+    this._moveToNextStep.next();
   }
 
   // check username availability with api
@@ -71,7 +67,14 @@ export class ClientsService {
   careerInterest(request: UserCareerInterests): Observable<UserProfile> {
     console.log(request);
     return this.http.post<UserProfile>(
-      environment.api.address + '/users/addCareerInerests',
+      environment.api.address + '/users/addCareerInterests',
+      request
+    );
+  }
+    generalInfo(request: UserPersonalInfo): Observable<UserProfile> {
+    console.log(request);
+    return this.http.post<UserProfile>(
+      environment.api.address + '/users/addPersonalInfo',
       request
     );
   }

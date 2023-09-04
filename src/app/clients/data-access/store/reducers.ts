@@ -75,12 +75,28 @@ const initialsetupState: SetupStateInterface = {
   userProfileSetup: undefined,
   isLoadingSetup: false,
   validationErrorsSetup: null,
+  
 };
 
 const setupFeature = createFeature({
   name: 'setup',
   reducer: createReducer(
     initialsetupState,
+    on(setupActions.getUserProfile, (state) => ({
+      ...state,
+      isLoadingSetup: true,
+      validationErrorsSetup: null,
+    })),
+    on(setupActions.getUserProfileSuccess, (state, action) => ({
+      ...state,
+      isLoadingSetup: false,
+      userProfileSetup: action.response,
+    })),
+    on(setupActions.getUserProfileFailure, (state, action) => ({
+      ...state,
+      isLoadingSetup: false,
+      validationErrorsSetup: action.errors,
+    })),
     on(setupActions.careerInterest, (state) => ({
       ...state,
       isSubmittingSetup: true,
@@ -96,21 +112,21 @@ const setupFeature = createFeature({
       isSubmittingSetup: false,
       validationErrorsSetup: action.errors,
     })),
-    on(setupActions.getUserProfile, (state) => ({
+    on(setupActions.generalInfo, (state) => ({
       ...state,
-      isLoadingSetup: true,
+      isSubmittingSetup: true,
       validationErrorsSetup: null,
     })),
-    on(setupActions.getUserProfileSuccess, (state, action) => ({
+    on(setupActions.generalInfoSuccess, (state, action) => ({
       ...state,
-      isLoadingSetup: false,
+      isSubmittingSetup: false,
       userProfileSetup: action.response,
     })),
-    on(setupActions.getUserProfileFailure, (state, action) => ({
+    on(setupActions.generalInfoFailure, (state, action) => ({
       ...state,
-      isLoadingSetup: false,
+      isSubmittingSetup: false,
       validationErrorsSetup: action.errors,
-    }))
+    })),
   ),
 });
 

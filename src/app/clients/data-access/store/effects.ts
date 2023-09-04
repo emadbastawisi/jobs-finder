@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UserProfile } from '../../utils/models/userProfile.models';
 
+
 export const signupEffect = createEffect(
   (actions$ = inject(Actions), clientsService = inject(ClientsService)) => {
     return actions$.pipe(
@@ -162,12 +163,50 @@ export const careerInterestEffect = createEffect(
 );
 
 export const careerInterestSuccessEffect = createEffect(
-  (actions$ = inject(Actions), router = inject(Router)) => {
+  (actions$ = inject(Actions) , clientsService = inject(ClientsService)) => {
     return actions$.pipe(
       ofType(setupActions.careerInterestSuccess),
       tap((response) => {
-        console.log(response);
+        clientsService.moveToNextStep();
+      }),
+    );
+  },
+  { dispatch: false, functional: true }
+);
+
+export const generalInfoEffect = createEffect(
+  (actions$ = inject(Actions), clientsService = inject(ClientsService)) => {
+    return actions$.pipe(
+      ofType(setupActions.generalInfo),
+      switchMap(({ request }) => {
+        return clientsService.generalInfo(request).pipe(
+          map((response: UserProfile) => {
+            console.log(response);
+            return setupActions.generalInfoSuccess({ response });
+          }),
+          catchError((errorResponce: HttpErrorResponse) => {
+            console.log(errorResponce);
+            return of(
+              setupActions.generalInfoFailure({
+                errors: errorResponce.error.detail,
+              })
+            );
+          })
+        );
       })
+    );
+  },
+  { functional: true }
+);
+
+export const generalInfoSuccessEffect = createEffect(
+  (actions$ = inject(Actions) , clientsService = inject(ClientsService)) => {
+    return actions$.pipe(
+      ofType(setupActions.generalInfoSuccess),
+      tap((response) => {
+        console.log(response);
+        clientsService.moveToNextStep();
+      }),
     );
   },
   { dispatch: false, functional: true }

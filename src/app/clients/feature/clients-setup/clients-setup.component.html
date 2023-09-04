@@ -28,8 +28,13 @@
         <button class="btn" color="primary" mat-button matStepperPrevious>
           Back
         </button>
-        <button class="btn" color="primary" mat-button matStepperNext>
-          Next
+        <button
+          class="btn"
+          color="primary"
+          mat-raised-button
+          (click)="generalInfoFormSubmit()"
+        >
+          Save and Continue
         </button>
       </div>
     </form>
