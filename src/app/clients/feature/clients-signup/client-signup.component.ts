@@ -46,18 +46,6 @@ export class ClientSignupComponent implements OnInit {
 // custom validator class
 
 export class CustomeValidators {
-  static usernameAvailable(CS: ClientsService) {
-    return (control: AbstractControl) => {
-      return control.valueChanges.pipe(
-        debounceTime(1000),
-        switchMap((changedValue) => CS.checkUsernameApi(changedValue)),
-        take(1),
-        map((isAvailable: boolean) => {
-          return isAvailable === true ? null : { usernameTaken: true };
-        })
-      );
-    };
-  }
   static emailAvailable(CS: ClientsService) {
     return (control: AbstractControl) => {
       return control.valueChanges.pipe(
