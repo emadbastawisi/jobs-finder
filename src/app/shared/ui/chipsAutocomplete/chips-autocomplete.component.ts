@@ -61,7 +61,6 @@ export class ChipsAutocompleteComponent {
   @Input() placeholder: string = '';
 
   chipInput: FormControl = new FormControl(null);
-  selectedChips: string[] = this.Control!.value || [];
 
   public filteredChips$!: Observable<string[]>;
 
@@ -70,8 +69,6 @@ export class ChipsAutocompleteComponent {
       startWith(''),
       map((value) => this.chipFilter(value))
     );
-    // console.log(this.Control!.value);
-    // this.selectedChips = this.Control!.value;
   }
 
   public selectChip(event: MatAutocompleteSelectedEvent): void {
@@ -81,9 +78,8 @@ export class ChipsAutocompleteComponent {
 
     const value = event.option.value;
 
-    if (value && !this.selectedChips.includes(value)) {
-      this.selectedChips.push(value);
-      this.Control!.setValue(this.selectedChips);
+    if (value && !this.Control.value.includes(value)) {
+      this.Control!.setValue(this.Control.value.concat(value));
       this.chipInput!.setValue('');
     }
   }
@@ -100,22 +96,23 @@ export class ChipsAutocompleteComponent {
           ? matches
           : matches.filter((x) => !formValue.find((y: string) => y === x));
       if (matchesNotYetSelected.length === 1) {
-        this.selectedChips.push(matchesNotYetSelected[0]);
-        this.Control!.setValue(this.selectedChips);
+        this.Control!.setValue(
+          this.Control.value.concat(matchesNotYetSelected[0])
+        );
         this.chipInput!.setValue('');
       }
     }
-    // Reset the input value
     if (input) {
       input.value = '';
     }
   }
 
   public remove(chip: string) {
-    const index = this.selectedChips.indexOf(chip);
+    const index = this.Control!.value.indexOf(chip);
     if (index >= 0) {
-      this.selectedChips.splice(index, 1);
-      this.Control!.setValue(this.selectedChips);
+      this.Control!.setValue(
+        this.Control.value.filter((x: string) => x !== chip)
+      );
       this.chipInput!.setValue('');
     }
   }
