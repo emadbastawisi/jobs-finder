@@ -3,6 +3,8 @@ export interface ResponseError {
 }
 
 export interface UserPersonalInfo {
+  first_name?: string;
+  last_name?: string;
   middel_name?: string;
   birthdate: string;
   gender: string;
@@ -13,6 +15,7 @@ export interface UserPersonalInfo {
   address: string;
   phone: string;
 }
+
 export interface UserCareerInterests {
   career_level: string;
   job_types: string;
@@ -61,8 +64,7 @@ export interface UserEducation {
   degree: string;
   field_of_study: string;
   university: string;
-  start_date: string;
-  end_date: string;
+  degree_year: string;
   grade: string;
 }
 
