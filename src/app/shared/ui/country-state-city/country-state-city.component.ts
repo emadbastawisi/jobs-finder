@@ -1,4 +1,4 @@
-import { Component, Input, computed, signal } from '@angular/core';
+import { Component, Input, OnInit, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormGroup,
@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { SelectComponent } from '../select/select.component';
+import { filter, take } from 'rxjs';
 
 @Component({
   selector: 'app-country-state-city',
@@ -28,7 +29,7 @@ import { SelectComponent } from '../select/select.component';
   templateUrl: './country-state-city.component.html',
   styleUrls: ['./country-state-city.component.css'],
 })
-export class CountryStateCityComponent {
+export class CountryStateCityComponent implements OnInit {
   @Input() FormGroup!: FormGroup;
   @Input() Control!: FormControl;
 
@@ -70,7 +71,7 @@ export class CountryStateCityComponent {
     try {
       this.FormGroup.removeControl('state');
       this.FormGroup.removeControl('city');
-    } catch (e) {}
+    } catch (e) { }
     if (this.cityList().length !== 0) {
       this.FormGroup.addControl(
         'state',
@@ -83,12 +84,34 @@ export class CountryStateCityComponent {
     this.selectedState.set(state!.isoCode);
     try {
       this.FormGroup.removeControl('city');
-    } catch (e) {}
+    } catch (e) { }
     if (this.areaList().length !== 0) {
       this.FormGroup.addControl(
         'city',
         new FormControl('', Validators.required)
       );
     }
+  }
+
+  ngOnInit(): void {
+    const value = this.FormGroup?.valueChanges.pipe(
+      filter((value) => value !== undefined),
+      take(1)
+    )
+      .subscribe(
+        (value: any) => {
+          const country = this.countryListFull().find(
+            (country) => country.name === value.country
+          );
+          this.selectedCountry.set(country!.isoCode);
+          if (value.state) {
+            const state = this.stateListFull().find(
+              (state) => state.name === value.state
+            );
+            this.selectedState.set(state!.isoCode);
+          }
+
+        }
+      )
   }
 }
