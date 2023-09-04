@@ -4,6 +4,7 @@ import * as list from '../../shared/utils/list';
 import { Store } from '@ngrx/store';
 import { selectUserProfileSetup } from '../../data-access/store/reducers';
 import { UserCareerInterestsIn } from '../../utils/models/userProfile.models';
+import { filter, map, take } from 'rxjs';
 
 @Component({
   selector: 'app-clients-setup-career-interests',
@@ -22,20 +23,21 @@ export class ClientsSetupCareerInterestsComponent implements OnInit {
   getControl(controlName: string): FormControl {
     return this.FormGroup.get(controlName) as FormControl;
   }
-
-  ngOnInit(): void {
-    this.userProfile$.subscribe((userProfile) => {
-      console.log(userProfile?.career_interests);
-      if (userProfile) {
-        const data = userProfile.career_interests;
-        let formData: UserCareerInterestsIn = {
-          ...data,
-          job_types: data!.job_types.split(','),
-          job_categories: data!.job_categories.split(','),
-        };
-        console.log(formData);
-        this.FormGroup.patchValue(formData);
-      }
-    });
-  }
+ngOnInit(): void {
+  this.userProfile$.pipe(
+    filter(userProfile => userProfile !== undefined && userProfile!.career_interests !== null),
+    map(userProfile => {
+      const { career_interests } = userProfile!;
+      return {
+        ...career_interests,
+        job_types: career_interests!.job_types.split(','),
+        job_categories: career_interests!.job_categories.split(','),
+      };
+    }),
+    take(1)
+  ).subscribe(formData => {
+    console.log(formData);
+    this.FormGroup.patchValue(formData);
+  });
+}
 }
