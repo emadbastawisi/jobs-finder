@@ -10,9 +10,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { InputComponent } from 'src/app/shared/ui/input/input.component';
 import { ClientsSetupComponent } from './clients-setup.component';
 import { MatChipsModule } from '@angular/material/chips';
-import { ClientsSetupCareerInterestsModule } from '../../ui/clients-setup-career-interests/clients-setup-career-interests.module';
-import { ClientsSetupGeneralInfoModule } from '../../ui/clients-setup-general-info/clients-setup-general-info.module';
-import { ClientsSetupProfessionalInfoModule } from '../../ui/clients-setup-professional-info/clients-setup-professional-info.module';
+import { ClientsSetupCareerInterestsModule } from './feature/clients-setup-career-interests/clients-setup-career-interests.module';
+import { ClientsSetupGeneralInfoModule } from './feature/clients-setup-general-info/clients-setup-general-info.module';
+import { ClientsSetupProfessionalInfoModule } from './feature/clients-setup-professional-info/clients-setup-professional-info.module';
 
 @NgModule({
   declarations: [ClientsSetupComponent],
@@ -34,4 +34,4 @@ import { ClientsSetupProfessionalInfoModule } from '../../ui/clients-setup-profe
   ],
   exports: [ClientsSetupComponent],
 })
-export class ClientsSetupModule {}
+export class ClientsSetupModule { }

@@ -1,15 +1,14 @@
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { ClientsService } from '../clients.service';
-import { authActions, setupActions } from './actions';
+import { authActions } from './auth.actions';
 import { map, switchMap, of, catchError, tap } from 'rxjs';
-import { UsersRegisterResponse } from '../../utils/models/users-register.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { UsersLoginResponse } from '../../utils/models/users-login';
 import { AuthService } from 'src/app/auth/auth.service';
 import { MatDialog } from '@angular/material/dialog';
-import { UserProfile } from '../../utils/models/userProfile.models';
+import { ClientsService } from 'src/app/clients/data-access/clients.service';
+import { UsersLoginResponse } from 'src/app/clients/utils/models/users-login';
+import { UsersRegisterResponse } from 'src/app/clients/utils/models/users-register.model';
 
 
 export const signupEffect = createEffect(
@@ -114,100 +113,4 @@ export const getCurrentUserEffect = createEffect(
     );
   },
   { functional: true }
-);
-
-export const getUserProfileEffect = createEffect(
-  (actions$ = inject(Actions), clientsService = inject(ClientsService)) => {
-    return actions$.pipe(
-      ofType(setupActions.getUserProfile),
-      switchMap(() => {
-        return clientsService.getUserProfile().pipe(
-          map((response) => {
-            return setupActions.getUserProfileSuccess({ response });
-          }),
-          catchError((errorResponce: HttpErrorResponse) => {
-            return of(
-              setupActions.getUserProfileFailure(errorResponce.error.detail)
-            );
-          })
-        );
-      })
-    );
-  },
-  { functional: true }
-);
-
-export const careerInterestEffect = createEffect(
-  (actions$ = inject(Actions), clientsService = inject(ClientsService)) => {
-    return actions$.pipe(
-      ofType(setupActions.careerInterest),
-      switchMap(({ request }) => {
-        return clientsService.careerInterest(request).pipe(
-          map((response: UserProfile) => {
-            console.log(response);
-            return setupActions.careerInterestSuccess({ response });
-          }),
-          catchError((errorResponce: HttpErrorResponse) => {
-            console.log(errorResponce);
-            return of(
-              setupActions.careerInterestFailure({
-                errors: errorResponce.error.detail,
-              })
-            );
-          })
-        );
-      })
-    );
-  },
-  { functional: true }
-);
-
-export const careerInterestSuccessEffect = createEffect(
-  (actions$ = inject(Actions) , clientsService = inject(ClientsService)) => {
-    return actions$.pipe(
-      ofType(setupActions.careerInterestSuccess),
-      tap((response) => {
-        clientsService.moveToNextStep();
-      }),
-    );
-  },
-  { dispatch: false, functional: true }
-);
-
-export const generalInfoEffect = createEffect(
-  (actions$ = inject(Actions), clientsService = inject(ClientsService)) => {
-    return actions$.pipe(
-      ofType(setupActions.generalInfo),
-      switchMap(({ request }) => {
-        return clientsService.generalInfo(request).pipe(
-          map((response: UserProfile) => {
-            console.log(response);
-            return setupActions.generalInfoSuccess({ response });
-          }),
-          catchError((errorResponce: HttpErrorResponse) => {
-            console.log(errorResponce);
-            return of(
-              setupActions.generalInfoFailure({
-                errors: errorResponce.error.detail,
-              })
-            );
-          })
-        );
-      })
-    );
-  },
-  { functional: true }
-);
-
-export const generalInfoSuccessEffect = createEffect(
-  (actions$ = inject(Actions) , clientsService = inject(ClientsService)) => {
-    return actions$.pipe(
-      ofType(setupActions.generalInfoSuccess),
-      tap((response) => {
-        console.log(response);
-        clientsService.moveToNextStep();
-      }),
-    );
-  },
-  { dispatch: false, functional: true }
 );

@@ -5,7 +5,7 @@
     <p>Tell companies about your professional experience.</p>
   </div>
   <div class="flex-col">
-    <form [formGroup]="FormGroup" class="form">
+    <form [formGroup]="professionalInfoForm" class="form">
       <div class="card">
         <h4 class="subtitle">Start by uploading your CV</h4>
         <app-input-file
@@ -108,5 +108,5 @@
       </div>
     </form>
   </div>
-  <p>{{ FormGroup.value | json }}</p>
+  <p>{{ professionalInfoForm.value | json }}</p>
 </div>

@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { authActions } from 'src/app/clients/data-access/store/actions';
-import { selectCurrentUser } from 'src/app/clients/data-access/store/reducers';
+import { authActions } from 'src/app/store/auth/auth.actions';
+import { selectCurrentUser } from 'src/app/store/auth/auth.reducers';
 import { ClientLoginComponent } from 'src/app/clients/feature/clients-login/client-login.component';
 
 @Component({

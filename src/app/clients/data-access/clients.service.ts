@@ -1,15 +1,15 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, computed, inject, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from 'src/environments/environment.development';
 import {
   UsersRegister,
   UsersRegisterResponse,
 } from '../utils/models/users-register.model';
-import { Subject, take } from 'rxjs';
-import { UsersKeyword } from '../utils/models/users-keywords.model';
+import { Subject } from 'rxjs';
 import { UsersLoginResponse } from '../utils/models/users-login';
 import {
+  CV,
   UserCareerInterests,
   UserPersonalInfo,
   UserProfile,
@@ -71,11 +71,23 @@ export class ClientsService {
       request
     );
   }
-    generalInfo(request: UserPersonalInfo): Observable<UserProfile> {
+  generalInfo(request: UserPersonalInfo): Observable<UserProfile> {
     console.log(request);
     return this.http.post<UserProfile>(
       environment.api.address + '/users/addPersonalInfo',
       request
+    );
+  }
+
+  cvAdd(request: CV): Observable<UserProfile> {
+    return this.http.post<UserProfile>(
+      environment.api.address + '/users/addCV',
+      request
+    );
+  }
+  cvDelete(): Observable<UserProfile> {
+    return this.http.delete<UserProfile>(
+      environment.api.address + '/users/deleteCV'
     );
   }
 }

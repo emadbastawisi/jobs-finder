@@ -9,9 +9,10 @@ import { ChipsComponent } from 'src/app/shared/ui/chips/chips.component';
 import { ChipsAutocompleteComponent } from 'src/app/shared/ui/chipsAutocomplete/chips-autocomplete.component';
 import { DatePickerComponent } from 'src/app/shared/ui/date-picker/date-picker.component';
 import { MatButtonModule } from '@angular/material/button';
-import { WorkExperienceFormModule } from '../../shared/ui/work-experience/work-experience-form.module';
-import { DegreeDetailsFormModule } from '../../shared/ui/degree-details-form/degree-details-form.module';
+
 import { InputAutocompleteComponent } from 'src/app/shared/ui/input-autocomplete/input-autocomplete.component';
+import { DegreeDetailsFormModule } from 'src/app/clients/shared/ui/degree-details-form/degree-details-form.module';
+import { WorkExperienceFormModule } from 'src/app/clients/shared/ui/work-experience/work-experience-form.module';
 
 @NgModule({
   declarations: [ClientsSetupProfessionalInfoComponent],
@@ -28,7 +29,8 @@ import { InputAutocompleteComponent } from 'src/app/shared/ui/input-autocomplete
     MatButtonModule,
     WorkExperienceFormModule,
     DegreeDetailsFormModule,
+
   ],
   exports: [ClientsSetupProfessionalInfoComponent],
 })
-export class ClientsSetupProfessionalInfoModule {}
+export class ClientsSetupProfessionalInfoModule { }

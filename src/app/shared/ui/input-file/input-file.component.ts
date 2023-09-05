@@ -1,8 +1,10 @@
 import {
   Component,
   ElementRef,
+  EventEmitter,
   HostListener,
   Input,
+  Output,
   ViewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -35,6 +37,7 @@ import { MatIconModule } from '@angular/material/icon';
 export class InputFileComponent {
   @Input() Control: FormControl = new FormControl();
   @Input() accept: string = '';
+  @Output() controlchange: EventEmitter<string> = new EventEmitter();
   // @Input() multiple: boolean = false;
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
@@ -77,8 +80,8 @@ export class InputFileComponent {
   @HostListener('drop', ['$event'])
   onDrop(event: DragEvent) {
     if (this.success) {
-          event.preventDefault();
-    this.dragover = false;
+      event.preventDefault();
+      this.dragover = false;
       return;
     }
     event.preventDefault();
@@ -87,6 +90,7 @@ export class InputFileComponent {
     this.Control.setValue(files);
     if (this.Control.valid) {
       //call api
+      this.controlchange.emit('add');
       this.success = true;
     }
   }
@@ -98,6 +102,7 @@ export class InputFileComponent {
     }
     if (this.Control.valid) {
       //call api
+      this.controlchange.emit('add');
       this.success = true;
     }
   }
@@ -105,6 +110,7 @@ export class InputFileComponent {
   removeFile() {
     this.Control.setValue(null);
     // call api
+    this.controlchange.emit('remove');
     this.fileInput.nativeElement.value = '';
     this.success = false;
   }

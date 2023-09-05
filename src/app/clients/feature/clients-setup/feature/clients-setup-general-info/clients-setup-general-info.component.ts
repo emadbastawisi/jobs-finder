@@ -1,8 +1,9 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { selectUserProfileSetup } from '../../data-access/store/reducers';
+import { selectUserProfileSetup } from '../../../../../store//setup/setup.reducers';
 import { filter, map, take } from 'rxjs';
+import { setupActions } from 'src/app/store/setup/setup.actions';
 
 @Component({
   selector: 'app-clients-setup-general-info',
@@ -10,19 +11,53 @@ import { filter, map, take } from 'rxjs';
   styleUrls: ['./clients-setup-general-info.component.css'],
 })
 export class ClientsSetupGeneralInfoComponent implements OnInit {
-  @Input() FormGroup!: FormGroup;
   store = inject(Store);
+  fb = inject(FormBuilder);
   userProfile$ = this.store.select(selectUserProfileSetup);
+  generalInfoForm: FormGroup;
 
+  constructor() {
+    this.generalInfoForm = this.fb.group({
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
+      birthdate: [null, Validators.required],
+      gender: ['', Validators.required],
+      nationality: ['', Validators.required],
+      phone: ['', Validators.required],
+      address: this.fb.group({
+        country: ['', Validators.required],
+        state: ['', Validators.required],
+        city: ['', Validators.required]
+      })
+    });
+  }
   genderChips = [' Male ', 'Female'];
 
   getControl(controlName: string): FormControl {
-    return this.FormGroup.get(controlName) as FormControl;
+    return this.generalInfoForm.get(controlName) as FormControl;
   }
 
   getFormGroup(controlName: string): FormGroup {
-    return this.FormGroup.get(controlName) as FormGroup;
+    return this.generalInfoForm.get(controlName) as FormGroup;
   }
+
+  generalInfoFormSubmit() {
+    if (this.generalInfoForm.valid) {
+      const Data = this.generalInfoForm.getRawValue();
+      Data.birthdate = Data.birthdate.toISOString();
+      Data.address = this.addressToStr(Data.address);
+      console.log(Data);
+      this.store.dispatch(setupActions.generalInfo({ request: Data }));
+    }
+  }
+
+  addressToStr(address: { [key: string]: string }): string {
+    const keys = ['country', 'state', 'city'];
+    const values = keys.map(key => address[key] || '');
+    return values.join(',');
+  }
+
+
 
   strToAddress(addressStr: string): { [key: string]: string } {
     const keys = ['country', 'state', 'city'];
@@ -51,7 +86,7 @@ export class ClientsSetupGeneralInfoComponent implements OnInit {
       take(1)
     ).subscribe(formData => {
       console.log(formData);
-      this.FormGroup.patchValue(formData);
+      this.generalInfoForm.patchValue(formData);
     });
   }
 }

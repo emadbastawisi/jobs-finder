@@ -1,56 +1,29 @@
-<mat-stepper [linear]="false" #stepper class="stepper">
-  <mat-step [stepControl]="careerInterestsForm" class="step">
-    <form [formGroup]="careerInterestsForm">
+<ng-container *ngIf="!setupState$().userProfile.isLoading ; else loading">
+<mat-stepper linear="true" #stepper class="stepper">
+  <mat-step >
       <ng-template matStepLabel>Career Interests</ng-template>
+      <ng-template matStepContent>
       <app-clients-setup-career-interests
-        [FormGroup]="careerInterestsForm"
       ></app-clients-setup-career-interests>
-      <div class="footer">
-        <button
-          class="btn"
-          color="primary"
-          mat-raised-button
-          (click)="careerInterestsFormSubmit()"
-        >
-          Save and Continue
-        </button>
-      </div>
-      <!-- <p>{{ careerInterestsForm.value | json }}</p> -->
-    </form>
+      </ng-template>
   </mat-step>
-  <mat-step [stepControl]="generalInfoForm">
+  <mat-step >
     <ng-template matStepLabel>Genral Info</ng-template>
-    <form [formGroup]="generalInfoForm">
+          <ng-template matStepContent>
       <app-clients-setup-general-info
-        [FormGroup]="generalInfoForm"
       ></app-clients-setup-general-info>
-      <div class="footer">
-        <button class="btn" color="primary" mat-button matStepperPrevious>
-          Back
-        </button>
-        <button
-          class="btn"
-          color="primary"
-          mat-raised-button
-          (click)="generalInfoFormSubmit()"
-        >
-          Save and Continue
-        </button>
-      </div>
-    </form>
+      </ng-template>
   </mat-step>
-  <mat-step [stepControl]="professionalInfoForm">
+  <mat-step >
     <ng-template matStepLabel>Professional Info</ng-template>
+          <ng-template matStepContent>
     <app-clients-setup-professional-info
-      [FormGroup]="professionalInfoForm"
     ></app-clients-setup-professional-info>
-    <div class="footer">
-      <button class="btn" color="primary" mat-button matStepperPrevious>
-        Back
-      </button>
-      <button class="btn" color="primary" mat-button (click)="stepper.reset()">
-        Reset
-      </button>
-    </div>
+    </ng-template>
   </mat-step>
 </mat-stepper>
+</ng-container>
+
+<ng-template #loading>
+  <p>loading</p>
+</ng-template>

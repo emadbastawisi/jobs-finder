@@ -5,7 +5,7 @@
     <p>Tell companies more about yourself.</p>
   </div>
   <div class="flex-col">
-    <form [formGroup]="FormGroup" class="form">
+    <form [formGroup]="generalInfoForm" class="form">
       <div class="card">
         <h4 class="subtitle">Your Personal Info</h4>
         <div >
@@ -56,6 +56,19 @@
         ></app-input>
       </div>
     </form>
-    <p>{{ FormGroup.value | json }}</p>
+    <p>{{ generalInfoForm.value | json }}</p>
+          <div class="footer">
+        <button class="btn" color="primary" mat-button matStepperPrevious>
+          Back
+        </button>
+        <button
+          class="btn"
+          color="primary"
+          mat-raised-button
+          (click)="generalInfoFormSubmit()"
+        >
+          Save and Continue
+        </button>
+      </div>
   </div>
 </div>

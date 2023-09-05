@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ClientsSetupComponent } from './clients-setup.component';
 import { authGuard } from 'src/app/auth/auth.guard';
 import { Store } from '@ngrx/store';
-import { setupActions } from '../../data-access/store/actions';
+import { setupActions } from '../../../store/setup/setup.actions';
 
 const routes: Routes = [
   {
@@ -22,4 +22,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ClientsSetupRoutingModule {}
+export class ClientsSetupRoutingModule { }

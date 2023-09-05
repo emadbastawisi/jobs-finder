@@ -2,7 +2,7 @@ import { inject } from "@angular/core"
 import { Router } from "@angular/router"
 import { map, take } from "rxjs/operators"
 import { Store } from "@ngrx/store";
-import { selectCurrentUser } from "../clients/data-access/store/reducers";
+import { selectCurrentUser } from "../store/auth/auth.reducers";
 
 export const authGuard = () => {
 

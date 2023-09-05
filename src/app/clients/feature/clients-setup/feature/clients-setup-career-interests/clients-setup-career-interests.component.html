@@ -8,7 +8,7 @@
     </p>
   </div>
   <div class="flex-col">
-    <form [formGroup]="FormGroup" class="full-width">
+    <form [formGroup]="careerInterestsForm" class="full-width">
       <div class="card">
         <h4 class="subtitle">What is your current career level?</h4>
         <app-chips
@@ -58,8 +58,18 @@
         <mat-checkbox formControlName="hide_min_salary"
           >Hide my minmum salary from companys</mat-checkbox
         >
-        <p>{{ FormGroup.value | json }}</p>
+        <p>{{ careerInterestsForm.value | json }}</p>
       </div>
     </form>
+        <div class="footer">
+        <button
+          class="btn"
+          color="primary"
+          mat-raised-button
+          (click)="careerInterestsFormSubmit()"
+        >
+          Save and Continue
+        </button>
+      </div>
   </div>
 </div>

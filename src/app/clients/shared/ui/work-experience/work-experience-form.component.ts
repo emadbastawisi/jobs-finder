@@ -1,7 +1,7 @@
 import { I } from '@angular/cdk/keycodes';
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import * as list from '../../utils/list';
+import * as list from '../../../feature/clients-setup/utils/list';
 
 @Component({
   selector: 'app-work-experience-form',

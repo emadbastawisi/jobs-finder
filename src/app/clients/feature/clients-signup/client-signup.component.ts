@@ -5,8 +5,8 @@ import { ClientsService } from '../../data-access/clients.service';
 import { UsersRegister } from '../../utils/models/users-register.model';
 import { debounceTime, map, switchMap, take } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { authActions } from '../../data-access/store/actions';
-import { selectIsSubmitting } from '../../data-access/store/reducers';
+import { authActions } from '../../../store/auth/auth.actions';
+import { selectIsSubmitting } from '../../../store/auth/auth.reducers';
 
 
 
