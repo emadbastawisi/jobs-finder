@@ -3,6 +3,8 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Vali
 import * as list from '../../utils/list';
 import { Store } from '@ngrx/store';
 import { selectUserProfileSetup } from 'src/app/store//setup/setup.reducers';
+import { setupActions } from 'src/app/store/setup/setup.actions';
+import { CV } from 'src/app/clients/utils/models/userProfile.models';
 
 @Component({
   selector: 'app-clients-setup-professional-info',
@@ -169,10 +171,15 @@ export class ClientsSetupProfessionalInfoComponent {
 
   onCvChange(event: any) {
     if (event === 'add') {
-
+      const CV: CV = {
+        cv_name: this.getControl('cv').value[0].name,
+        cv_file: this.getControl('cv').value[0]
+      };
+      console.log(CV);
+      this.store.dispatch(setupActions.addCV({ request: CV }));
     }
     if (event === 'remove') {
-
+      // this.store.dispatch(setupActions.deleteCV());
     }
   }
 }

@@ -148,12 +148,5 @@ export const {
   name: setupFeatureKey,
   reducer: setupReducer,
   selectSetupState,
-  selectUserProfile,
   selectUserProfileSetup,
-  selectCareerInterest,
-  selectGeneralInfo,
-  selectProfessionalInfo,
-  selectCv,
-  selectWorkExperience,
-  selectLanguage,
 } = setupFeature;

@@ -11,6 +11,7 @@
         <app-input-file
           [Control]="getControl('cv')"
           accept=", .doc, .docx, .pdf"
+          (controlchange)="onCvChange($event)"
         ></app-input-file>
       </div>
       <div class="card">

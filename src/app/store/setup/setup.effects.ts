@@ -102,3 +102,28 @@ export const generalInfoSuccessEffect = createEffect(
   },
   { dispatch: false, functional: true }
 );
+
+export const addCVEffect = createEffect(
+  (actions$ = inject(Actions), clientsService = inject(ClientsService)) => {
+    return actions$.pipe(
+      ofType(setupActions.addCV),
+      switchMap(({ request }) => {
+        return clientsService.addCV(request).pipe(
+          map((response: UserProfile) => {
+            console.log(response);
+            return setupActions.addCVSuccess({ response });
+          }),
+          catchError((errorResponce: HttpErrorResponse) => {
+            console.log(errorResponce);
+            return of(
+              setupActions.addCVFailure({
+                errors: errorResponce.error.detail,
+              })
+            );
+          })
+        );
+      })
+    );
+  },
+  { functional: true }
+);

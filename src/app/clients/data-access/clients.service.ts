@@ -79,13 +79,13 @@ export class ClientsService {
     );
   }
 
-  cvAdd(request: CV): Observable<UserProfile> {
+  addCV(request: CV): Observable<UserProfile> {
     return this.http.post<UserProfile>(
       environment.api.address + '/users/addCV',
       request
     );
   }
-  cvDelete(): Observable<UserProfile> {
+  deleteCV(): Observable<UserProfile> {
     return this.http.delete<UserProfile>(
       environment.api.address + '/users/deleteCV'
     );
