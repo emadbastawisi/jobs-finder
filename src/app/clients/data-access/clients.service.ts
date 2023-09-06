@@ -14,14 +14,19 @@ import {
   UserPersonalInfo,
   UserProfile,
 } from '../utils/models/userProfile.models';
+import { Store } from '@ngrx/store';
+import { selectUserProfileSetup } from 'src/app/store/setup/setup.reducers';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ClientsService {
   http = inject(HttpClient);
+  store = inject(Store);
+  userProfile$ = this.store.selectSignal(selectUserProfileSetup);
   private _moveToNextStep = new Subject<void>();
   moveToNextStep$ = this._moveToNextStep.asObservable();
+
 
   moveToNextStep() {
     this._moveToNextStep.next();
@@ -79,7 +84,13 @@ export class ClientsService {
     );
   }
 
-  addCV(request: CV): Observable<UserProfile> {
+  getCV(): Observable<Blob> {
+    return this.http.get(
+      environment.api.address + '/users/cv', { responseType: 'blob' }
+    );
+  }
+
+  addCV(request: FormData): Observable<UserProfile> {
     return this.http.post<UserProfile>(
       environment.api.address + '/users/addCV',
       request

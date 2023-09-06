@@ -117,6 +117,29 @@ const setupFeature = createFeature({
         validationErrors: action.errors,
       },
     })),
+    on(setupActions.getCV, (state) => ({
+      ...state,
+      cv: {
+        ...state.cv,
+        isLoading: true,
+        validationErrors: null,
+      },
+    })),
+    on(setupActions.getCVSuccess, (state, action) => ({
+      ...state,
+      cv: {
+        ...state.cv,
+        isLoading: false,
+      },
+    })),
+    on(setupActions.getCVFailure, (state, action) => ({
+      ...state,
+      cv: {
+        ...state.cv,
+        isLoading: false,
+        validationErrors: action.errors,
+      },
+    })),
     on(setupActions.addCV, (state) => ({
       ...state,
       cv: {
@@ -134,6 +157,30 @@ const setupFeature = createFeature({
       },
     })),
     on(setupActions.addCVFailure, (state, action) => ({
+      ...state,
+      cv: {
+        ...state.cv,
+        isSubmitting: false,
+        validationErrors: action.errors,
+      },
+    })),
+    on(setupActions.deleteCV, (state) => ({
+      ...state,
+      cv: {
+        ...state.cv,
+        isSubmitting: true,
+        validationErrors: null,
+      },
+    })),
+    on(setupActions.deleteCVSuccess, (state, action) => ({
+      ...state,
+      userProfileSetup: action.response,
+      cv: {
+        ...state.cv,
+        isSubmitting: false,
+      },
+    })),
+    on(setupActions.deleteCVFailure, (state, action) => ({
       ...state,
       cv: {
         ...state.cv,
