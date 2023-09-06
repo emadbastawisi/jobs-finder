@@ -16,6 +16,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { filter, take } from 'rxjs';
 
 @Component({
   selector: 'app-input-file',
@@ -42,7 +43,7 @@ export class InputFileComponent {
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
   dragover = false;
-  success = false;
+
   getErrorMessage(key: any): string {
     return this.errorMessages[key as string];
   }
@@ -55,9 +56,6 @@ export class InputFileComponent {
 
   @HostListener('dragover', ['$event'])
   onDragOver(event: DragEvent) {
-    if (this.success) {
-      return;
-    }
     event.preventDefault();
     event.stopPropagation();
     this.dragover = true;
@@ -65,9 +63,6 @@ export class InputFileComponent {
 
   @HostListener('dragleave', ['$event'])
   onDragLeave(event: DragEvent) {
-    if (this.success) {
-      return;
-    }
     event.preventDefault();
     if (
       (event.currentTarget as HTMLElement).contains(event.relatedTarget as Node)
@@ -79,11 +74,6 @@ export class InputFileComponent {
 
   @HostListener('drop', ['$event'])
   onDrop(event: DragEvent) {
-    if (this.success) {
-      event.preventDefault();
-      this.dragover = false;
-      return;
-    }
     event.preventDefault();
     this.dragover = false;
     const files = event.dataTransfer!.files;
@@ -91,7 +81,6 @@ export class InputFileComponent {
     if (this.Control.valid) {
       //call api
       this.controlchange.emit('add');
-      this.success = true;
     }
   }
 
@@ -103,16 +92,13 @@ export class InputFileComponent {
     if (this.Control.valid) {
       //call api
       this.controlchange.emit('add');
-      this.success = true;
     }
   }
 
   removeFile() {
     this.Control.setValue(null);
     // call api
-    this.controlchange.emit('remove');
     this.fileInput.nativeElement.value = '';
-    this.success = false;
   }
   // remove for multiple files
   removeFileMultiple(index: number) {
