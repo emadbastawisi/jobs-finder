@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { selectUserProfileSetup } from 'src/app/store//setup/setup.reducers';
 import { setupActions } from 'src/app/store/setup/setup.actions';
 import { CV } from 'src/app/clients/utils/models/userProfile.models';
+import { ClientsService } from 'src/app/clients/data-access/clients.service';
 
 @Component({
   selector: 'app-clients-setup-professional-info',
@@ -22,7 +23,9 @@ export class ClientsSetupProfessionalInfoComponent {
 
   store = inject(Store);
   fb = inject(FormBuilder);
-  userProfile$ = this.store.select(selectUserProfileSetup);
+  userProfile$ = this.store.selectSignal(selectUserProfileSetup);
+
+  clientsService = inject(ClientsService);
 
   professionalInfoForm: FormGroup;
 
@@ -169,17 +172,17 @@ export class ClientsSetupProfessionalInfoComponent {
     };
   }
 
-  onCvChange(event: any) {
-    if (event === 'add') {
-      const CV: CV = {
-        cv_name: this.getControl('cv').value[0].name,
-        cv_file: this.getControl('cv').value[0]
-      };
-      console.log(CV);
-      this.store.dispatch(setupActions.addCV({ request: CV }));
-    }
-    if (event === 'remove') {
-      // this.store.dispatch(setupActions.deleteCV());
-    }
+  deleteCV() {
+    this.store.dispatch(setupActions.deleteCV());
+  }
+  getCV() {
+    this.store.dispatch(setupActions.getCV());
+  }
+
+  addCV(event: any) {
+    const CV: FormData = new FormData();
+    CV.append('file', this.getControl('cv').value[0]);
+    this.store.dispatch(setupActions.addCV({ request: CV }));
   }
 }
+
