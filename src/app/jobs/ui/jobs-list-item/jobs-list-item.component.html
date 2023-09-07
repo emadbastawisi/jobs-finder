@@ -1,16 +1,57 @@
-<mat-card class="card">
-  <mat-card-header>
-    <mat-card-title-group>
-      <mat-card-title>{{ job.title }}</mat-card-title>
-      <mat-card-subtitle>{{ job.company }}-{{ job.location }}</mat-card-subtitle>
-      <mat-card-subtitle>{{ job.type }}</mat-card-subtitle>
-      <mat-card-subtitle>{{ job.created_at }}</mat-card-subtitle>
-    </mat-card-title-group>
-  </mat-card-header>
-  <mat-card-content>
-    {{ job.skills }}
-  </mat-card-content>
-  <mat-card-actions>
-    <a mat-raised-button color="primary" class="btn" href="{{job.link}}" target="_blank">More details</a>
-  </mat-card-actions>
-</mat-card>
+<ng-container *ngIf="job.title != ''; else loading">
+  <mat-card class="card">
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title>{{ job.title }}</mat-card-title>
+        <mat-card-subtitle
+          >{{ job.company }}-{{ job.location }}</mat-card-subtitle
+        >
+        <mat-card-subtitle>{{ job.type }}</mat-card-subtitle>
+        <mat-card-subtitle>{{ job.created_at }}</mat-card-subtitle>
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-card-content>
+      {{ job.skills }}
+    </mat-card-content>
+    <mat-card-actions>
+      <a
+        mat-raised-button
+        color="primary"
+        class="btn"
+        href="{{ job.link }}"
+        target="_blank"
+        >More details</a
+      >
+    </mat-card-actions>
+  </mat-card>
+</ng-container>
+
+<!-- skeleton template -->
+<ng-template #loading>
+  <mat-card class="card-loading">
+    <mat-card-header>
+      <mat-card-title-group style="display: block">
+        <mat-card-title>
+          <div class="skeleton skeleton-title"></div>
+        </mat-card-title>
+        <mat-card-subtitle>
+          <div class="skeleton skeleton-company"></div>
+        </mat-card-subtitle>
+        <mat-card-subtitle>
+          <div class="skeleton skeleton-subtitle"></div>
+        </mat-card-subtitle>
+        <mat-card-subtitle>
+          <div class="skeleton skeleton-subtitle"></div>
+        </mat-card-subtitle>
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="skeleton skeleton-text"></div>
+      <div class="skeleton skeleton-text"></div>
+      <div class="skeleton skeleton-text"></div>
+    </mat-card-content>
+    <mat-card-actions>
+      <div class="skeleton skeleton-button"></div>
+    </mat-card-actions>
+  </mat-card>
+</ng-template>
