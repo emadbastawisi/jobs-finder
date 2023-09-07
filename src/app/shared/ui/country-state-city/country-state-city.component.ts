@@ -94,24 +94,18 @@ export class CountryStateCityComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const value = this.FormGroup?.valueChanges.pipe(
-      filter((value) => value !== undefined),
-      take(1)
-    )
-      .subscribe(
-        (value: any) => {
-          const country = this.countryListFull().find(
-            (country) => country.name === value.country
-          );
-          this.selectedCountry.set(country!.isoCode);
-          if (value.state) {
-            const state = this.stateListFull().find(
-              (state) => state.name === value.state
-            );
-            this.selectedState.set(state!.isoCode);
-          }
-
-        }
-      )
+    if (this.FormGroup?.value) {
+      const value = this.FormGroup.value
+      const country = this.countryListFull().find(
+        (country) => country.name === value.country
+      );
+      this.selectedCountry.set(country!.isoCode);
+      if (value.state) {
+        const state = this.stateListFull().find(
+          (state) => state.name === value.state
+        );
+        this.selectedState.set(state!.isoCode);
+      }
+    }
   }
 }
