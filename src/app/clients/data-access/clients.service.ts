@@ -13,6 +13,7 @@ import {
   UserCareerInterests,
   UserPersonalInfo,
   UserProfile,
+  UserWorkExperience,
 } from '../utils/models/userProfile.models';
 import { Store } from '@ngrx/store';
 import { selectUserProfileSetup } from 'src/app/store/setup/setup.reducers';
@@ -99,6 +100,13 @@ export class ClientsService {
   deleteCV(): Observable<UserProfile> {
     return this.http.delete<UserProfile>(
       environment.api.address + '/users/deleteCV'
+    );
+  }
+
+  addWorkExperience(request: UserWorkExperience): Observable<UserProfile> {
+    return this.http.post<UserProfile>(
+      environment.api.address + '/users/addWorkExperience',
+      request
     );
   }
 }

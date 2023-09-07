@@ -13,6 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { InputAutocompleteComponent } from 'src/app/shared/ui/input-autocomplete/input-autocomplete.component';
 import { DegreeDetailsFormModule } from 'src/app/clients/shared/ui/degree-details-form/degree-details-form.module';
 import { WorkExperienceFormModule } from 'src/app/clients/shared/ui/work-experience/work-experience-form.module';
+import { WorkExperienceCardModule } from 'src/app/clients/shared/ui/work-experience-card/work-experience-card.module';
 
 @NgModule({
   declarations: [ClientsSetupProfessionalInfoComponent],
@@ -29,6 +30,7 @@ import { WorkExperienceFormModule } from 'src/app/clients/shared/ui/work-experie
     MatButtonModule,
     WorkExperienceFormModule,
     DegreeDetailsFormModule,
+    WorkExperienceCardModule
 
   ],
   exports: [ClientsSetupProfessionalInfoComponent],

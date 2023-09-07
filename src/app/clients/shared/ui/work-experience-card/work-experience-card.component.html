@@ -1,0 +1,16 @@
+<mat-card class="card">
+  <mat-card-header>
+    <mat-card-title>{{ workExperience!.job_title }}</mat-card-title>
+    <mat-card-subtitle>{{ workExperience!.company_name }}</mat-card-subtitle>
+    <mat-card-subtitle>{{ workExperience!.experience_type }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p>{{ startDate }} - {{ endDate }} - {{ workTime }}</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" style="margin-right: 1rem">
+      Edit
+    </button>
+    <button mat-raised-button color="primary">Delete</button>
+  </mat-card-actions>
+</mat-card>

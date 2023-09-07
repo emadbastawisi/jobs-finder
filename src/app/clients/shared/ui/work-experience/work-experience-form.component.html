@@ -7,7 +7,7 @@
     type="text"
   ></app-input>
   <app-input
-    [Control]="getControl('company')"
+    [Control]="getControl('company_name')"
     label="Company/Organization"
     type="text"
   ></app-input>
@@ -31,7 +31,7 @@
     [Control]="getControl('start_date')"
   ></app-date-picker>
   <app-date-picker
-    *ngIf="getControl('work_there').value === false"
+    *ngIf="getControl('work_there').value !== true"
     [label]="'End date'"
     [Control]="getControl('end_date')"
   ></app-date-picker>
@@ -39,10 +39,6 @@
     [formControl]="getControl('work_there')"
     (change)="onWorkThereChange($event)"
   >
-    >I currently work there</mat-checkbox
+    I currently work there</mat-checkbox
   >
-  <!-- <div class="option-btns">
-          <button mat-raised-button color="primary" [disabled]="FormGroup.invalid"> Save </button>
-          <button mat-raised-button color="primary" > Cancel </button>
-        </div> -->
 </div>

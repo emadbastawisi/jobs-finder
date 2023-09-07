@@ -4,7 +4,7 @@ import * as list from '../../utils/list';
 import { Store } from '@ngrx/store';
 import { selectUserProfileSetup } from 'src/app/store//setup/setup.reducers';
 import { setupActions } from 'src/app/store/setup/setup.actions';
-import { CV } from 'src/app/clients/utils/models/userProfile.models';
+import { CV, UserWorkExperience } from 'src/app/clients/utils/models/userProfile.models';
 import { ClientsService } from 'src/app/clients/data-access/clients.service';
 
 @Component({
@@ -43,7 +43,7 @@ export class ClientsSetupProfessionalInfoComponent {
       years_of_experience: [null, Validators.required],
       work_experience: this.fb.group({
         job_title: ['', Validators.required],
-        company: ['', Validators.required],
+        company_name: ['', Validators.required],
         job_category: [[], Validators.required],
         experience_type: ['', Validators.required],
         start_date: ['', Validators.required],
@@ -183,6 +183,19 @@ export class ClientsSetupProfessionalInfoComponent {
     const CV: FormData = new FormData();
     CV.append('file', this.getControl('cv').value[0]);
     this.store.dispatch(setupActions.addCV({ request: CV }));
+  }
+
+  onWorkExperienceCancel() {
+    this.professionalInfoForm.removeControl('work_experience');
+  }
+  onWorkExperienceSave() {
+    const Data = this.getFormGroup('work_experience').value;
+    Data.job_category = Data.job_category.join(',');
+    Data.start_date = Data.start_date.toISOString();
+    Data.end_date = Data.end_date.toISOString();
+    console.log(this.getFormGroup('work_experience').value);
+    this.store.dispatch(setupActions.addWorkExperience({ request: this.getFormGroup('work_experience').value }));
+    this.getFormGroup('work_experience').reset();
   }
 }
 

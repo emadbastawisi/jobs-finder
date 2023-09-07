@@ -195,3 +195,28 @@ export const deleteCVEffect = createEffect(
   },
   { functional: true }
 );
+
+export const addWorkExperienceEffect = createEffect(
+  (actions$ = inject(Actions), clientsService = inject(ClientsService)) => {
+    return actions$.pipe(
+      ofType(setupActions.addWorkExperience),
+      switchMap(({ request }) => {
+        return clientsService.addWorkExperience(request).pipe(
+          map((response: UserProfile) => {
+            console.log(response);
+            return setupActions.addWorkExperienceSuccess({ response });
+          }),
+          catchError((errorResponce: HttpErrorResponse) => {
+            console.log(errorResponce);
+            return of(
+              setupActions.addWorkExperienceFailure({
+                errors: errorResponce.error.detail,
+              })
+            );
+          })
+        );
+      })
+    );
+  },
+  { functional: true }
+);

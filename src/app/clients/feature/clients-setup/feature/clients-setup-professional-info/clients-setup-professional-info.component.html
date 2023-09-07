@@ -44,26 +44,44 @@
         "
       >
         <div class="card">
-          <app-work-experience-form
-            [FormGroup]="getFormGroup('work_experience')"
-          ></app-work-experience-form>
-          <div class="option-btns">
-            <button
-              mat-raised-button
-              color="primary"
-              [disabled]="getFormGroup('work_experience').invalid"
-            >
-              Save
-            </button>
-            <button
-              mat-raised-button
-              color="primary"
-              [disabled]="getFormGroup('work_experience').invalid"
-            >
-              Save & Add More
-            </button>
-            <button mat-raised-button color="primary">Cancel</button>
-          </div>
+          <h4 class="subtitle">What is your work experience?</h4>
+          <ng-container *ngIf="userProfile$()!.work_experience!.length === 0">
+            <app-work-experience-form
+              [FormGroup]="getFormGroup('work_experience')"
+            ></app-work-experience-form>
+            <ng-container>
+              <div class="option-btns">
+                <button
+                  class="btn"
+                  mat-raised-button
+                  color="primary"
+                  [disabled]="getFormGroup('work_experience').invalid"
+                  (click)="onWorkExperienceSave()"
+                >
+                  Save
+                </button>
+                <button
+                  *ngIf="userProfile$()!.work_experience!.length !== 0"
+                  class="btn"
+                  mat-raised-button
+                  color="primary"
+                  (click)="onWorkExperienceCancel()"
+                >
+                  Cancel
+                </button>
+              </div>
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="userProfile$()!.work_experience!.length !== 0">
+            <app-work-experience-card
+              *ngFor="let workExperience of userProfile$()!.work_experience"
+              [workExperience]="workExperience"
+            ></app-work-experience-card>
+            <p>
+              You have successfully saved
+              {{ userProfile$()!.work_experience!.length }} work experience.
+            </p>
+          </ng-container>
         </div>
       </ng-container>
       <div class="card">

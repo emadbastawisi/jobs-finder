@@ -51,10 +51,10 @@ export interface IMG {
 }
 
 export interface UserWorkExperience {
-  job_title: string;
-  company: string;
-  job_category: string[];
   experience_type: string;
+  job_title: string;
+  job_category: string;
+  company_name: string;
   start_date: string;
   end_date?: string;
   work_there: boolean;

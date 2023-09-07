@@ -2,15 +2,19 @@
   width: 100%;
 }
 .label {
-width: 50%;
+  width: 50%;
 }
-
+.container {
+  width: 70%;
+}
 @media screen and (max-width: 768px) {
   .label {
-width: 100%;
+    width: 100%;
   }
   .flex-row {
     flex-direction: column;
   }
-  
+  .container {
+    width: 100%;
+  }
 }
