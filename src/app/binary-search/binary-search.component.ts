@@ -3,19 +3,12 @@ import { Form, FormControl } from '@angular/forms';
 
 interface SearchState {
   number: number;
-  list: number[];
-  disabled: number[];
-  leftList: number[];
-  rightList: number[];
-  middle: number;
+  list: { value: number; state: string }[];
   stages: number;
   currentStage: number;
   found: boolean;
 }
-interface chipState {
-  label: string;
-  state: string;
-}
+
 
 @Component({
   selector: 'app-binary-search',
@@ -30,21 +23,15 @@ export class BinarySearchComponent {
   searchState = signal<SearchState>({
     number: 0,
     list: [],
-    disabled: [],
-    leftList: [],
-    rightList: [],
-    middle: 0,
     stages: 0,
     currentStage: 0,
     found: false
   });
   step_number = 0;
   state = computed(() => this.searchState());
-  list = computed(() => this.searchState().list.map(String));
-  disabled = computed(() => this.searchState().disabled.map(String));
-  left = computed(() => this.searchState().leftList.map(String));
-  right = computed(() => this.searchState().rightList.map(String));
-  middle = computed(() => this.searchState().list[this.searchState().middle]?.toString());
+  list = computed(() => this.searchState().list.map(item => {
+    return { value: item.value.toString(), state: item.state };
+  }));
   stages = computed(() => this.searchState().stages);
   currentStage = computed(() => this.searchState().currentStage);
 
@@ -58,11 +45,19 @@ export class BinarySearchComponent {
     this.step_number = 0
     this.searchState.mutate((state) => {
       state.number = this.number.value;
-      state.list = this.createRange(parseInt(this.startNumber.value), parseInt(this.endNumber.value));
-      state.middle = Math.floor(state.list.length / 2);
-      state.leftList = state.list.slice(0, state.middle);
-      state.rightList = state.list.slice(state.middle + 1, state.list.length);
-      state.disabled = [];
+      const range = this.createRange(parseInt(this.startNumber.value), parseInt(this.endNumber.value));
+      const middleIndex = Math.floor((range.length - 1) / 2);
+      state.list = range.map((value, index) => {
+        let chipState: string;
+        if (index < middleIndex) {
+          chipState = 'left';
+        } else if (index > middleIndex) {
+          chipState = 'right';
+        } else {
+          chipState = 'middle';
+        }
+        return { value: value, state: chipState };
+      });
       state.stages = Math.ceil(Math.log2(state.list.length));
       state.currentStage = 0;
       state.found = false;
@@ -76,7 +71,6 @@ export class BinarySearchComponent {
     let left = 0;
     let right = list.length - 1;
     let mid = Math.floor((left + right) / 2);
-    state.disabled = [];
     state.currentStage = 0;
     for (let i = 0; i < steps; i++) {
       if (left > right) {
@@ -86,39 +80,34 @@ export class BinarySearchComponent {
         return;
       }
 
-      if (list[mid] == state.number) {
+      if (list[mid].value == state.number) {
         // The number is found, update the state and return
         state.found = true
         this.searchState.set({
           ...state,
-          middle: mid,
-          disabled: state.leftList.concat(state.rightList, state.disabled),
-          leftList: [],
-          rightList: [],
+          list: list.map((item, index) => index !== mid ? { ...item, state: 'disabled' } : { ...item, state: 'middle' }),
           found: true
         });
         console.log('found');
         return;
-      } else if (list[mid] < state.number) {
+      } else if (list[mid].value < state.number) {
         left = mid + 1;
-        state.disabled = state.disabled.concat(list.slice(0, left));
+        state.list = state.list.map((item, index) => index < left ? { ...item, state: 'disabled' } : item);
 
       } else {
         right = mid - 1;
-        state.disabled = list.slice(right + 1, list.length).concat(state.disabled);
+        state.list = state.list.map((item, index) => (index > right && index < list.length) ? { ...item, state: 'disabled' } : item);
       }
+      console.log(left, right)
       mid = Math.floor((left + right) / 2);
       console.log(mid)
       // Update the left and right list in the 
-
-      state.leftList = list.slice(left, mid);
-      state.rightList = list.slice(mid + 1, right + 1);
-
+      state.list = state.list.map((item, index) => (index >= left && index < mid) ? { ...item, state: 'left' } : item);
+      state.list = state.list.map((item, index) => (index >= mid + 1 && index < right + 1) ? { ...item, state: 'right' } : item);
+      state.list = state.list.map((item, index) => (index == mid) ? { ...item, state: 'middle' } : item);
       console.log(state);
       // Update the current stage and middle index in the state
       state.currentStage++;
-      state.middle = mid;
-
     }
 
     // Update the state after all steps if necessar
@@ -131,13 +120,23 @@ export class BinarySearchComponent {
 
   nextStage(): void {
     this.step_number++;
+    if (this.searchState().found) {
+      this.step_number--;
+    }
     this.searchSteps(this.step_number);
+    console.log(this.step_number);
   }
 
 
   prevStage(): void {
     this.step_number--;
-    this.searchSteps(this.step_number);
+    if (this.step_number <= 0) {
+      this.findNumber();
+      this.step_number = 0;
+    } else {
+      this.searchSteps(this.step_number);
+    }
+
   }
 
 }

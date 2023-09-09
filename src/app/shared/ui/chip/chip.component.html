@@ -31,12 +31,18 @@
 </mat-chip-set> -->
 <mat-chip-set>
   <mat-chip
-    *ngFor="let chip of chips"
-    [highlighted]="chip.highlighted"
-    [color]="chip.color"
-    [disabled]="chip.disabled"
+    *ngFor="let chip of list"
+    [highlighted]="chip.state === 'left' || chip.state === 'right'"
+    [color]="
+      chip.state === 'left'
+        ? 'primary'
+        : chip.state === 'right'
+        ? 'accent'
+        : null
+    "
+    [disabled]="chip.state === 'disabled'"
     class="chip"
   >
-    {{ chip.label }}
+    {{ chip.value }}
   </mat-chip>
 </mat-chip-set>
