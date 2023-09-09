@@ -32,6 +32,14 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'binarySearch',
+    loadChildren: () =>
+      import('./binary-search/binary-search.module').then(
+        (m) => m.BinarySearchModule
+      ),
+
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
