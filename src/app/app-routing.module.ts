@@ -40,6 +40,13 @@ const routes: Routes = [
 
   },
   {
+    path: 'simpleSearch',
+    loadChildren: () =>
+      import('./simple-search/simple-search.module').then(
+        (m) => m.SimpleSearchModule
+      ),
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
