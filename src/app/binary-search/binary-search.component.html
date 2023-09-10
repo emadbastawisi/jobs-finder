@@ -1,20 +1,59 @@
-<h4>Enter the number you want to find</h4>
-<app-input type="number" label="number" [Control]="number"></app-input>
-<h4>Enter the list range you want to search in</h4>
-<app-input
-  type="number"
-  label="start number"
-  [Control]="startNumber"
-></app-input>
-<app-input type="number" label="end number" [Control]="endNumber"></app-input>
-<button class="btn" color="primary" mat-raised-button (click)="findNumber()">
-  Find Number
-</button>
-<button class="btn" color="primary" mat-raised-button (click)="nextStage()">
-  Next Stage
-</button>
-<button class="btn" color="primary" mat-raised-button (click)="prevStage()">
-  Prev Stage
-</button>
-
-<app-chip [list]="list()"></app-chip>
+<div class="container">
+  <div class="form flex-col">
+    <div class="full-width">
+      <h4>Enter the number you want to find</h4>
+      <app-input type="number" label="number" [Control]="number"></app-input>
+    </div>
+    <div class="flex-row full-width">
+      <div class="half-width">
+        <h4>Enter the ordered list start number</h4>
+        <app-input
+          type="number"
+          label="start number"
+          [Control]="startNumber"
+        ></app-input>
+      </div>
+      <div class="half-width">
+        <h4>Enter the ordered list start number</h4>
+        <app-input
+          type="number"
+          label="end number"
+          [Control]="endNumber"
+        ></app-input>
+      </div>
+    </div>
+  </div>
+  <div class="buttons">
+    <div class="full-width">
+      <button
+        class="btn full-width"
+        color="primary"
+        mat-raised-button
+        (click)="findNumber()"
+      >
+        Find Number
+      </button>
+    </div>
+    <div class="full-width flex-row">
+      <button
+        class="btn half-width"
+        color="primary"
+        mat-raised-button
+        (click)="nextStage()"
+      >
+        Next Stage
+      </button>
+      <button
+        class="btn half-width"
+        color="primary"
+        mat-raised-button
+        (click)="prevStage()"
+      >
+        Prev Stage
+      </button>
+    </div>
+  </div>
+  <div class="chips">
+    <app-chip [list]="list()"></app-chip>
+  </div>
+</div>
