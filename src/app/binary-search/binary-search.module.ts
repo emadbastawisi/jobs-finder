@@ -8,6 +8,8 @@ import { ChipComponent } from '../shared/ui/chip/chip.component';
 import { InputComponent } from '../shared/ui/input/input.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { MatChipsModule } from '@angular/material/chips';
     ChipComponent,
     InputComponent,
     MatButtonModule,
-    MatChipsModule
+    MatChipsModule,
+    ReactiveFormsModule,
+    MatSnackBarModule
   ],
   exports: [BinarySearchComponent]
 })

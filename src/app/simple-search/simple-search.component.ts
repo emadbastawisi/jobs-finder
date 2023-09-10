@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 interface stepState {
@@ -14,17 +14,22 @@ interface stepState {
 })
 export class SimpleSearchComponent {
   _snackBar = inject(MatSnackBar)
-  number: FormControl = new FormControl();
-  startNumber: FormControl = new FormControl();
-  endNumber: FormControl = new FormControl();
+  FormGroup = new FormGroup({
+    number: new FormControl('', (Validators.required)),
+    startNumber: new FormControl('', (Validators.required)),
+    endNumber: new FormControl('', (Validators.required)),
+  })
+  getControl(controlName: string): FormControl {
+    return this.FormGroup.get(controlName) as FormControl;
+  }
   searchState = signal<stepState>({
     found: false,
     list: [],
   });
-  list = computed (() => this.searchState().list);
+  list = computed(() => this.searchState().list);
   searchStatus = computed(() => this.searchState().found);
   openSnackBar(message: string) {
-    this._snackBar.open(message , 'Close', {
+    this._snackBar.open(message, 'Close', {
       duration: 2000,
     });
 
@@ -36,41 +41,41 @@ export class SimpleSearchComponent {
       .map((n, index) => start + index);
   }
 
-async findNumber(): Promise<void> {
+  async findNumber(): Promise<void> {
     this.searchState.set({
       found: false,
       list: [],
     })
-    const arr = this.createRange(parseInt(this.startNumber.value), parseInt(this.endNumber.value));
-    const target = parseInt(this.number.value);
-      this.searchState.set({
-          found: false,
-          list: arr.map((n, index) => ({
-            value: n,
-            state: index === 0 ? 'left' : 'middle',
-          }))
-        })
-    await  this.linearSearch(arr, target, 200);
+    const arr = this.createRange(parseInt(this.getControl('startNumber').value), parseInt(this.getControl('endNumber').value));
+    const target = parseInt(this.getControl('number').value);
+    this.searchState.set({
+      found: false,
+      list: arr.map((n, index) => ({
+        value: n,
+        state: index === 0 ? 'left' : 'middle',
+      }))
+    })
+    await this.linearSearch(arr, target, 200);
     this.openSnackBar(this.searchState().found ? 'Found' : 'Not Found');
   }
 
   async linearSearch(arr: number[], target: number, debounceTime: number): Promise<void> {
     for (let i = 0; i < arr.length; i++) {
-        await new Promise(resolve => setTimeout(resolve, debounceTime));
-        if (arr[i] === target) {
-            this.searchState.mutate((state) => {
-                state.found = true;
-            });
-            
-            break;
-        } else {
-            this.searchState.mutate((state) => {
-                state.found = false;
-                state.list[i].state = 'disabled';
-                if(i+1< arr.length) state.list[i + 1].state = 'left';
-            });
-        }
+      await new Promise(resolve => setTimeout(resolve, debounceTime));
+      if (arr[i] === target) {
+        this.searchState.mutate((state) => {
+          state.found = true;
+        });
+
+        break;
+      } else {
+        this.searchState.mutate((state) => {
+          state.found = false;
+          state.list[i].state = 'disabled';
+          if (i + 1 < arr.length) state.list[i + 1].state = 'left';
+        });
+      }
     }
-}
-  
+  }
+
 }

@@ -1,8 +1,12 @@
 <div class="container">
-  <div class="form flex-col">
+  <form [formGroup]="FormGroup" class="form flex-col">
     <div class="full-width">
       <h4>Enter the number you want to find</h4>
-      <app-input type="number" label="number" [Control]="number"></app-input>
+      <app-input
+        type="number"
+        label="number"
+        [Control]="getControl('number')"
+      ></app-input>
     </div>
     <div class="flex-row full-width">
       <div class="half-width">
@@ -10,7 +14,7 @@
         <app-input
           type="number"
           label="start number"
-          [Control]="startNumber"
+          [Control]="getControl('startNumber')"
         ></app-input>
       </div>
       <div class="half-width">
@@ -18,17 +22,18 @@
         <app-input
           type="number"
           label="end number"
-          [Control]="endNumber"
+          [Control]="getControl('endNumber')"
         ></app-input>
       </div>
     </div>
-  </div>
+  </form>
   <div class="buttons">
     <div class="full-width">
       <button
         class="btn full-width"
         color="primary"
         mat-raised-button
+        [disabled]="!FormGroup.valid"
         (click)="findNumber()"
       >
         Find Number
@@ -40,7 +45,9 @@
         color="primary"
         mat-raised-button
         (click)="nextStage()"
-        [disabled]="step_number() === state().list.length - 1"
+        [disabled]="
+          step_number() === state().list.length - 1 || step_number() == -1
+        "
       >
         Next Stage
       </button>
@@ -49,19 +56,20 @@
         color="primary"
         mat-raised-button
         (click)="prevStage()"
-        [disabled]="step_number() === 0"
+        [disabled]="step_number() <= 0"
       >
         Prev Stage
       </button>
     </div>
   </div>
   <ng-container *ngIf="state().list.length">
-  <p>Current Step : {{step_number() +1}}</p>
-  <p *ngIf="state().list.at(-1)!.found">Found in : {{state().list.length}} Steps</p>
-  <p *ngIf="!state().list.at(-1)!.found">Not Found</p>
-  <div class="form">
-    <app-chip [list]="list()"></app-chip>
-  </div>
+    <p>Current Step : {{ step_number() + 1 }}</p>
+    <p *ngIf="state().list.at(-1)!.found">
+      Found in : {{ state().list.length }} Steps
+    </p>
+    <p *ngIf="!state().list.at(-1)!.found">Not Found</p>
+    <div class="form">
+      <app-chip [list]="list()"></app-chip>
+    </div>
   </ng-container>
-
 </div>

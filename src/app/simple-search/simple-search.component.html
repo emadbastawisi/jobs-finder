@@ -2,7 +2,11 @@
   <div class="form flex-col">
     <div class="full-width">
       <h4>Enter the number you want to find</h4>
-      <app-input type="number" label="number" [Control]="number"></app-input>
+      <app-input
+        type="number"
+        label="number"
+        [Control]="getControl('number')"
+      ></app-input>
     </div>
     <div class="flex-row full-width">
       <div class="half-width">
@@ -10,7 +14,7 @@
         <app-input
           type="number"
           label="start number"
-          [Control]="startNumber"
+          [Control]="getControl('startNumber')"
         ></app-input>
       </div>
       <div class="half-width">
@@ -18,12 +22,12 @@
         <app-input
           type="number"
           label="end number"
-          [Control]="endNumber"
+          [Control]="getControl('endNumber')"
         ></app-input>
       </div>
     </div>
   </div>
-    <div class="buttons">
+  <div class="buttons">
     <div class="full-width">
       <button
         class="btn full-width"
@@ -34,8 +38,8 @@
         Find Number
       </button>
     </div>
-    </div>
-      <div class="form">
+  </div>
+  <div class="form">
     <app-chip [list]="list()"></app-chip>
   </div>
 </div>
