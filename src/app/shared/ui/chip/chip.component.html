@@ -1,37 +1,6 @@
-<!-- <mat-chip-set>
-  <mat-chip
-    *ngFor="let chip of left"
-    [highlighted]="true"
-    color="primary"
-    [disabled]="false"
-    class="chip"
-  >
-    {{ chip }}
-  </mat-chip>
-  <mat-chip [disabled]="false" class="chip">
-    {{ middle }}
-  </mat-chip>
-  <mat-chip
-    *ngFor="let chip of right"
-    [highlighted]="true"
-    color="accent"
-    [disabled]="false"
-    class="chip"
-  >
-    {{ chip }}
-  </mat-chip>
-  <mat-chip
-    *ngFor="let chip of disabled"
-    [highlighted]="true"
-    [disabled]="true"
-    class="chip"
-  >
-    {{ chip }}
-  </mat-chip>
-</mat-chip-set> -->
 <mat-chip-set>
   <mat-chip
-    *ngFor="let chip of list"
+    *ngFor="let chip of list; trackBy: trackByFn"
     [highlighted]="chip.state === 'left' || chip.state === 'right'"
     [color]="
       chip.state === 'left'

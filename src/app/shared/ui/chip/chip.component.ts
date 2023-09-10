@@ -3,21 +3,21 @@ import { CommonModule } from '@angular/common';
 import { MatChipsModule } from '@angular/material/chips';
 
 interface chipState {
-  value: string;
+  value: number;
   state: string;
 }
 @Component({
   selector: 'app-chip',
   standalone: true,
-  imports: [CommonModule, MatChipsModule],
+  imports: [CommonModule, MatChipsModule ],
   templateUrl: './chip.component.html',
   styleUrls: ['./chip.component.css']
 })
-export class ChipComponent implements OnChanges {
+export class ChipComponent {
 
   @Input() list: chipState[] = [];
+  trackByFn(index : number, item : chipState) {
+  return item.value; // or a unique id corresponding to the item
+}
 
-  ngOnChanges(): void {
-    console.log(this.list);
-  }
 }

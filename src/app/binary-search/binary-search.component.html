@@ -40,6 +40,7 @@
         color="primary"
         mat-raised-button
         (click)="nextStage()"
+        [disabled]="step_number() === state().list.length - 1"
       >
         Next Stage
       </button>
@@ -48,12 +49,19 @@
         color="primary"
         mat-raised-button
         (click)="prevStage()"
+        [disabled]="step_number() === 0"
       >
         Prev Stage
       </button>
     </div>
   </div>
-  <div class="chips">
+  <ng-container *ngIf="state().list.length">
+  <p>Current Step : {{step_number() +1}}</p>
+  <p *ngIf="state().list.at(-1)!.found">Found in : {{state().list.length}} Steps</p>
+  <p *ngIf="!state().list.at(-1)!.found">Not Found</p>
+  <div class="form">
     <app-chip [list]="list()"></app-chip>
   </div>
+  </ng-container>
+
 </div>

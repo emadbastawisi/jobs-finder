@@ -1,13 +1,18 @@
 import { Component, computed, signal } from '@angular/core';
 import { Form, FormControl } from '@angular/forms';
 
+interface stepState {
+  found: boolean;
+  currentStage: number;
+  list: { value: number, state: string }[];
+}
+
 interface SearchState {
   number: number;
-  list: { value: number; state: string }[];
+  list: stepState[];
   stages: number;
-  currentStage: number;
-  found: boolean;
 }
+
 
 
 @Component({
@@ -24,17 +29,22 @@ export class BinarySearchComponent {
     number: 0,
     list: [],
     stages: 0,
-    currentStage: 0,
-    found: false
   });
-  step_number = 0;
+  step_number = signal(0);
+  
   state = computed(() => this.searchState());
-  list = computed(() => this.searchState().list.map(item => {
-    return { value: item.value.toString(), state: item.state };
-  }));
-  stages = computed(() => this.searchState().stages);
-  currentStage = computed(() => this.searchState().currentStage);
+  list = computed(() => this.searchState().list[this.step_number()]?.list);
 
+
+
+
+  searchStateReset(){
+    this.searchState.set({
+      number: 0,
+      list: [],
+      stages: 0,
+    })
+  }
 
   createRange(start: number, end: number) {
     return new Array(end - start + 1).fill(0)
@@ -42,103 +52,83 @@ export class BinarySearchComponent {
   }
 
   findNumber(): void {
-    this.step_number = 0
-    this.searchState.mutate((state) => {
-      state.number = this.number.value;
-      const range = this.createRange(parseInt(this.startNumber.value), parseInt(this.endNumber.value));
-      const middleIndex = Math.floor((range.length - 1) / 2);
-      state.list = range.map((value, index) => {
-        let chipState: string;
-        if (index < middleIndex) {
-          chipState = 'left';
-        } else if (index > middleIndex) {
-          chipState = 'right';
-        } else {
-          chipState = 'middle';
-        }
-        return { value: value, state: chipState };
-      });
-      state.stages = Math.ceil(Math.log2(state.list.length));
-      state.currentStage = 0;
-      state.found = false;
-    })
-    console.log(this.searchState());
-
-  }
-  searchSteps(steps: number) {
-    let state = this.searchState();
-    let list = [...state.list]; // copy the list
+    this.step_number.set(0);
+    this.searchStateReset();
+    const arr = this.createRange(parseInt(this.startNumber.value), parseInt(this.endNumber.value));
+    const target = parseInt(this.number.value);
     let left = 0;
-    let right = list.length - 1;
-    let mid = Math.floor((left + right) / 2);
-    state.currentStage = 0;
-    for (let i = 0; i < steps; i++) {
-      if (left > right) {
-        // The search is over, update the state and return
-        this.searchState.set({ ...state, found: false });
-        console.log('not found');
-        return;
-      }
-
-      if (list[mid].value == state.number) {
-        // The number is found, update the state and return
-        state.found = true
-        this.searchState.set({
-          ...state,
-          list: list.map((item, index) => index !== mid ? { ...item, state: 'disabled' } : { ...item, state: 'middle' }),
-          found: true
-        });
-        console.log('found');
-        return;
-      } else if (list[mid].value < state.number) {
-        left = mid + 1;
-        state.list = state.list.map((item, index) => index < left ? { ...item, state: 'disabled' } : item);
-
-      } else {
-        right = mid - 1;
-        state.list = state.list.map((item, index) => (index > right && index < list.length) ? { ...item, state: 'disabled' } : item);
-      }
-      console.log(left, right)
-      mid = Math.floor((left + right) / 2);
-      console.log(mid)
-      // Update the left and right list in the 
-      state.list = state.list.map((item, index) => (index >= left && index < mid) ? { ...item, state: 'left' } : item);
-      state.list = state.list.map((item, index) => (index >= mid + 1 && index < right + 1) ? { ...item, state: 'right' } : item);
-      state.list = state.list.map((item, index) => (index == mid) ? { ...item, state: 'middle' } : item);
-      console.log(state);
-      // Update the current stage and middle index in the state
-      state.currentStage++;
-    }
-
-    // Update the state after all steps if necessar
-    if (state.found === false) {
-      this.searchState.set(state);
-    }
+    let right = arr.length - 1;
+    this.binarySearchRecursive(arr, target, left, right);
   }
 
 
+
+ binarySearchRecursive(arr: number[], target: number, left: number, right: number) : void {
+    let middle = Math.floor((left + right) / 2);
+    const step: stepState = {
+    found: false,
+    currentStage: 0,
+    list: arr.map((value, index) => {
+      let chipState: string;
+      if (index < middle ) {
+        chipState = 'left';
+      }
+      else if (index > middle) {
+        chipState = 'right';
+      }
+      else {
+        chipState = 'middle';
+      }
+      if (index < left || index > right) {
+        chipState = 'disabled';
+      }
+      return { value: value, state: chipState };
+    })
+    };
+    step.currentStage = this.searchState().list.length;
+    if (left > right) {
+        step.found = false; 
+        step.list = step.list.map((item) =>  { return { ...item, state: 'disabled' } });
+            this.searchState.mutate(state => {
+    state.list.push(step);
+      return state;
+      });
+      return;
+    }
+    if (arr[middle] === target) {
+        step.found = true;
+        step.list = step.list.map((item, index) => index !== middle ? { ...item, state: 'disabled' } : { ...item, state: 'middle' });
+            this.searchState.mutate(state => {
+      state.list.push(step);
+      return state;
+      });
+      return;
+    }
+    this.searchState.mutate(state => {
+    state.list.push(step);
+      return state;
+      });
+
+    if (arr[middle] < target) {
+        return this.binarySearchRecursive(arr, target, middle + 1, right);
+    } else {
+        return this.binarySearchRecursive(arr, target, left, middle - 1);
+    }
+}
 
   nextStage(): void {
-    this.step_number++;
-    if (this.searchState().found) {
-      this.step_number--;
-    }
-    this.searchSteps(this.step_number);
-    console.log(this.step_number);
+    this.step_number.set(this.step_number() + 1);
   }
 
 
   prevStage(): void {
-    this.step_number--;
-    if (this.step_number <= 0) {
-      this.findNumber();
-      this.step_number = 0;
-    } else {
-      this.searchSteps(this.step_number);
+    this.step_number.set(this.step_number() - 1);
+    if (this.step_number() <= 0) {
+      this.step_number.set(0);
     }
-
+  }
   }
 
-}
+
 
 
