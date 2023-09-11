@@ -8,7 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { SimpleSearchRoutingModule } from './simple-search-routing.module';
 import { SimpleSearchComponent } from './simple-search.component';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     ChipsComponent,
     ChipComponent,
     InputComponent,
-    MatSnackBarModule
+    MatSnackBarModule,
+    ReactiveFormsModule
   ],
   exports: [SimpleSearchComponent]
 })

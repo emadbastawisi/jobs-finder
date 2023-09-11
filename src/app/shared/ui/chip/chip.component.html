@@ -1,9 +1,31 @@
-<mat-chip-set>
+<ng-container *ngIf="list.length! > 0">
+  <mat-chip-set>
+    <mat-chip
+      *ngFor="let chip of list; trackBy: trackByFn"
+      [highlighted]="chip.state === 'left' || chip.state === 'right'"
+      [color]="
+        chip.state === 'left' || chip.state === 'selected'
+          ? 'primary'
+          : chip.state === 'right'
+          ? 'accent'
+          : null
+      "
+      [disabled]="chip.state === 'disabled'"
+      class="chip"
+    >
+      <mat-icon MatChipAvatar *ngIf="chip.state === 'selected'"
+        >checked</mat-icon
+      >
+      {{ chip.value }}
+    </mat-chip>
+  </mat-chip-set>
+</ng-container>
+
+<ng-container *ngIf="chip.state !== ''">
   <mat-chip
-    *ngFor="let chip of list; trackBy: trackByFn"
     [highlighted]="chip.state === 'left' || chip.state === 'right'"
     [color]="
-      chip.state === 'left'
+      chip.state === 'left' || chip.state === 'selected'
         ? 'primary'
         : chip.state === 'right'
         ? 'accent'
@@ -12,6 +34,7 @@
     [disabled]="chip.state === 'disabled'"
     class="chip"
   >
+    <mat-icon MatChipAvatar *ngIf="chip.state === 'selected'">checked</mat-icon>
     {{ chip.value }}
   </mat-chip>
-</mat-chip-set>
+</ng-container>

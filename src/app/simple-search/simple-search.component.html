@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="form flex-col">
+  <form [formGroup]="FormGroup" class="form flex-col">
     <div class="full-width">
       <h4>Enter the number you want to find</h4>
       <app-input
@@ -26,7 +26,7 @@
         ></app-input>
       </div>
     </div>
-  </div>
+  </form>
   <div class="buttons">
     <div class="full-width">
       <button
@@ -34,6 +34,7 @@
         color="primary"
         mat-raised-button
         (click)="findNumber()"
+        [disabled]="!FormGroup.valid"
       >
         Find Number
       </button>

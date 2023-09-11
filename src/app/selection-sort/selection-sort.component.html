@@ -1,0 +1,85 @@
+<div class="container">
+  <div class="card">
+    <h3 class="title">Selection Sort Algorithm Simulation</h3>
+  </div>
+
+  <form [formGroup]="FormGroup" class="form flex-col card">
+    <h3>Create a Random Array</h3>
+    <div class="flex-row full-width" style="gap: 1rem">
+      <div class="half-width">
+        <app-input
+          type="number"
+          label="Array start number"
+          [Control]="getControl('startNumber')"
+        ></app-input>
+      </div>
+      <div class="half-width">
+        <app-input
+          type="number"
+          label="Array end number"
+          [Control]="getControl('endNumber')"
+        ></app-input>
+      </div>
+    </div>
+    <div>
+      <mat-radio-group
+        [formControl]="getControl('speed')"
+        aria-label="Select an option"
+        (ngModelChange)="setSpeed($event)"
+      >
+        <p style="text-align: center">
+          Select Simulation delay between operations in ms
+        </p>
+        <mat-radio-button *ngFor="let option of speedList" [value]="option">{{
+          option
+        }}</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div class="flex-row" style="gap: 1rem">
+      <button
+        class="half-width"
+        color="primary"
+        mat-raised-button
+        [disabled]="!FormGroup.valid"
+        (click)="startSimWithAppend()"
+      >
+        Start Selection Sort With New Array
+      </button>
+      <button
+        class="half-width"
+        color="primary"
+        mat-raised-button
+        [disabled]="!FormGroup.valid"
+        (click)="startSimWithSwap()"
+      >
+        Start Selection Sort With Swap
+      </button>
+    </div>
+  </form>
+  <div class="flex-row" style="gap: 1rem">
+    <div class="card" *ngIf="min().value != 0">
+      <p style="text-align: center">Min</p>
+      <app-chip [chip]="min()"></app-chip>
+    </div>
+    <div class="card" *ngIf="temp().value != 0">
+      <p style="text-align: center">Temp</p>
+      <app-chip [chip]="temp()"></app-chip>
+    </div>
+  </div>
+  <ng-container *ngIf="choise == 'swap'">
+    <div class="form card">
+      <app-chip [list]="list()"></app-chip>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="choise == 'append'">
+    <div class="card form" *ngIf="list().length != 0">
+      <app-chip [list]="list()"></app-chip>
+    </div>
+    <div class="card form" *ngIf="newList().length != 0">
+      <h4 style="text-align: center; text-decoration: none">
+        New Sorted Array
+      </h4>
+      <app-chip [list]="newList()"></app-chip>
+    </div>
+  </ng-container>
+</div>

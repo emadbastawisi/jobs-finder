@@ -47,6 +47,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'selectionSort',
+    loadChildren: () =>
+      import('./selection-sort/selection-sort.module').then(
+        (m) => m.SelectionSortModule
+      ),
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',

@@ -37,8 +37,13 @@ export class SimpleSearchComponent {
 
 
   createRange(start: number, end: number) {
-    return new Array(end - start + 1).fill(0)
-      .map((n, index) => start + index);
+    if (start > end) {
+      return new Array(start - end + 1).fill(0)
+        .map((n, index) => start - index);
+    } else {
+      return new Array(end - start + 1).fill(0)
+        .map((n, index) => start + index);
+    }
   }
 
   async findNumber(): Promise<void> {
