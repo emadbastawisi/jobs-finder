@@ -48,8 +48,10 @@
           <ng-container *ngIf="userProfile$()!.work_experience!.length === 0">
             <app-work-experience-form
               [FormGroup]="getFormGroup('work_experience')"
+              (save)="onWorkExperienceSave($event)"
+              (cancel)="onWorkExperienceCancel()"
             ></app-work-experience-form>
-            <ng-container>
+            <!-- <ng-container>
               <div class="option-btns">
                 <button
                   class="btn"
@@ -70,12 +72,14 @@
                   Cancel
                 </button>
               </div>
-            </ng-container>
+            </ng-container> -->
           </ng-container>
           <ng-container *ngIf="userProfile$()!.work_experience!.length !== 0">
             <app-work-experience-card
               *ngFor="let workExperience of userProfile$()!.work_experience"
               [workExperience]="workExperience"
+              (edit)="onWorkExperienceEdit($event)"
+              (delete)="onWorkExperienceDelete($event)"
             ></app-work-experience-card>
             <p>
               You have successfully saved
@@ -140,5 +144,4 @@
       </div>
     </form>
   </div>
-  <p>{{ professionalInfoForm.value | json }}</p>
 </div>

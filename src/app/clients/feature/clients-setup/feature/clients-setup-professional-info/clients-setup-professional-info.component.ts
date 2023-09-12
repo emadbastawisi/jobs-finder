@@ -6,6 +6,8 @@ import { selectUserProfileSetup } from 'src/app/store//setup/setup.reducers';
 import { setupActions } from 'src/app/store/setup/setup.actions';
 import { CV, UserWorkExperience } from 'src/app/clients/utils/models/userProfile.models';
 import { ClientsService } from 'src/app/clients/data-access/clients.service';
+import { MatDialog } from '@angular/material/dialog';
+import { WorkExperienceFormComponent } from 'src/app/clients/shared/ui/work-experience/work-experience-form.component';
 
 @Component({
   selector: 'app-clients-setup-professional-info',
@@ -23,6 +25,7 @@ export class ClientsSetupProfessionalInfoComponent {
 
   store = inject(Store);
   fb = inject(FormBuilder);
+  dialog = inject(MatDialog);
   userProfile$ = this.store.selectSignal(selectUserProfileSetup);
 
   clientsService = inject(ClientsService);
@@ -42,6 +45,7 @@ export class ClientsSetupProfessionalInfoComponent {
       ],
       years_of_experience: [null, Validators.required],
       work_experience: this.fb.group({
+        id: [],
         job_title: ['', Validators.required],
         company_name: ['', Validators.required],
         job_category: [[], Validators.required],
@@ -89,6 +93,7 @@ export class ClientsSetupProfessionalInfoComponent {
       this.professionalInfoForm.addControl(
         'work_experience',
         new FormGroup({
+          id: new FormControl(),
           job_title: new FormControl('', Validators.required),
           company: new FormControl('', Validators.required),
           job_category: new FormControl([], Validators.required),
@@ -188,13 +193,24 @@ export class ClientsSetupProfessionalInfoComponent {
   onWorkExperienceCancel() {
     this.professionalInfoForm.removeControl('work_experience');
   }
-  onWorkExperienceSave() {
-    const Data = this.getFormGroup('work_experience').value;
-    Data.job_category = Data.job_category.join(',');
-    Data.start_date = Data.start_date.toISOString();
-    Data.end_date = Data.end_date.toISOString();
-    console.log(this.getFormGroup('work_experience').value);
-    this.store.dispatch(setupActions.addWorkExperience({ request: this.getFormGroup('work_experience').value }));
+  onWorkExperienceSave(event: UserWorkExperience) {
+    this.store.dispatch(setupActions.addWorkExperience({ request: event }));
+  }
+  onWorkExperienceEdit(workExperience: UserWorkExperience) {
+    this.getFormGroup('work_experience').patchValue(workExperience);
+    const dialogRef = this.dialog.open(WorkExperienceFormComponent, {
+      data: { FormGroup: this.getFormGroup('work_experience') },
+    })
+    const updateSubscription = dialogRef.componentInstance.update.subscribe(value => {
+      this.store.dispatch(setupActions.updateWorkExperience({ request: value }));
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      updateSubscription.unsubscribe();
+    });
+  }
+  onWorkExperienceDelete(id: number) {
+    this.store.dispatch(setupActions.deleteWorkExperience({ request: id }));
     this.getFormGroup('work_experience').reset();
   }
 }

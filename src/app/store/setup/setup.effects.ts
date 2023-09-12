@@ -1,10 +1,12 @@
-import { inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { setupActions } from './setup.actions';
-import { map, switchMap, of, catchError, tap, take } from 'rxjs';
+import { map, switchMap, of, catchError, tap, take, Observable } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ClientsService } from 'src/app/clients/data-access/clients.service';
 import { UserProfile } from 'src/app/clients/utils/models/userProfile.models';
+import { MatDialog } from '@angular/material/dialog';
+
 
 
 export const getUserProfileEffect = createEffect(
@@ -142,7 +144,7 @@ export const getCVSuccessEffect = createEffect(
       }),
     );
   },
-  { functional: true }
+  { functional: true, dispatch: false }
 );
 
 
@@ -210,6 +212,69 @@ export const addWorkExperienceEffect = createEffect(
             console.log(errorResponce);
             return of(
               setupActions.addWorkExperienceFailure({
+                errors: errorResponce.error.detail,
+              })
+            );
+          })
+        );
+      })
+    );
+  },
+  { functional: true }
+);
+
+export const updateWorkExperienceEffect = createEffect(
+  (actions$ = inject(Actions), clientsService = inject(ClientsService)) => {
+    return actions$.pipe(
+      ofType(setupActions.updateWorkExperience),
+      switchMap(({ request }) => {
+        return clientsService.updateWorkExperience(request).pipe(
+          map((response: UserProfile) => {
+            console.log(response);
+            return setupActions.updateWorkExperienceSuccess({ response });
+          }),
+          catchError((errorResponce: HttpErrorResponse) => {
+            console.log(errorResponce);
+            return of(
+              setupActions.updateWorkExperienceFailure({
+                errors: errorResponce.error.detail,
+              })
+            );
+          })
+        );
+      })
+    );
+  },
+  { functional: true }
+);
+
+export const updateWorkExperienceSuccessEffect = createEffect(
+  (actions$ = inject(Actions), dialog = inject(MatDialog)) => {
+    return actions$.pipe(
+      ofType(setupActions.updateWorkExperienceSuccess),
+      tap(() => {
+        dialog.closeAll();
+      }),
+    );
+  },
+  { functional: true, dispatch: false }
+);
+
+
+export const deleteWorkExperienceEffect = createEffect(
+  (actions$ = inject(Actions), clientsService = inject(ClientsService)) => {
+    return actions$.pipe(
+      ofType(setupActions.deleteWorkExperience),
+      switchMap(({ request }) => {
+        return clientsService.deleteWorkExperience(request).pipe(
+          map((response: UserProfile) => {
+            console.log(response);
+            return setupActions.deleteWorkExperienceSuccess({ response });
+          }),
+          catchError((errorResponce: HttpErrorResponse) => {
+            console.log(errorResponce);
+            return of(
+              setupActions.deleteWorkExperienceFailure({
                 errors: errorResponce.error.detail,
               })
             );

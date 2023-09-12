@@ -1,5 +1,5 @@
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UserWorkExperience } from 'src/app/clients/utils/models/userProfile.models';
 
 @Component({
@@ -9,6 +9,8 @@ import { UserWorkExperience } from 'src/app/clients/utils/models/userProfile.mod
 })
 export class WorkExperienceCardComponent implements OnInit {
   @Input() workExperience!: UserWorkExperience;
+  @Output() edit = new EventEmitter<UserWorkExperience>();
+  @Output() delete = new EventEmitter<number>();
   startDate!: string;
   endDate!: string;
   workTime!: string;
@@ -45,5 +47,12 @@ export class WorkExperienceCardComponent implements OnInit {
         this.workTime = this.getTimeDifference(this.workExperience.start_date, this.workExperience.end_date!);
       }
     }
+  }
+
+  onEditClick() {
+    this.edit.emit(this.workExperience);
+  }
+  onDeleteClick() {
+    this.delete.emit(this.workExperience.id);
   }
 }

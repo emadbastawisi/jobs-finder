@@ -188,8 +188,82 @@ const setupFeature = createFeature({
         validationErrors: action.errors,
       },
     })),
+    on(setupActions.addWorkExperience, (state) => ({
+      ...state,
+      workExperience: {
+        ...state.workExperience,
+        isSubmitting: true,
+        validationErrors: null,
+      }
+    })),
+    on(setupActions.addWorkExperienceSuccess, (state, action) => ({
+      ...state,
+      userProfileSetup: action.response,
+      workExperience: {
+        ...state.workExperience,
+        isSubmitting: false,
+      }
+    })),
+    on(setupActions.addWorkExperienceFailure, (state, action) => ({
+      ...state,
+      workExperience: {
+        ...state.workExperience,
+        isSubmitting: false,
+        validationErrors: action.errors,
+      }
+    })),
+    on(setupActions.updateWorkExperience, (state) => ({
+      ...state,
+      workExperience: {
+        ...state.workExperience,
+        isSubmitting: true,
+        validationErrors: null,
+      }
+    })),
+    on(setupActions.updateWorkExperienceSuccess, (state, action) => ({
+      ...state,
+      userProfileSetup: action.response,
+      workExperience: {
+        ...state.workExperience,
+        isSubmitting: false,
+      }
+    })),
+    on(setupActions.updateWorkExperienceFailure, (state, action) => ({
+      ...state,
+      workExperience: {
+        ...state.workExperience,
+        isSubmitting: false,
+        validationErrors: action.errors,
+      }
+    })),
+    on(setupActions.deleteWorkExperience, (state) => ({
+      ...state,
+      workExperience: {
+        ...state.workExperience,
+        isSubmitting: true,
+        validationErrors: null,
+      }
+    })),
+    on(setupActions.deleteWorkExperienceSuccess, (state, action) => ({
+      ...state,
+      userProfileSetup: action.response,
+      workExperience: {
+        ...state.workExperience,
+        isSubmitting: false,
+      }
+    })),
+    on(setupActions.deleteWorkExperienceFailure, (state, action) => ({
+      ...state,
+      workExperience: {
+        ...state.workExperience,
+        isSubmitting: false,
+        validationErrors: action.errors,
+      }
+    }))
   ),
 });
+
+
 
 export const {
   name: setupFeatureKey,

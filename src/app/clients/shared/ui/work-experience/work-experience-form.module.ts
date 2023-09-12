@@ -7,6 +7,8 @@ import { DatePickerComponent } from 'src/app/shared/ui/date-picker/date-picker.c
 import { InputComponent } from 'src/app/shared/ui/input/input.component';
 import { ChipsComponent } from 'src/app/shared/ui/chips/chips.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [WorkExperienceFormComponent],
@@ -18,7 +20,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     InputComponent,
     ChipsComponent,
     MatCheckboxModule,
+    MatDialogModule,
+    MatButtonModule
   ],
   exports: [WorkExperienceFormComponent],
 })
-export class WorkExperienceFormModule {}
+export class WorkExperienceFormModule { }

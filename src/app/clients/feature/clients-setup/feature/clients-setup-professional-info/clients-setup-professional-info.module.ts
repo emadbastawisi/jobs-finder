@@ -14,6 +14,7 @@ import { InputAutocompleteComponent } from 'src/app/shared/ui/input-autocomplete
 import { DegreeDetailsFormModule } from 'src/app/clients/shared/ui/degree-details-form/degree-details-form.module';
 import { WorkExperienceFormModule } from 'src/app/clients/shared/ui/work-experience/work-experience-form.module';
 import { WorkExperienceCardModule } from 'src/app/clients/shared/ui/work-experience-card/work-experience-card.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [ClientsSetupProfessionalInfoComponent],
@@ -22,6 +23,7 @@ import { WorkExperienceCardModule } from 'src/app/clients/shared/ui/work-experie
     InputComponent,
     InputAutocompleteComponent,
     ReactiveFormsModule,
+    MatDialogModule,
     InputFileComponent,
     SelectComponent,
     ChipsComponent,

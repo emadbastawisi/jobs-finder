@@ -1,0 +1,9 @@
+.form {
+  display: block;
+  width: auto;
+  padding: 2rem;
+}
+.dialog {
+  max-height: 90vh;
+  overflow-y: auto;
+}

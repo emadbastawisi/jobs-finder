@@ -109,4 +109,16 @@ export class ClientsService {
       request
     );
   }
+
+  updateWorkExperience(request: UserWorkExperience): Observable<UserProfile> {
+    return this.http.put<UserProfile>(
+      environment.api.address + '/users/updateWorkExperience',
+      request
+    );
+  }
+  deleteWorkExperience(id: number): Observable<UserProfile> {
+    return this.http.delete<UserProfile>(
+      environment.api.address + '/users/deleteWorkExperience/' + id
+    );
+  }
 }
