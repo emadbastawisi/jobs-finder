@@ -3,263 +3,91 @@ import { setupActions } from './setup.actions';
 import { SetupStateInterface } from 'src/app/clients/utils/models/setupState.interface';
 
 
+const createLoadingState = (state: any, key: any) => ({
+  ...state,
+  [key]: {
+    ...state[key],
+    isLoading: true,
+    validationErrors: null,
+  },
+});
+
+const createSuccessState = (state: any, key: any, action: any) => ({
+  ...state,
+  userProfileSetup: action.response,
+  [key]: {
+    ...state[key],
+    isLoading: false,
+  },
+});
+
+const createFailureState = (state: any, key: any, action: any) => ({
+  ...state,
+  [key]: {
+    ...state[key],
+    isLoading: false,
+    validationErrors: action.errors,
+  },
+});
+const createInitialState = () => ({
+  isSubmitting: false,
+  isLoading: false,
+  validationErrors: null,
+});
+
 const initialsetupState: SetupStateInterface = {
   userProfileSetup: undefined,
-  userProfile: {
-    isSubmitting: false,
-    isLoading: false,
-    validationErrors: null,
-  },
-  careerInterest: {
-    isSubmitting: false,
-    isLoading: false,
-    validationErrors: null,
-  },
-  generalInfo: {
-    isSubmitting: false,
-    isLoading: false,
-    validationErrors: null,
-  },
-  professionalInfo: {
-    isSubmitting: false,
-    isLoading: false,
-    validationErrors: null,
-  },
-  cv: {
-    isSubmitting: false,
-    isLoading: false,
-    validationErrors: null,
-  },
-  workExperience: {
-    isSubmitting: false,
-    isLoading: false,
-    validationErrors: null,
-  },
-  language: {
-    isSubmitting: false,
-    isLoading: false,
-    validationErrors: null,
-  }
-}
+  userProfile: createInitialState(),
+  careerInterest: createInitialState(),
+  generalInfo: createInitialState(),
+  professionalInfo: createInitialState(),
+  cv: createInitialState(),
+  workExperience: createInitialState(),
+  language: createInitialState(),
+};
+
+
+
 const setupFeature = createFeature({
   name: 'setup',
   reducer: createReducer(
     initialsetupState,
-    on(setupActions.getUserProfile, (state) => ({
-      ...state,
-      userProfile: {
-        ...state.userProfile,
-        isLoading: true,
-        validationErrors: null,
-      },
-    })),
-    on(setupActions.getUserProfileSuccess, (state, action) => ({
-      ...state,
-      userProfileSetup: action.response,
-      userProfile: {
-        ...state.userProfile,
-        isLoading: false,
-      },
-    })),
-    on(setupActions.getUserProfileFailure, (state, action) => ({
-      ...state,
-      userProfile: {
-        ...state.userProfile,
-        isLoading: false,
-        validationErrors: action.errors,
-      },
-    })),
-    on(setupActions.careerInterest, (state) => ({
-      ...state,
-      careerInterest: {
-        ...state.careerInterest,
-        isSubmitting: true,
-        validationErrors: null,
-      },
-    })),
-    on(setupActions.careerInterestSuccess, (state, action) => ({
-      ...state,
-      userProfileSetup: action.response,
-      careerInterest: {
-        ...state.careerInterest,
-        isSubmitting: false,
-      },
-    })),
-    on(setupActions.careerInterestFailure, (state, action) => ({
-      ...state,
-      careerInterest: {
-        ...state.careerInterest,
-        isSubmitting: false,
-        validationErrors: action.errors,
-      },
-    })),
-    on(setupActions.generalInfo, (state) => ({
-      ...state,
-      generalInfo: {
-        ...state.generalInfo,
-        isSubmitting: true,
-        validationErrors: null,
-      },
-    })),
-    on(setupActions.generalInfoSuccess, (state, action) => ({
-      ...state,
-      userProfileSetup: action.response,
-      generalInfo: {
-        ...state.generalInfo,
-        isSubmitting: false,
-      },
-    })),
-    on(setupActions.generalInfoFailure, (state, action) => ({
-      ...state,
-      generalInfo: {
-        ...state.generalInfo,
-        isSubmitting: false,
-        validationErrors: action.errors,
-      },
-    })),
-    on(setupActions.getCV, (state) => ({
-      ...state,
-      cv: {
-        ...state.cv,
-        isLoading: true,
-        validationErrors: null,
-      },
-    })),
-    on(setupActions.getCVSuccess, (state, action) => ({
-      ...state,
-      cv: {
-        ...state.cv,
-        isLoading: false,
-      },
-    })),
-    on(setupActions.getCVFailure, (state, action) => ({
-      ...state,
-      cv: {
-        ...state.cv,
-        isLoading: false,
-        validationErrors: action.errors,
-      },
-    })),
-    on(setupActions.addCV, (state) => ({
-      ...state,
-      cv: {
-        ...state.cv,
-        isSubmitting: true,
-        validationErrors: null,
-      },
-    })),
-    on(setupActions.addCVSuccess, (state, action) => ({
-      ...state,
-      userProfileSetup: action.response,
-      cv: {
-        ...state.cv,
-        isSubmitting: false,
-      },
-    })),
-    on(setupActions.addCVFailure, (state, action) => ({
-      ...state,
-      cv: {
-        ...state.cv,
-        isSubmitting: false,
-        validationErrors: action.errors,
-      },
-    })),
-    on(setupActions.deleteCV, (state) => ({
-      ...state,
-      cv: {
-        ...state.cv,
-        isSubmitting: true,
-        validationErrors: null,
-      },
-    })),
-    on(setupActions.deleteCVSuccess, (state, action) => ({
-      ...state,
-      userProfileSetup: action.response,
-      cv: {
-        ...state.cv,
-        isSubmitting: false,
-      },
-    })),
-    on(setupActions.deleteCVFailure, (state, action) => ({
-      ...state,
-      cv: {
-        ...state.cv,
-        isSubmitting: false,
-        validationErrors: action.errors,
-      },
-    })),
-    on(setupActions.addWorkExperience, (state) => ({
-      ...state,
-      workExperience: {
-        ...state.workExperience,
-        isSubmitting: true,
-        validationErrors: null,
-      }
-    })),
-    on(setupActions.addWorkExperienceSuccess, (state, action) => ({
-      ...state,
-      userProfileSetup: action.response,
-      workExperience: {
-        ...state.workExperience,
-        isSubmitting: false,
-      }
-    })),
-    on(setupActions.addWorkExperienceFailure, (state, action) => ({
-      ...state,
-      workExperience: {
-        ...state.workExperience,
-        isSubmitting: false,
-        validationErrors: action.errors,
-      }
-    })),
-    on(setupActions.updateWorkExperience, (state) => ({
-      ...state,
-      workExperience: {
-        ...state.workExperience,
-        isSubmitting: true,
-        validationErrors: null,
-      }
-    })),
-    on(setupActions.updateWorkExperienceSuccess, (state, action) => ({
-      ...state,
-      userProfileSetup: action.response,
-      workExperience: {
-        ...state.workExperience,
-        isSubmitting: false,
-      }
-    })),
-    on(setupActions.updateWorkExperienceFailure, (state, action) => ({
-      ...state,
-      workExperience: {
-        ...state.workExperience,
-        isSubmitting: false,
-        validationErrors: action.errors,
-      }
-    })),
-    on(setupActions.deleteWorkExperience, (state) => ({
-      ...state,
-      workExperience: {
-        ...state.workExperience,
-        isSubmitting: true,
-        validationErrors: null,
-      }
-    })),
-    on(setupActions.deleteWorkExperienceSuccess, (state, action) => ({
-      ...state,
-      userProfileSetup: action.response,
-      workExperience: {
-        ...state.workExperience,
-        isSubmitting: false,
-      }
-    })),
-    on(setupActions.deleteWorkExperienceFailure, (state, action) => ({
-      ...state,
-      workExperience: {
-        ...state.workExperience,
-        isSubmitting: false,
-        validationErrors: action.errors,
-      }
-    }))
+    on(setupActions.getUserProfile, (state) => createLoadingState(state, 'userProfile')),
+    on(setupActions.getUserProfileSuccess, (state, action) => createSuccessState(state, 'userProfile', action)),
+    on(setupActions.getUserProfileFailure, (state, action) => createFailureState(state, 'userProfile', action)),
+    on(setupActions.getUserProfile, (state) => createLoadingState(state, 'userProfile')),
+    on(setupActions.getUserProfileSuccess, (state, action) => createSuccessState(state, 'userProfile', action)),
+    on(setupActions.getUserProfileFailure, (state, action) => createFailureState(state, 'userProfile', action)),
+    on(setupActions.careerInterest, (state) => createLoadingState(state, 'careerInterest')),
+    on(setupActions.careerInterestSuccess, (state, action) => createSuccessState(state, 'careerInterest', action)),
+    on(setupActions.careerInterestFailure, (state, action) => createFailureState(state, 'careerInterest', action)),
+    on(setupActions.generalInfo, (state) => createLoadingState(state, 'generalInfo')),
+    on(setupActions.generalInfoSuccess, (state, action) => createSuccessState(state, 'generalInfo', action)),
+    on(setupActions.generalInfoFailure, (state, action) => createFailureState(state, 'generalInfo', action)),
+    on(setupActions.addCV, (state) => createLoadingState(state, 'cv')),
+    on(setupActions.addCVSuccess, (state, action) => createSuccessState(state, 'cv', action)),
+    on(setupActions.addCVFailure, (state, action) => createFailureState(state, 'cv', action)),
+    on(setupActions.deleteCV, (state) => createLoadingState(state, 'cv')),
+    on(setupActions.deleteCVSuccess, (state, action) => createSuccessState(state, 'cv', action)),
+    on(setupActions.deleteCVFailure, (state, action) => createFailureState(state, 'cv', action)),
+    on(setupActions.getCV, (state) => createLoadingState(state, 'cv')),
+    on(setupActions.getCVSuccess, (state, action) => createSuccessState(state, 'cv', action)),
+    on(setupActions.getCVFailure, (state, action) => createFailureState(state, 'cv', action)),
+    on(setupActions.addWorkExperience, (state) => createLoadingState(state, 'workExperience')),
+    on(setupActions.addWorkExperienceSuccess, (state, action) => createSuccessState(state, 'workExperience', action)),
+    on(setupActions.addWorkExperienceFailure, (state, action) => createFailureState(state, 'workExperience', action)),
+    on(setupActions.updateWorkExperience, (state) => createLoadingState(state, 'workExperience')),
+    on(setupActions.updateWorkExperienceSuccess, (state, action) => createSuccessState(state, 'workExperience', action)),
+    on(setupActions.updateWorkExperienceFailure, (state, action) => createFailureState(state, 'workExperience', action)),
+    on(setupActions.deleteWorkExperience, (state) => createLoadingState(state, 'workExperience')),
+    on(setupActions.deleteWorkExperienceSuccess, (state, action) => createSuccessState(state, 'workExperience', action)),
+    on(setupActions.deleteWorkExperienceFailure, (state, action) => createFailureState(state, 'workExperience', action)),
+    on(setupActions.addLanguage, (state) => createLoadingState(state, 'language')),
+    on(setupActions.addLanguageSuccess, (state, action) => createSuccessState(state, 'language', action)),
+    on(setupActions.addLanguageFailure, (state, action) => createFailureState(state, 'language', action)),
+    on(setupActions.deleteLanguage, (state) => createLoadingState(state, 'language')),
+    on(setupActions.deleteLanguageSuccess, (state, action) => createSuccessState(state, 'language', action)),
+    on(setupActions.deleteLanguageFailure, (state, action) => createFailureState(state, 'language', action)),
   ),
 });
 

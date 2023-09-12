@@ -1,16 +1,12 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-
 import {
-  CV,
   ResponseError,
   UserCareerInterests,
-  UserEducation,
   UserLanguage,
   UserPersonalInfo,
   UserProfile,
   UserWorkExperience,
 } from '../../clients/utils/models/userProfile.models';
-import { Form } from '@angular/forms';
 
 export const setupActions = createActionGroup({
   source: 'Setup',
