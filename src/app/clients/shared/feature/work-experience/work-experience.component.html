@@ -1,0 +1,33 @@
+<h4 class="subtitle">What is your work experience?</h4>
+<ng-container *ngIf="userProfile$()!.work_experience!.length === 0">
+  <app-work-experience-form
+    (save)="onWorkExperienceSave($event)"
+    (cancel)="onWorkExperienceCancel()"
+  ></app-work-experience-form>
+</ng-container>
+<ng-container *ngIf="userProfile$()!.work_experience!.length !== 0">
+  <app-work-experience-card
+    *ngFor="let workExperience of userProfile$()!.work_experience"
+    [workExperience]="workExperience"
+    (edit)="onWorkExperienceEdit($event)"
+    (delete)="onWorkExperienceDelete($event)"
+  ></app-work-experience-card>
+  <p>
+    You have successfully saved
+    {{ userProfile$()!.work_experience!.length }} work experience.
+  </p>
+  <button
+    *ngIf="addMoreWorkExperience == false"
+    mat-stroked-button
+    color="primary"
+    (click)="onAddMoreWorkExperience()"
+  >
+    Add more Work Experience
+  </button>
+  <ng-container *ngIf="addMoreWorkExperience == true">
+    <app-work-experience-form
+      (save)="onWorkExperienceSave($event)"
+      (cancel)="onWorkExperienceCancel()"
+    ></app-work-experience-form>
+  </ng-container>
+</ng-container>

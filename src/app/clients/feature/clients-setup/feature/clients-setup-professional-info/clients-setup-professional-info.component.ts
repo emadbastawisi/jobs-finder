@@ -25,35 +25,14 @@ export class ClientsSetupProfessionalInfoComponent {
 
   store = inject(Store);
   fb = inject(FormBuilder);
-  dialog = inject(MatDialog);
   userProfile$ = this.store.selectSignal(selectUserProfileSetup);
 
   clientsService = inject(ClientsService);
 
   professionalInfoForm: FormGroup;
-
   constructor() {
     this.professionalInfoForm = this.fb.group({
-      cv: [
-        null,
-        [
-          Validators.required,
-          this.fileTypeValidator(['pdf', 'doc', 'docx']),
-          this.fileSizeValidator(5 * 1024 * 1024),
-          this.fileCountValidator(1)
-        ]
-      ],
       years_of_experience: [null, Validators.required],
-      work_experience: this.fb.group({
-        id: [],
-        job_title: ['', Validators.required],
-        company_name: ['', Validators.required],
-        job_category: [[], Validators.required],
-        experience_type: ['', Validators.required],
-        start_date: ['', Validators.required],
-        end_date: ['', Validators.required],
-        work_there: [false]
-      }),
       education_level: ['', Validators.required],
       degree_details: this.fb.group({
         field_of_study: ['', Validators.required],
@@ -69,6 +48,7 @@ export class ClientsSetupProfessionalInfoComponent {
         highschool_grade: ['', Validators.required]
       }),
       language: this.fb.group({
+        id: [],
         language_name: ['', Validators.required],
         proficiency: ['', Validators.required]
       }),
@@ -86,25 +66,21 @@ export class ClientsSetupProfessionalInfoComponent {
   getFormGroupControl(groupName: string, controlName: string): FormControl {
     return this.getFormGroup(groupName).get(controlName) as FormControl;
   }
-  onYearsOfExperienceChange(event: any) {
-    if (event === 'No Experience') {
-      this.professionalInfoForm.removeControl('work_experience');
-    } else {
-      this.professionalInfoForm.addControl(
-        'work_experience',
-        new FormGroup({
-          id: new FormControl(),
-          job_title: new FormControl('', Validators.required),
-          company: new FormControl('', Validators.required),
-          job_category: new FormControl([], Validators.required),
-          experience_type: new FormControl('', Validators.required),
-          start_date: new FormControl('', Validators.required),
-          end_date: new FormControl('', Validators.required),
-          work_there: new FormControl(false),
-        })
-      );
-    }
+
+  addLanguageForm() {
+    this.professionalInfoForm.addControl(
+      'language',
+      new FormGroup({
+        id: new FormControl(),
+        language_name: new FormControl('', Validators.required),
+        proficiency: new FormControl('', Validators.required),
+      })
+    )
   }
+  removeLanguageForm() {
+    this.professionalInfoForm.removeControl('language');
+  }
+
   onEducationLevelChange(event: any) {
     console.log(event);
 
@@ -135,83 +111,9 @@ export class ClientsSetupProfessionalInfoComponent {
   }
 
 
-  fileTypeValidator(allowedExtensions: string[]): ValidatorFn {
-    return (control: AbstractControl) => {
-      const files = control.value as FileList;
-      if (!files) return null;
 
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const extension = file!.name.split('.').pop()!.toLowerCase();
-        if (!allowedExtensions.includes(extension)) {
-          return { invalidFileType: true };
-        }
-      }
-      return null;
-    };
-  }
+  personalInfoFormSubmit() {
 
-  fileSizeValidator(maxSizeInBytes: number): ValidatorFn {
-    return (control: AbstractControl) => {
-      const files = control.value as FileList;
-      if (!files) return null;
-
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        if (file!.size > maxSizeInBytes) {
-          return { invalidFileSize: true };
-        }
-      }
-      return null;
-    };
-  }
-  fileCountValidator(maxFileCount: number): ValidatorFn {
-    return (control: AbstractControl) => {
-      const files = control.value as FileList;
-      if (!files) return null;
-
-      if (files.length > maxFileCount) {
-        return { invalidFileCount: true };
-      }
-      return null;
-    };
-  }
-
-  deleteCV() {
-    this.store.dispatch(setupActions.deleteCV());
-  }
-  getCV() {
-    this.store.dispatch(setupActions.getCV());
-  }
-
-  addCV(event: any) {
-    const CV: FormData = new FormData();
-    CV.append('file', this.getControl('cv').value[0]);
-    this.store.dispatch(setupActions.addCV({ request: CV }));
-  }
-
-  onWorkExperienceCancel() {
-    this.professionalInfoForm.removeControl('work_experience');
-  }
-  onWorkExperienceSave(event: UserWorkExperience) {
-    this.store.dispatch(setupActions.addWorkExperience({ request: event }));
-  }
-  onWorkExperienceEdit(workExperience: UserWorkExperience) {
-    this.getFormGroup('work_experience').patchValue(workExperience);
-    const dialogRef = this.dialog.open(WorkExperienceFormComponent, {
-      data: { FormGroup: this.getFormGroup('work_experience') },
-    })
-    const updateSubscription = dialogRef.componentInstance.update.subscribe(value => {
-      this.store.dispatch(setupActions.updateWorkExperience({ request: value }));
-    });
-
-    dialogRef.afterClosed().subscribe(() => {
-      updateSubscription.unsubscribe();
-    });
-  }
-  onWorkExperienceDelete(id: number) {
-    this.store.dispatch(setupActions.deleteWorkExperience({ request: id }));
-    this.getFormGroup('work_experience').reset();
   }
 }
 

@@ -1,0 +1,25 @@
+<h4 class="subtitle">Start by uploading your CV</h4>
+<ng-container *ngIf="userProfile$()!.cv === null">
+  <app-input-file
+    [Control]="cv"
+    accept=", .doc, .docx, .pdf"
+    (controlchange)="addCV($event)"
+  ></app-input-file>
+</ng-container>
+<ng-container *ngIf="userProfile$()!.cv !== null">
+  <div class="flex-row">
+    <p>{{ userProfile$()!.cv!.cv_name }}</p>
+    <span class="example-spacer"></span>
+    <button type="button" mat-stroked-button color="primary" (click)="getCV()">
+      Preview
+    </button>
+    <button
+      type="button"
+      mat-stroked-button
+      color="primary"
+      (click)="deleteCV()"
+    >
+      Delete
+    </button>
+  </div>
+</ng-container>

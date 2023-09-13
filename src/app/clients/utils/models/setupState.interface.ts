@@ -1,7 +1,6 @@
 import { ResponseError, UserProfile } from './userProfile.models';
 
 interface InitialState {
-  isSubmitting: boolean;
   isLoading: boolean;
   validationErrors: ResponseError | null;
 }

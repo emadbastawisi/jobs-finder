@@ -8,7 +8,7 @@
     <form [formGroup]="generalInfoForm" class="form">
       <div class="card">
         <h4 class="subtitle">Your Personal Info</h4>
-        <div >
+        <div>
           <app-input
             class="input"
             [Control]="getControl('first_name')"
@@ -16,19 +16,17 @@
             type="text"
           ></app-input>
           <app-input
-            
             [Control]="getControl('last_name')"
             label="Last Name"
             type="text"
           ></app-input>
         </div>
-        <div >
-          <app-date-picker 
+        <div>
+          <app-date-picker
             [label]="'Enter your birthdate'"
             [Control]="getControl('birthdate')"
           ></app-date-picker>
           <app-chips
-
             size="xlarge"
             [chips]="genderChips"
             [Control]="getControl('gender')"
@@ -55,9 +53,7 @@
           icon="phone"
         ></app-input>
       </div>
-    </form>
-    <p>{{ generalInfoForm.value | json }}</p>
-          <div class="footer">
+      <div class="footer">
         <button class="btn" color="primary" mat-button matStepperPrevious>
           Back
         </button>
@@ -70,5 +66,7 @@
           Save and Continue
         </button>
       </div>
+    </form>
+    <p>{{ generalInfoForm.value | json }}</p>
   </div>
 </div>

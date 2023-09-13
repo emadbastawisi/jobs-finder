@@ -30,7 +30,6 @@ const createFailureState = (state: any, key: any, action: any) => ({
   },
 });
 const createInitialState = () => ({
-  isSubmitting: false,
   isLoading: false,
   validationErrors: null,
 });
@@ -55,9 +54,6 @@ const setupFeature = createFeature({
     on(setupActions.getUserProfile, (state) => createLoadingState(state, 'userProfile')),
     on(setupActions.getUserProfileSuccess, (state, action) => createSuccessState(state, 'userProfile', action)),
     on(setupActions.getUserProfileFailure, (state, action) => createFailureState(state, 'userProfile', action)),
-    on(setupActions.getUserProfile, (state) => createLoadingState(state, 'userProfile')),
-    on(setupActions.getUserProfileSuccess, (state, action) => createSuccessState(state, 'userProfile', action)),
-    on(setupActions.getUserProfileFailure, (state, action) => createFailureState(state, 'userProfile', action)),
     on(setupActions.careerInterest, (state) => createLoadingState(state, 'careerInterest')),
     on(setupActions.careerInterestSuccess, (state, action) => createSuccessState(state, 'careerInterest', action)),
     on(setupActions.careerInterestFailure, (state, action) => createFailureState(state, 'careerInterest', action)),
@@ -71,7 +67,7 @@ const setupFeature = createFeature({
     on(setupActions.deleteCVSuccess, (state, action) => createSuccessState(state, 'cv', action)),
     on(setupActions.deleteCVFailure, (state, action) => createFailureState(state, 'cv', action)),
     on(setupActions.getCV, (state) => createLoadingState(state, 'cv')),
-    on(setupActions.getCVSuccess, (state, action) => createSuccessState(state, 'cv', action)),
+    on(setupActions.getCVSuccess, (state) => ({ ...state, cv: { ...state.cv, isLoading: false, } })),
     on(setupActions.getCVFailure, (state, action) => createFailureState(state, 'cv', action)),
     on(setupActions.addWorkExperience, (state) => createLoadingState(state, 'workExperience')),
     on(setupActions.addWorkExperienceSuccess, (state, action) => createSuccessState(state, 'workExperience', action)),

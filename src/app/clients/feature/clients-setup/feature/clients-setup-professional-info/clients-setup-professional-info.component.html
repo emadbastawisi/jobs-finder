@@ -7,26 +7,7 @@
   <div class="flex-col">
     <form [formGroup]="professionalInfoForm" class="form">
       <div class="card">
-        <h4 class="subtitle">Start by uploading your CV</h4>
-        <ng-container *ngIf="userProfile$()!.cv === null">
-          <app-input-file
-            [Control]="getControl('cv')"
-            accept=", .doc, .docx, .pdf"
-            (controlchange)="addCV($event)"
-          ></app-input-file>
-        </ng-container>
-        <ng-container *ngIf="userProfile$()!.cv !== null">
-          <div class="flex-row">
-            <p>{{ userProfile$()!.cv!.cv_name }}</p>
-            <span class="example-spacer"></span>
-            <button mat-stroked-button color="primary" (click)="getCV()">
-              Preview
-            </button>
-            <button mat-stroked-button color="primary" (click)="deleteCV()">
-              Delete
-            </button>
-          </div>
-        </ng-container>
+        <app-cv></app-cv>
       </div>
       <div class="card">
         <h4 class="subtitle">How many years of experience do you have?</h4>
@@ -34,7 +15,6 @@
           label="Years of Experience"
           [Control]="getControl('years_of_experience')"
           [list]="yearsOfExperienceList"
-          (change)="onYearsOfExperienceChange($event)"
         ></app-select>
       </div>
       <ng-container
@@ -44,48 +24,7 @@
         "
       >
         <div class="card">
-          <h4 class="subtitle">What is your work experience?</h4>
-          <ng-container *ngIf="userProfile$()!.work_experience!.length === 0">
-            <app-work-experience-form
-              [FormGroup]="getFormGroup('work_experience')"
-              (save)="onWorkExperienceSave($event)"
-              (cancel)="onWorkExperienceCancel()"
-            ></app-work-experience-form>
-            <!-- <ng-container>
-              <div class="option-btns">
-                <button
-                  class="btn"
-                  mat-raised-button
-                  color="primary"
-                  [disabled]="getFormGroup('work_experience').invalid"
-                  (click)="onWorkExperienceSave()"
-                >
-                  Save
-                </button>
-                <button
-                  *ngIf="userProfile$()!.work_experience!.length !== 0"
-                  class="btn"
-                  mat-raised-button
-                  color="primary"
-                  (click)="onWorkExperienceCancel()"
-                >
-                  Cancel
-                </button>
-              </div>
-            </ng-container> -->
-          </ng-container>
-          <ng-container *ngIf="userProfile$()!.work_experience!.length !== 0">
-            <app-work-experience-card
-              *ngFor="let workExperience of userProfile$()!.work_experience"
-              [workExperience]="workExperience"
-              (edit)="onWorkExperienceEdit($event)"
-              (delete)="onWorkExperienceDelete($event)"
-            ></app-work-experience-card>
-            <p>
-              You have successfully saved
-              {{ userProfile$()!.work_experience!.length }} work experience.
-            </p>
-          </ng-container>
+          <app-work-experience> </app-work-experience>
         </div>
       </ng-container>
       <div class="card">
@@ -141,6 +80,19 @@
           [Control]="getControl('skills')"
           [chips]="skillsList"
         ></app-chips-autocomplete>
+      </div>
+      <div class="footer">
+        <button class="btn" color="primary" mat-button matStepperPrevious>
+          Back
+        </button>
+        <button
+          class="btn"
+          color="primary"
+          mat-raised-button
+          (click)="personalInfoFormSubmit()"
+        >
+          Save and Continue
+        </button>
       </div>
     </form>
   </div>
