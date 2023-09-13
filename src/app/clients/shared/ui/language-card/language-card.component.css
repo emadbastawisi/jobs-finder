@@ -1,0 +1,11 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+.lang-card {
+  display: flex;
+  flex-direction: row;
+  padding: 0.5rem;
+  gap: 1rem;
+  margin: 1rem 0;
+  align-items: center;
+}

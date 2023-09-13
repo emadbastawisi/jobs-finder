@@ -1,0 +1,29 @@
+.lang-card {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  margin: 1rem 0;
+  align-items: flex-start;
+}
+.dialog {
+  padding: 1rem 1rem 0;
+}
+.width {
+  width: 40%;
+}
+.btn {
+  height: 56px;
+}
+
+@media screen and (max-width: 768px) {
+  .lang-card {
+    flex-direction: column;
+  }
+  .width {
+    width: 100%;
+  }
+  .btn {
+    width: 100%;
+    height: auto;
+  }
+}

@@ -42,7 +42,10 @@ export const setupActions = createActionGroup({
     addLanguage: props<{ request: UserLanguage }>(),
     addLanguageSuccess: props<{ response: UserProfile }>(),
     addLanguageFailure: props<{ errors: ResponseError }>(),
-    deleteLanguage: emptyProps(),
+    updateLanguage: props<{ request: UserLanguage }>(),
+    updateLanguageSuccess: props<{ response: UserProfile }>(),
+    updateLanguageFailure: props<{ errors: ResponseError }>(),
+    deleteLanguage: props<{ request: number }>(),
     deleteLanguageSuccess: props<{ response: UserProfile }>(),
     deleteLanguageFailure: props<{ errors: ResponseError }>()
   },

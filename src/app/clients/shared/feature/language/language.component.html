@@ -1,0 +1,12 @@
+<h4 class="subtitle">What languages do you know? - you can add one or more</h4>
+<ng-container>
+  <app-language-form (save)="onAddLanguage($event)"></app-language-form>
+</ng-container>
+<ng-container *ngIf="userProfile$()!.languages?.length !== 0">
+  <app-language-card
+    *ngFor="let language of userProfile$()!.languages"
+    [language]="language"
+    (delete)="onDeleteLanguage($event)"
+    (update)="onUpdateLanguage($event)"
+  ></app-language-card>
+</ng-container>

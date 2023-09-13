@@ -1,0 +1,19 @@
+<h4 class="subtitle">What is your current education level?</h4>
+<app-chips
+  size="large"
+  [Control]="education_level"
+  [chips]="educationLevelList"
+  (change)="onEducationLevelChange($event)"
+></app-chips>
+<ng-container *ngIf="education_level.value !== 'High School'">
+  <app-degree-details-form
+    type="degree"
+    [FormGroup]="degree_details"
+  ></app-degree-details-form>
+</ng-container>
+<ng-container *ngIf="education_level.value === 'High School'">
+  <app-degree-details-form
+    type="highschool"
+    [FormGroup]="highschool_details"
+  ></app-degree-details-form>
+</ng-container>

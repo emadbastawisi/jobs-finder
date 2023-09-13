@@ -288,3 +288,89 @@ export const deleteWorkExperienceEffect = createEffect(
   { functional: true }
 );
 
+export const addLanguageEffect = createEffect(
+  (actions$ = inject(Actions), clientsService = inject(ClientsService)) => {
+    return actions$.pipe(
+      ofType(setupActions.addLanguage),
+      switchMap(({ request }) => {
+        return clientsService.addLanguage(request).pipe(
+          map((response: UserProfile) => {
+            console.log(response);
+            return setupActions.addLanguageSuccess({ response });
+          }),
+          catchError((errorResponce: HttpErrorResponse) => {
+            console.log(errorResponce);
+            return of(
+              setupActions.addLanguageFailure({
+                errors: errorResponce.error.detail,
+              })
+            );
+          })
+        );
+      })
+    );
+  },
+  { functional: true }
+)
+
+export const updateLanguageEffect = createEffect(
+  (actions$ = inject(Actions), clientsService = inject(ClientsService)) => {
+    return actions$.pipe(
+      ofType(setupActions.updateLanguage),
+      switchMap(({ request }) => {
+        return clientsService.updateLanguage(request).pipe(
+          map((response: UserProfile) => {
+            console.log(response);
+            return setupActions.updateLanguageSuccess({ response });
+          }),
+          catchError((errorResponce: HttpErrorResponse) => {
+            console.log(errorResponce);
+            return of(
+              setupActions.updateLanguageFailure({
+                errors: errorResponce.error.detail,
+              })
+            );
+          })
+        );
+      })
+    );
+  },
+  { functional: true }
+);
+
+export const updateLanguageSuccessEffect = createEffect(
+  (actions$ = inject(Actions), dialog = inject(MatDialog)) => {
+    return actions$.pipe(
+      ofType(setupActions.updateLanguageSuccess),
+      tap(() => {
+        dialog.closeAll();
+      }),
+    );
+  }
+  , { functional: true, dispatch: false }
+);
+
+export const deleteLanguageEffect = createEffect(
+  (actions$ = inject(Actions), clientsService = inject(ClientsService)) => {
+    return actions$.pipe(
+      ofType(setupActions.deleteLanguage),
+      switchMap(({ request }) => {
+        return clientsService.deleteLanguage(request).pipe(
+          map((response: UserProfile) => {
+            console.log(response);
+            return setupActions.deleteLanguageSuccess({ response });
+          }),
+          catchError((errorResponce: HttpErrorResponse) => {
+            console.log(errorResponce);
+            return of(
+              setupActions.deleteLanguageFailure({
+                errors: errorResponce.error.detail,
+              })
+            );
+          })
+        );
+      })
+    );
+  },
+  { functional: true }
+);

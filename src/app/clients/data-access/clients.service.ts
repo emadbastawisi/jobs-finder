@@ -11,6 +11,7 @@ import { UsersLoginResponse } from '../utils/models/users-login';
 import {
   CV,
   UserCareerInterests,
+  UserLanguage,
   UserPersonalInfo,
   UserProfile,
   UserWorkExperience,
@@ -119,6 +120,24 @@ export class ClientsService {
   deleteWorkExperience(id: number): Observable<UserProfile> {
     return this.http.delete<UserProfile>(
       environment.api.address + '/users/deleteWorkExperience/' + id
+    );
+  }
+
+  addLanguage(request: UserLanguage): Observable<UserProfile> {
+    return this.http.post<UserProfile>(
+      environment.api.address + '/users/addLanguage',
+      request
+    );
+  }
+  updateLanguage(request: UserLanguage): Observable<UserProfile> {
+    return this.http.put<UserProfile>(
+      environment.api.address + '/users/updateLanguage',
+      request
+    );
+  }
+  deleteLanguage(id: number): Observable<UserProfile> {
+    return this.http.delete<UserProfile>(
+      environment.api.address + '/users/deleteLanguage/' + id
     );
   }
 }

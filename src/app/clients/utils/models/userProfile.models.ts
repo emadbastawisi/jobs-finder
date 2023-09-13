@@ -70,11 +70,13 @@ export interface UserEducation {
 }
 
 export interface UserSkills {
+  id?: number;
   skill: string;
   proficiency: string;
 }
 
 export interface UserLanguage {
+  id?: number;
   language: string;
   proficiency: string;
 }

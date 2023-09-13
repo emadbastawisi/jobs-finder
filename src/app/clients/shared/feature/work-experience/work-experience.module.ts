@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WorkExperienceComponent } from './work-experience.component';
-import { WorkExperienceFormModule } from '../../ui/work-experience/work-experience-form.module';
+import { WorkExperienceFormModule } from '../../ui/work-experience-form/work-experience-form.module';
 import { WorkExperienceCardModule } from '../../ui/work-experience-card/work-experience-card.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';

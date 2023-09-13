@@ -12,6 +12,8 @@ import { InputAutocompleteComponent } from 'src/app/shared/ui/input-autocomplete
 import { DegreeDetailsFormModule } from 'src/app/clients/shared/ui/degree-details-form/degree-details-form.module';
 import { CvModule } from 'src/app/clients/shared/feature/cv/cv.module';
 import { WorkExperienceModule } from 'src/app/clients/shared/feature/work-experience/work-experience.module';
+import { EducationModule } from 'src/app/clients/shared/feature/education/education.module';
+import { LanguageModule } from 'src/app/clients/shared/feature/language/language.module';
 
 @NgModule({
   declarations: [ClientsSetupProfessionalInfoComponent],
@@ -27,7 +29,9 @@ import { WorkExperienceModule } from 'src/app/clients/shared/feature/work-experi
     MatButtonModule,
     DegreeDetailsFormModule,
     CvModule,
-    WorkExperienceModule
+    WorkExperienceModule,
+    EducationModule,
+    LanguageModule
 
   ],
   exports: [ClientsSetupProfessionalInfoComponent],

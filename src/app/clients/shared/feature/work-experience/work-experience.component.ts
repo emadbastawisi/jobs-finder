@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { UserWorkExperience } from 'src/app/clients/utils/models/userProfile.models';
 import { setupActions } from 'src/app/store/actions';
 import { selectUserProfileSetup } from 'src/app/store/setup/setup.reducers';
-import { WorkExperienceFormComponent } from '../../ui/work-experience/work-experience-form.component';
+import { WorkExperienceFormComponent } from '../../ui/work-experience-form/work-experience-form.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({

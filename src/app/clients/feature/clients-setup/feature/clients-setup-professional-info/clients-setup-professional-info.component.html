@@ -28,46 +28,10 @@
         </div>
       </ng-container>
       <div class="card">
-        <h4 class="subtitle">What is your current education level?</h4>
-        <app-chips
-          size="large"
-          [Control]="getControl('education_level')"
-          [chips]="educationLevelList"
-          (change)="onEducationLevelChange($event)"
-        ></app-chips>
-        <ng-container
-          *ngIf="getControl('education_level').value !== 'High School'"
-        >
-          <app-degree-details-form
-            type="degree"
-            [FormGroup]="getFormGroup('degree_details')"
-          ></app-degree-details-form>
-        </ng-container>
-        <ng-container
-          *ngIf="getControl('education_level').value === 'High School'"
-        >
-          <app-degree-details-form
-            type="highschool"
-            [FormGroup]="getFormGroup('highschool_details')"
-          ></app-degree-details-form>
-        </ng-container>
+        <app-education></app-education>
       </div>
       <div class="card">
-        <h4 class="subtitle">
-          What languages do you know? - you can add one or more
-        </h4>
-        <app-input-autocomplete
-          label="Language"
-          placeholder="e.g., Arabic, English"
-          [Control]="getFormGroupControl('language', 'language_name')"
-          [list]="languageList"
-        ></app-input-autocomplete>
-        <app-select
-          label="Proficiency"
-          [Control]="getFormGroupControl('language', 'proficiency')"
-          [list]="proficiencyLevelList"
-        ></app-select>
-        <button mat-raised-button color="primary">Add</button>
+        <app-language></app-language>
       </div>
       <div class="card">
         <h4 class="subtitle">

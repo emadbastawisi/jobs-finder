@@ -7,7 +7,7 @@ import { setupActions } from 'src/app/store/setup/setup.actions';
 import { CV, UserWorkExperience } from 'src/app/clients/utils/models/userProfile.models';
 import { ClientsService } from 'src/app/clients/data-access/clients.service';
 import { MatDialog } from '@angular/material/dialog';
-import { WorkExperienceFormComponent } from 'src/app/clients/shared/ui/work-experience/work-experience-form.component';
+import { WorkExperienceFormComponent } from 'src/app/clients/shared/ui/work-experience-form/work-experience-form.component';
 
 @Component({
   selector: 'app-clients-setup-professional-info',
@@ -33,20 +33,6 @@ export class ClientsSetupProfessionalInfoComponent {
   constructor() {
     this.professionalInfoForm = this.fb.group({
       years_of_experience: [null, Validators.required],
-      education_level: ['', Validators.required],
-      degree_details: this.fb.group({
-        field_of_study: ['', Validators.required],
-        university: ['', Validators.required],
-        degree_year: ['', Validators.required],
-        degree_grade: ['', Validators.required]
-      }),
-      highschool_details: this.fb.group({
-        school_name: ['', Validators.required],
-        certificate_name: ['', Validators.required],
-        language_of_study: ['', Validators.required],
-        graduation_year: ['', Validators.required],
-        highschool_grade: ['', Validators.required]
-      }),
       language: this.fb.group({
         id: [],
         language_name: ['', Validators.required],

@@ -1,0 +1,18 @@
+<form [formGroup]="languageForm" class="lang-card" [ngClass]="{ dialog: edit }">
+  <app-input-autocomplete
+    class="width"
+    label="Language"
+    placeholder="e.g., Arabic, English"
+    [Control]="getControl('language')"
+    [list]="languageList"
+  ></app-input-autocomplete>
+  <app-select
+    class="width"
+    label="Proficiency"
+    [Control]="getControl('proficiency')"
+    [list]="proficiencyLevelList"
+  ></app-select>
+  <button class="btn" mat-raised-button color="primary" (click)="onSave()">
+    Save
+  </button>
+</form>
