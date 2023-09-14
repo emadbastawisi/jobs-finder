@@ -29,10 +29,16 @@ export class ClientsService {
   userProfile$ = this.store.selectSignal(selectUserProfileSetup);
   private _moveToNextStep = new Subject<void>();
   moveToNextStep$ = this._moveToNextStep.asObservable();
+  private _moveToPrevStep = new Subject<void>();
+  moveToPrevStep$ = this._moveToPrevStep.asObservable();
+
 
 
   moveToNextStep() {
     this._moveToNextStep.next();
+  }
+  moveToPrevStep() {
+    this._moveToPrevStep.next();
   }
 
   // check username availability with api

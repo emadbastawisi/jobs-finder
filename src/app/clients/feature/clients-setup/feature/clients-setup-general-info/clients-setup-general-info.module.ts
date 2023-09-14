@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ChipsComponent } from 'src/app/shared/ui/chips/chips.component';
 import { SelectComponent } from 'src/app/shared/ui/select/select.component';
 import { CountryStateCityComponent } from 'src/app/shared/ui/country-state-city/country-state-city.component';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { CountryStateCityComponent } from 'src/app/shared/ui/country-state-city/
     SelectComponent,
     ReactiveFormsModule,
     CountryStateCityComponent,
+    MatButtonModule
   ],
   exports: [ClientsSetupGeneralInfoComponent],
 })

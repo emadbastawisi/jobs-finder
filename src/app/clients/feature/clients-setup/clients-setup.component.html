@@ -1,27 +1,24 @@
-<ng-container *ngIf="!setupState$().userProfile.isLoading ; else loading">
-<mat-stepper linear="true" #stepper class="stepper">
-  <mat-step >
+<ng-container *ngIf="!setupState$().userProfile.isLoading; else loading">
+  <mat-stepper #stepper class="stepper">
+    <mat-step>
       <ng-template matStepLabel>Career Interests</ng-template>
       <ng-template matStepContent>
-      <app-clients-setup-career-interests
-      ></app-clients-setup-career-interests>
+        <app-clients-setup-career-interests></app-clients-setup-career-interests>
       </ng-template>
-  </mat-step>
-  <mat-step >
-    <ng-template matStepLabel>Genral Info</ng-template>
-          <ng-template matStepContent>
-      <app-clients-setup-general-info
-      ></app-clients-setup-general-info>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Genral Info</ng-template>
+      <ng-template matStepContent>
+        <app-clients-setup-general-info></app-clients-setup-general-info>
       </ng-template>
-  </mat-step>
-  <mat-step >
-    <ng-template matStepLabel>Professional Info</ng-template>
-          <ng-template matStepContent>
-    <app-clients-setup-professional-info
-    ></app-clients-setup-professional-info>
-    </ng-template>
-  </mat-step>
-</mat-stepper>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Professional Info</ng-template>
+      <ng-template matStepContent>
+        <app-clients-setup-professional-info></app-clients-setup-professional-info>
+      </ng-template>
+    </mat-step>
+  </mat-stepper>
 </ng-container>
 
 <ng-template #loading>

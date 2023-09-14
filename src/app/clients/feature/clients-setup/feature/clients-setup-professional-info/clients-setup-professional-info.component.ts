@@ -21,6 +21,8 @@ export class ClientsSetupProfessionalInfoComponent {
 
   store = inject(Store);
   fb = inject(FormBuilder);
+  clientsService = inject(ClientsService);
+
   userProfile$ = this.store.selectSignal(selectUserProfileSetup);
   skills$ = this.store.selectSignal(selectSkills);
   skillsList$ = computed(() => {
@@ -32,8 +34,6 @@ export class ClientsSetupProfessionalInfoComponent {
       return []
     }
   })
-
-  clientsService = inject(ClientsService);
 
   professionalInfoForm: FormGroup;
   constructor() {
@@ -63,6 +63,9 @@ export class ClientsSetupProfessionalInfoComponent {
     this.store.dispatch(setupActions.getSkills({ request: event }));
   }
 
+  prevStep() {
+    this.clientsService.moveToPrevStep();
+  }
   personalInfoFormSubmit() {
 
   }

@@ -46,22 +46,19 @@
       </div>
       <div class="card">
         <h4 class="subtitle">What is the minimum salary you would accept?</h4>
-        <span>
-          <app-input
-            type="number"
-            label="minimum salary"
-            [Control]="getControl('min_salary')"
-            icon="paid"
-          ></app-input>
-        </span>
+        <app-input
+          class="width-half"
+          type="number"
+          label="minimum salary"
+          [Control]="getControl('min_salary')"
+          icon="paid"
+        ></app-input>
         <span> EGP / Month</span>
         <mat-checkbox formControlName="hide_min_salary"
           >Hide my minmum salary from companys</mat-checkbox
         >
-        <p>{{ careerInterestsForm.value | json }}</p>
       </div>
-    </form>
-        <div class="footer">
+      <div class="footer">
         <button
           class="btn"
           color="primary"
@@ -71,5 +68,6 @@
           Save and Continue
         </button>
       </div>
+    </form>
   </div>
 </div>

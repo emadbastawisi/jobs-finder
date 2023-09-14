@@ -54,7 +54,7 @@
         ></app-input>
       </div>
       <div class="footer">
-        <button class="btn" color="primary" mat-button matStepperPrevious>
+        <button class="btn" color="primary" mat-button (click)="prevStep()">
           Back
         </button>
         <button
@@ -67,6 +67,5 @@
         </button>
       </div>
     </form>
-    <p>{{ generalInfoForm.value | json }}</p>
   </div>
 </div>

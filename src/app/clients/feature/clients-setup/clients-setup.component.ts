@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, inject } from '@angular/core';
 import {
   AbstractControl,
   FormArray,
@@ -30,8 +30,12 @@ export class ClientsSetupComponent implements OnInit {
 
   ngOnInit() {
     this.clientsService.moveToNextStep$.subscribe(() => {
+      console.log('next');
       this.stepper.next();
     });
+    this.clientsService.moveToPrevStep$.subscribe(() => {
+      console.log('next');
+      this.stepper.previous();
+    });
   }
-
 }

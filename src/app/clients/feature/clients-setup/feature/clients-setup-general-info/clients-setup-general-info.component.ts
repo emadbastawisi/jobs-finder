@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { selectUserProfileSetup } from '../../../../../store//setup/setup.reducers';
 import { filter, map, take } from 'rxjs';
 import { setupActions } from 'src/app/store/setup/setup.actions';
+import { ClientsService } from 'src/app/clients/data-access/clients.service';
 
 @Component({
   selector: 'app-clients-setup-general-info',
@@ -13,6 +14,7 @@ import { setupActions } from 'src/app/store/setup/setup.actions';
 export class ClientsSetupGeneralInfoComponent implements OnInit {
   store = inject(Store);
   fb = inject(FormBuilder);
+  clientsService = inject(ClientsService);
   userProfile$ = this.store.select(selectUserProfileSetup);
   generalInfoForm: FormGroup;
 
@@ -41,6 +43,10 @@ export class ClientsSetupGeneralInfoComponent implements OnInit {
     return this.generalInfoForm.get(controlName) as FormGroup;
   }
 
+  prevStep() {
+    this.clientsService.moveToPrevStep();
+  }
+
   generalInfoFormSubmit() {
     if (this.generalInfoForm.valid) {
       const Data = this.generalInfoForm.getRawValue();
@@ -56,9 +62,6 @@ export class ClientsSetupGeneralInfoComponent implements OnInit {
     const values = keys.map(key => address[key] || '');
     return values.join(',');
   }
-
-
-
   strToAddress(addressStr: string): { [key: string]: string } {
     const keys = ['country', 'state', 'city'];
     const values = addressStr.split(',');

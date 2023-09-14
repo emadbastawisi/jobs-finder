@@ -11,6 +11,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
 import { ChipsComponent } from 'src/app/shared/ui/chips/chips.component';
 import { ChipsAutocompleteComponent } from 'src/app/shared/ui/chipsAutocomplete/chips-autocomplete.component';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -25,12 +26,11 @@ import { ChipsAutocompleteComponent } from 'src/app/shared/ui/chipsAutocomplete/
     MatIconModule,
     MatAutocompleteModule,
     MatChipsModule,
-    FormsModule,
-    MatFormFieldModule,
     MatCheckboxModule,
     MatInputModule,
     ChipsComponent,
-    ChipsAutocompleteComponent
+    ChipsAutocompleteComponent,
+    MatButtonModule
   ],
   exports: [
     ClientsSetupCareerInterestsComponent

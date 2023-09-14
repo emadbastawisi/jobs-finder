@@ -12,7 +12,6 @@ import {
 export const setupActions = createActionGroup({
   source: 'Setup',
   events: {
-    moveToNextStep: emptyProps(),
     getUserProfile: emptyProps(),
     getUserProfileSuccess: props<{ response: UserProfile }>(),
     getUserProfileFailure: props<{ errors: ResponseError }>(),

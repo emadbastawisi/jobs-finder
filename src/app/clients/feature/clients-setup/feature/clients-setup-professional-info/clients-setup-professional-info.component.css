@@ -1,7 +1,17 @@
 .form {
   width: 100%;
 }
-
+.footer {
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  background-color: var(--bg-color);
+  box-shadow: var(--box-shadow);
+}
 .example-spacer {
   flex: 1 1 auto;
 }

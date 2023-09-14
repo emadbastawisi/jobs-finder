@@ -2,7 +2,7 @@ import { Component, Input, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import * as list from '../../utils/list';
 import { Store } from '@ngrx/store';
-import { selectUserProfileSetup } from '../../../../../store/setup/setup.reducers';
+import { selectUserProfileSetup } from 'src/app/store/setup/setup.reducers';
 import { filter, map, take } from 'rxjs';
 import { setupActions } from 'src/app/store/setup/setup.actions';
 
@@ -39,11 +39,7 @@ export class ClientsSetupCareerInterestsComponent implements OnInit {
       filter(userProfile => userProfile !== undefined && userProfile!.career_interests !== null),
       map(userProfile => {
         const { career_interests } = userProfile!;
-        return {
-          ...career_interests,
-          job_types: career_interests!.job_types.split(','),
-          job_categories: career_interests!.job_categories.split(','),
-        };
+        return { ...career_interests }
       }),
       take(1)
     ).subscribe(formData => {
@@ -55,8 +51,6 @@ export class ClientsSetupCareerInterestsComponent implements OnInit {
   careerInterestsFormSubmit() {
     if (this.careerInterestsForm.valid) {
       const Data = this.careerInterestsForm.getRawValue();
-      Data.job_types = Data.job_types.join(',');
-      Data.job_categories = Data.job_categories.join(',');
       this.store.dispatch(setupActions.careerInterest({ request: Data }));
     } else {
       this.careerInterestsForm.markAllAsTouched();
