@@ -6,6 +6,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ClientsService } from 'src/app/clients/data-access/clients.service';
 import { Skills, UserProfile } from 'src/app/clients/utils/models/userProfile.models';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 
 
@@ -399,4 +400,91 @@ export const getSkillEffect = createEffect(
     );
   },
   { functional: true }
+);
+
+export const addDegreeEffect = createEffect(
+  (actions$ = inject(Actions), clientsService = inject(ClientsService)) => {
+    return actions$.pipe(
+      ofType(setupActions.addDegree),
+      switchMap(({ request }) => {
+        return clientsService.addDegree(request).pipe(
+          map((response: UserProfile) => {
+            console.log(response);
+            return setupActions.addDegreeSuccess({ response });
+          }),
+          catchError((errorResponce: HttpErrorResponse) => {
+            console.log(errorResponce);
+            return of(
+              setupActions.addDegreeFailure({
+                errors: errorResponce.error.detail,
+              })
+            );
+          })
+        );
+      })
+    );
+  },
+  { functional: true }
+);
+
+export const addHighSchoolEffect = createEffect(
+  (actions$ = inject(Actions), clientsService = inject(ClientsService)) => {
+    return actions$.pipe(
+      ofType(setupActions.addHighSchool),
+      switchMap(({ request }) => {
+        return clientsService.addHighSchool(request).pipe(
+          map((response: UserProfile) => {
+            console.log(response);
+            return setupActions.addHighSchoolSuccess({ response });
+          }),
+          catchError((errorResponce: HttpErrorResponse) => {
+            console.log(errorResponce);
+            return of(
+              setupActions.addHighSchoolFailure({
+                errors: errorResponce.error.detail,
+              })
+            );
+          })
+        );
+      })
+    );
+  },
+  { functional: true }
+);
+
+export const addSkillsEffect = createEffect(
+  (actions$ = inject(Actions), clientsService = inject(ClientsService)) => {
+    return actions$.pipe(
+      ofType(setupActions.addSkills),
+      switchMap(({ request }) => {
+        return clientsService.addSkills(request).pipe(
+          map((response: UserProfile) => {
+            console.log(response);
+            return setupActions.addSkillsSuccess({ response });
+          }),
+          catchError((errorResponce: HttpErrorResponse) => {
+            console.log(errorResponce);
+            return of(
+              setupActions.addSkillsFailure({
+                errors: errorResponce.error.detail,
+              })
+            );
+          })
+        );
+      })
+    );
+  },
+  { functional: true }
+);
+
+export const addSkillsSuccessEffect = createEffect(
+  (actions$ = inject(Actions), router = inject(Router)) => {
+    return actions$.pipe(
+      ofType(setupActions.addSkillsSuccess),
+      tap(() => {
+        router.navigate(['/home']);
+      }),
+    );
+  },
+  { functional: true, dispatch: false }
 );

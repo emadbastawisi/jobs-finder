@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { educationLevelList } from 'src/app/clients/feature/clients-setup/utils/list';
+import { setupActions } from 'src/app/store/setup/setup.actions';
 @Component({
   selector: 'app-education',
   templateUrl: './education.component.html',
@@ -18,10 +19,10 @@ export class EducationComponent {
     this.education_level = new FormControl('', Validators.required);
     this.degree_details = this.fb.group({
       degree: [''],
-      field_of_study: ['', Validators.required],
+      field_of_study: [[], Validators.required],
       university: ['', Validators.required],
       degree_year: ['', Validators.required],
-      degree_grade: ['', Validators.required]
+      grade: ['', Validators.required]
     }),
       this.highschool_details = this.fb.group({
         degree: [''],
@@ -35,5 +36,14 @@ export class EducationComponent {
   onEducationLevelChange(event: any) {
     this.degree_details.controls['degree'].setValue(event);
     this.highschool_details.controls['degree'].setValue(event);
+  }
+
+  submitEducation() {
+    if (this.education_level.value == 'High School' && this.highschool_details.valid) {
+      this.store.dispatch(setupActions.addHighSchool({ request: this.highschool_details.getRawValue() }));
+    }
+    else if (this.education_level.value !== 'High School' && this.degree_details.valid) {
+      this.store.dispatch(setupActions.addDegree({ request: this.degree_details.getRawValue() }));
+    }
   }
 }

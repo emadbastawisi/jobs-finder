@@ -36,14 +36,17 @@ const createInitialState = () => ({
 
 const initialsetupState: SetupStateInterface = {
   userProfileSetup: undefined,
-  skills: [],
+  skillsFilter: [],
   userProfile: createInitialState(),
   careerInterest: createInitialState(),
   generalInfo: createInitialState(),
   professionalInfo: createInitialState(),
   cv: createInitialState(),
   workExperience: createInitialState(),
+  degree: createInitialState(),
+  highschool: createInitialState(),
   language: createInitialState(),
+  skills: createInitialState(),
 };
 
 
@@ -88,10 +91,19 @@ const setupFeature = createFeature({
     on(setupActions.deleteLanguage, (state) => createLoadingState(state, 'language')),
     on(setupActions.deleteLanguageSuccess, (state, action) => createSuccessState(state, 'language', action)),
     on(setupActions.deleteLanguageFailure, (state, action) => createFailureState(state, 'language', action)),
-    on(setupActions.getSkills, (state) => createLoadingState(state, 'skills')),
-    on(setupActions.getSkillsSuccess, (state, action) => ({ ...state, skills: action.response })),
-    on(setupActions.getSkillsFailure, (state, action) => createFailureState(state, 'skills', action)),
-
+    on(setupActions.getSkills, (state) => createLoadingState(state, 'skillsFilter')),
+    on(setupActions.getSkillsSuccess, (state, action) => ({ ...state, skillsFilter: action.response })),
+    on(setupActions.getSkillsFailure, (state, action) => createFailureState(state, 'skillsFilter', action)),
+    on(setupActions.addDegree, (state) => createLoadingState(state, 'degree')),
+    on(setupActions.addDegreeSuccess, (state, action) => createSuccessState(state, 'degree', action)),
+    on(setupActions.addDegreeFailure, (state, action) => createFailureState(state, 'degree', action)),
+    on(setupActions.addHighSchool, (state) => createLoadingState(state, 'highschool')),
+    on(setupActions.addHighSchoolSuccess, (state, action) => createSuccessState(state, 'highschool', action)),
+    on(setupActions.addHighSchoolFailure, (state, action) => createFailureState(state, 'highschool', action)),
+    on(setupActions.addSkills, (state) => createLoadingState(state, 'skills')),
+    on(setupActions.addSkillsSuccess, (state, action) => createSuccessState(state, 'skills', action)),
+    on(setupActions.addSkillsFailure, (state, action) => createFailureState(state, 'skills', action)
+    ),
   ),
 });
 
@@ -102,5 +114,5 @@ export const {
   reducer: setupReducer,
   selectSetupState,
   selectUserProfileSetup,
-  selectSkills,
+  selectSkillsFilter,
 } = setupFeature;

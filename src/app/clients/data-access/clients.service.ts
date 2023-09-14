@@ -12,9 +12,12 @@ import {
   CV,
   Skills,
   UserCareerInterests,
+  UserDegree,
+  UserHighSchool,
   UserLanguage,
   UserPersonalInfo,
   UserProfile,
+  UserSkills,
   UserWorkExperience,
 } from '../utils/models/userProfile.models';
 import { Store } from '@ngrx/store';
@@ -152,5 +155,31 @@ export class ClientsService {
     return this.http.get<Skills[]>(
       environment.api.address + '/skills/' + request
     );
+  }
+
+  addDegree(request: UserDegree): Observable<UserProfile> {
+    return this.http.post<UserProfile>(
+      environment.api.address + '/users/addDegree',
+      request
+    );
+  }
+
+  addHighSchool(request: UserHighSchool): Observable<UserProfile> {
+    return this.http.post<UserProfile>(
+      environment.api.address + '/users/addHighSchool',
+      request
+    );
+  }
+  addSkills(request: UserSkills[]): Observable<UserProfile> {
+    return this.http.post<UserProfile>(
+      environment.api.address + '/users/addSkills',
+      request
+    );
+  }
+  addYearsOfExperience(request: string): void {
+    this.http.put<UserProfile>(
+      environment.api.address + '/users/addYearsOfExperience/' + request,
+      request
+    ).subscribe();
   }
 }

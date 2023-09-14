@@ -3,9 +3,12 @@ import {
   ResponseError,
   Skills,
   UserCareerInterests,
+  UserDegree,
+  UserHighSchool,
   UserLanguage,
   UserPersonalInfo,
   UserProfile,
+  UserSkills,
   UserWorkExperience,
 } from '../../clients/utils/models/userProfile.models';
 
@@ -51,5 +54,14 @@ export const setupActions = createActionGroup({
     getSkills: props<{ request: string }>(),
     getSkillsSuccess: props<{ response: Skills[] }>(),
     getSkillsFailure: props<{ errors: ResponseError }>(),
+    addDegree: props<{ request: UserDegree }>(),
+    addDegreeSuccess: props<{ response: UserProfile }>(),
+    addDegreeFailure: props<{ errors: ResponseError }>(),
+    addHighSchool: props<{ request: UserHighSchool }>(),
+    addHighSchoolSuccess: props<{ response: UserProfile }>(),
+    addHighSchoolFailure: props<{ errors: ResponseError }>(),
+    addSkills: props<{ request: UserSkills[] }>(),
+    addSkillsSuccess: props<{ response: UserProfile }>(),
+    addSkillsFailure: props<{ errors: ResponseError }>(),
   },
 });

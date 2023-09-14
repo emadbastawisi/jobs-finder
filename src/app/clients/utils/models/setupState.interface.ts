@@ -7,12 +7,15 @@ interface InitialState {
 
 export interface SetupStateInterface {
   userProfileSetup: UserProfile | null | undefined;
-  skills: Skills[] | [];
+  skillsFilter: Skills[] | [];
   userProfile: InitialState;
   careerInterest: InitialState;
   generalInfo: InitialState;
   professionalInfo: InitialState;
   cv: InitialState;
   workExperience: InitialState;
+  degree: InitialState;
+  highschool: InitialState;
   language: InitialState;
+  skills: InitialState;
 }

@@ -61,19 +61,33 @@ export interface UserWorkExperience {
   work_there: boolean;
 }
 
-export interface UserEducation {
+export interface UserEducationDegree {
   degree: string;
   field_of_study: string;
   university: string;
   degree_year: string;
   grade: string;
 }
-
+export interface UserDegree {
+  degree: string;
+  field_of_study: string[];
+  university: string;
+  degree_year: string;
+  grade: string;
+}
+export interface UserHighSchool {
+  degree: string;
+  school_name: string;
+  certificate_name: string;
+  language_of_study: string
+  graduation_year: string;
+  highschool_grade: string;
+}
 
 export interface UserSkills {
   id?: number;
   skill: string;
-  proficiency: string;
+  proficiency?: string;
 }
 
 export interface UserLanguage {
@@ -98,7 +112,8 @@ export interface UserProfile {
   career_interests?: UserCareerInterests;
   personal_info?: UserPersonalInfo;
   work_experience?: UserWorkExperience[];
-  education?: UserEducation[];
+  degrees?: UserDegree[];
+  highschool?: UserHighSchool[];
   skills?: UserSkills[];
   languages?: UserLanguage[];
 }

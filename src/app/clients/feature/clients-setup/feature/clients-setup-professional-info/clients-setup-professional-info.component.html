@@ -16,6 +16,14 @@
           [Control]="getControl('years_of_experience')"
           [list]="yearsOfExperienceList"
         ></app-select>
+        <button
+          class="btn"
+          mat-raised-button
+          color="primary"
+          (click)="onClick()"
+        >
+          check
+        </button>
       </div>
       <ng-container
         *ngIf="
