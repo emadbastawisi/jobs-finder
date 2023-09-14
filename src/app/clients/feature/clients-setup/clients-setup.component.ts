@@ -34,7 +34,4 @@ export class ClientsSetupComponent implements OnInit {
     });
   }
 
-
-
-
 }

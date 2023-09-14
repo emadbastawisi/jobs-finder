@@ -69,6 +69,7 @@ export interface UserEducation {
   grade: string;
 }
 
+
 export interface UserSkills {
   id?: number;
   skill: string;
@@ -79,6 +80,11 @@ export interface UserLanguage {
   id?: number;
   language: string;
   proficiency: string;
+}
+
+export interface Skills {
+  name: string;
+  frequency: number;
 }
 
 export interface UserProfile {
@@ -96,3 +102,4 @@ export interface UserProfile {
   skills?: UserSkills[];
   languages?: UserLanguage[];
 }
+

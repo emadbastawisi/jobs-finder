@@ -17,6 +17,7 @@
       (matChipInputTokenEnd)="addChip($event)"
       [matAutocomplete]="chipsAutocomplete"
       [formControl]="chipInput"
+      (ngModelChange)="onInputChange($event)"
     />
   </mat-chip-grid>
 
@@ -25,9 +26,16 @@
     #chipsAutocomplete="matAutocomplete"
     (optionSelected)="selectChip($event)"
   >
-    <mat-option *ngFor="let chip of filteredChips$ | async" [value]="chip">
-      {{ chip }}
-    </mat-option>
+    <ng-container *ngIf="filter === 'local'">
+      <mat-option *ngFor="let chip of filteredChips$ | async" [value]="chip">
+        {{ chip }}
+      </mat-option></ng-container
+    >
+    <ng-container *ngIf="filter === 'api'">
+      <mat-option *ngFor="let chip of chips" [value]="chip">
+        {{ chip }}
+      </mat-option></ng-container
+    >
   </mat-autocomplete>
   <mat-error>At least 1 need to be added</mat-error>
 </mat-form-field>

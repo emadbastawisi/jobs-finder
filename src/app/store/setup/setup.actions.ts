@@ -1,6 +1,7 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import {
   ResponseError,
+  Skills,
   UserCareerInterests,
   UserLanguage,
   UserPersonalInfo,
@@ -47,6 +48,9 @@ export const setupActions = createActionGroup({
     updateLanguageFailure: props<{ errors: ResponseError }>(),
     deleteLanguage: props<{ request: number }>(),
     deleteLanguageSuccess: props<{ response: UserProfile }>(),
-    deleteLanguageFailure: props<{ errors: ResponseError }>()
+    deleteLanguageFailure: props<{ errors: ResponseError }>(),
+    getSkills: props<{ request: string }>(),
+    getSkillsSuccess: props<{ response: Skills[] }>(),
+    getSkillsFailure: props<{ errors: ResponseError }>(),
   },
 });

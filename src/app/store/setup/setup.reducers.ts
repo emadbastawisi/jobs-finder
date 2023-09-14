@@ -36,6 +36,7 @@ const createInitialState = () => ({
 
 const initialsetupState: SetupStateInterface = {
   userProfileSetup: undefined,
+  skills: [],
   userProfile: createInitialState(),
   careerInterest: createInitialState(),
   generalInfo: createInitialState(),
@@ -87,6 +88,10 @@ const setupFeature = createFeature({
     on(setupActions.deleteLanguage, (state) => createLoadingState(state, 'language')),
     on(setupActions.deleteLanguageSuccess, (state, action) => createSuccessState(state, 'language', action)),
     on(setupActions.deleteLanguageFailure, (state, action) => createFailureState(state, 'language', action)),
+    on(setupActions.getSkills, (state) => createLoadingState(state, 'skills')),
+    on(setupActions.getSkillsSuccess, (state, action) => ({ ...state, skills: action.response })),
+    on(setupActions.getSkillsFailure, (state, action) => createFailureState(state, 'skills', action)),
+
   ),
 });
 
@@ -97,4 +102,5 @@ export const {
   reducer: setupReducer,
   selectSetupState,
   selectUserProfileSetup,
+  selectSkills,
 } = setupFeature;

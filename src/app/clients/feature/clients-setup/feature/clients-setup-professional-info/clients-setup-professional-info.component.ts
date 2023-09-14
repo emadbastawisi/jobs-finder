@@ -1,13 +1,11 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { Component, computed, inject } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import * as list from '../../utils/list';
 import { Store } from '@ngrx/store';
-import { selectUserProfileSetup } from 'src/app/store//setup/setup.reducers';
+import { selectSkills, selectUserProfileSetup } from 'src/app/store//setup/setup.reducers';
 import { setupActions } from 'src/app/store/setup/setup.actions';
-import { CV, UserWorkExperience } from 'src/app/clients/utils/models/userProfile.models';
 import { ClientsService } from 'src/app/clients/data-access/clients.service';
-import { MatDialog } from '@angular/material/dialog';
-import { WorkExperienceFormComponent } from 'src/app/clients/shared/ui/work-experience-form/work-experience-form.component';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-clients-setup-professional-info',
@@ -15,17 +13,25 @@ import { WorkExperienceFormComponent } from 'src/app/clients/shared/ui/work-expe
   styleUrls: ['./clients-setup-professional-info.component.css'],
 })
 export class ClientsSetupProfessionalInfoComponent {
-  experienceTypeList = list.experienceTypeList;
-  jobCategoryList = list.categoriesList;
+
   yearsOfExperienceList = list.yearsOfExperienceList;
   educationLevelList = list.educationLevelList;
-  languageList = list.languageList;
-  proficiencyLevelList = list.proficiencyLevelList;
-  skillsList = ['angular', 'python'];
+
+
 
   store = inject(Store);
   fb = inject(FormBuilder);
   userProfile$ = this.store.selectSignal(selectUserProfileSetup);
+  skills$ = this.store.selectSignal(selectSkills);
+  skillsList$ = computed(() => {
+    if (this.skills$()!.length > 0) {
+      return this.skills$()!.map((skill) => {
+        return skill.name
+      })
+    } else {
+      return []
+    }
+  })
 
   clientsService = inject(ClientsService);
 
@@ -53,53 +59,13 @@ export class ClientsSetupProfessionalInfoComponent {
     return this.getFormGroup(groupName).get(controlName) as FormControl;
   }
 
-  addLanguageForm() {
-    this.professionalInfoForm.addControl(
-      'language',
-      new FormGroup({
-        id: new FormControl(),
-        language_name: new FormControl('', Validators.required),
-        proficiency: new FormControl('', Validators.required),
-      })
-    )
+  onSkillsInputChange(event: any) {
+    this.store.dispatch(setupActions.getSkills({ request: event }));
   }
-  removeLanguageForm() {
-    this.professionalInfoForm.removeControl('language');
-  }
-
-  onEducationLevelChange(event: any) {
-    console.log(event);
-
-    if (event === 'High School') {
-      this.professionalInfoForm.removeControl('degree_details');
-      this.professionalInfoForm.addControl(
-        'highschool_details',
-        new FormGroup({
-          school_name: new FormControl('', Validators.required),
-          certificate_name: new FormControl('', Validators.required),
-          language_of_study: new FormControl('', Validators.required),
-          graduation_year: new FormControl('', Validators.required),
-          highschool_grade: new FormControl('', Validators.required),
-        })
-      );
-    } else {
-      this.professionalInfoForm.removeControl('highschool_details');
-      this.professionalInfoForm.addControl(
-        'degree_details',
-        new FormGroup({
-          field_of_study: new FormControl('', Validators.required),
-          university: new FormControl('', Validators.required),
-          degree_year: new FormControl('', Validators.required),
-          degree_grade: new FormControl('', Validators.required),
-        })
-      );
-    }
-  }
-
-
 
   personalInfoFormSubmit() {
 
   }
 }
+
 

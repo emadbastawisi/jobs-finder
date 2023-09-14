@@ -42,7 +42,10 @@
           label="Skills"
           placeholder="e.g., HTML, CSS"
           [Control]="getControl('skills')"
-          [chips]="skillsList"
+          [chips]="skillsList$()"
+          [filter]="'api'"
+          [max]="30"
+          (inputChange)="onSkillsInputChange($event)"
         ></app-chips-autocomplete>
       </div>
       <div class="footer">

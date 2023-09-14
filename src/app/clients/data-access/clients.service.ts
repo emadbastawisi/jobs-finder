@@ -10,6 +10,7 @@ import { Subject } from 'rxjs';
 import { UsersLoginResponse } from '../utils/models/users-login';
 import {
   CV,
+  Skills,
   UserCareerInterests,
   UserLanguage,
   UserPersonalInfo,
@@ -138,6 +139,12 @@ export class ClientsService {
   deleteLanguage(id: number): Observable<UserProfile> {
     return this.http.delete<UserProfile>(
       environment.api.address + '/users/deleteLanguage/' + id
+    );
+  }
+
+  getSkills(request: string): Observable<Skills[]> {
+    return this.http.get<Skills[]>(
+      environment.api.address + '/skills/' + request
     );
   }
 }

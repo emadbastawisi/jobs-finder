@@ -4,7 +4,7 @@ import { setupActions } from './setup.actions';
 import { map, switchMap, of, catchError, tap, take, Observable } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ClientsService } from 'src/app/clients/data-access/clients.service';
-import { UserProfile } from 'src/app/clients/utils/models/userProfile.models';
+import { Skills, UserProfile } from 'src/app/clients/utils/models/userProfile.models';
 import { MatDialog } from '@angular/material/dialog';
 import { ActionCreator, Creator, Action } from '@ngrx/store';
 
@@ -364,6 +364,32 @@ export const deleteLanguageEffect = createEffect(
             console.log(errorResponce);
             return of(
               setupActions.deleteLanguageFailure({
+                errors: errorResponce.error.detail,
+              })
+            );
+          })
+        );
+      })
+    );
+  },
+  { functional: true }
+);
+
+
+export const getSkillEffect = createEffect(
+  (actions$ = inject(Actions), clientsService = inject(ClientsService)) => {
+    return actions$.pipe(
+      ofType(setupActions.getSkills),
+      switchMap(({ request }) => {
+        return clientsService.getSkills(request).pipe(
+          map((response: Skills[]) => {
+            console.log(response);
+            return setupActions.getSkillsSuccess({ response });
+          }),
+          catchError((errorResponce: HttpErrorResponse) => {
+            console.log(errorResponce);
+            return of(
+              setupActions.getSkillsFailure({
                 errors: errorResponce.error.detail,
               })
             );

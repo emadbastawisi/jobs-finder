@@ -1,18 +1,12 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  MatChipGrid,
-  MatChipInputEvent,
-  MatChipListbox,
   MatChipsModule,
 } from '@angular/material/chips';
 import {
-  FormBuilder,
   FormControl,
-  FormGroup,
   FormsModule,
   ReactiveFormsModule,
-  Validators,
 } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {
@@ -23,14 +17,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatOptionModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { ENTER, COMMA, I } from '@angular/cdk/keycodes';
+import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { Observable, startWith, map } from 'rxjs';
-// import { User } from './user';
-// import { Fruit } from './fruit';
 
-const user = {
-  fruits: [],
-};
+
 
 @Component({
   selector: 'app-chips-autocomplete',
@@ -59,23 +49,36 @@ export class ChipsAutocompleteComponent {
   @Input() chips = [''];
   @Input() Control: FormControl = new FormControl();
   @Input() placeholder: string = '';
+  @Input() filter: string = 'local';
+  @Input() max: number = 99;
+  @Output() inputChange = new EventEmitter();
 
   chipInput: FormControl = new FormControl(null);
 
   public filteredChips$!: Observable<string[]>;
 
+  onInputChange(event: any) {
+    if (event !== '') {
+      this.inputChange.emit(event);
+    }
+
+  }
   ngOnInit(): void {
-    this.filteredChips$ = this.chipInput!.valueChanges.pipe(
-      startWith(''),
-      map((value) => this.chipFilter(value))
-    );
+    if (this.filter === 'local') {
+      this.filteredChips$ = this.chipInput!.valueChanges.pipe(
+        startWith(''),
+        map((value) => this.chipFilter(value))
+      );
+    }
   }
 
   public selectChip(event: MatAutocompleteSelectedEvent): void {
     if (!event.option) {
       return;
     }
-
+    if (this.Control.value.length >= this.max) {
+      return;
+    }
     const value = event.option.value;
 
     if (value && !this.Control.value.includes(value)) {

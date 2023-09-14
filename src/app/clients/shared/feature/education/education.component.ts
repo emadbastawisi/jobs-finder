@@ -36,6 +36,4 @@ export class EducationComponent {
     this.degree_details.controls['degree'].setValue(event);
     this.highschool_details.controls['degree'].setValue(event);
   }
-
-
 }

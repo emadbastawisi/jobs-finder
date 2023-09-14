@@ -1,4 +1,4 @@
-import { ResponseError, UserProfile } from './userProfile.models';
+import { ResponseError, Skills, UserProfile } from './userProfile.models';
 
 interface InitialState {
   isLoading: boolean;
@@ -7,6 +7,7 @@ interface InitialState {
 
 export interface SetupStateInterface {
   userProfileSetup: UserProfile | null | undefined;
+  skills: Skills[] | [];
   userProfile: InitialState;
   careerInterest: InitialState;
   generalInfo: InitialState;
