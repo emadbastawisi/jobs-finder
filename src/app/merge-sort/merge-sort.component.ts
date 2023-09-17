@@ -69,13 +69,10 @@ export class MergeSortComponent {
     })
   }
 
-  getGridListColSpan(num: number) {
-    if (num % 2 !== 0) {
-      return num + 1
-    } else {
-      return num
-    }
+  getGridListColSpan() {
+    return Math.pow(2, this.step_count - 1)
   }
+
   getColspan(num1: number, num2: number): number {
     return Math.floor(num1 / num2)
   }
@@ -142,7 +139,7 @@ export class MergeSortComponent {
     this.state.mutate((state) => {
       state.devideStep++
     })
-    const mid = Math.floor(arr.length / 2);
+    const mid = Math.ceil(arr.length / 2);
     const left = arr.slice(0, mid);
     const right = arr.slice(mid);
     await new Promise(resolve => setTimeout(resolve, this.speed()));
@@ -165,10 +162,16 @@ export class MergeSortComponent {
     return result
   }
 
-  merge(left: number[], right: number[]): number[] {
+  async merge(left: number[], right: number[]): Promise<number[]> {
     let resultArray: number[] = [], leftIndex = 0, rightIndex = 0;
     console.log('left', left, 'right', right)
+    // console.log('mergeStep', this.state().mergeStep)
+    // console.log('mergePointer', this.state().steps[this.state().mergeStep].mergePointer)
+    // console.log(this.state().steps[this.state().mergeStep].mergePointer)
+    // console.log(this.state().mergeList[this.state().mergeStep][this.state().steps[this.state().mergeStep].mergePointer - 1])
+    await new Promise(resolve => setTimeout(resolve, this.speed()));
     while (leftIndex < left.length && rightIndex < right.length) {
+      console.log(this.state().mergeList[this.state().mergeStep][this.state().steps[this.state().mergeStep].mergePointer - 1])
       if (left[leftIndex] < right[rightIndex]) {
         resultArray.push(left[leftIndex]);
         leftIndex++;
@@ -180,6 +183,7 @@ export class MergeSortComponent {
     resultArray = resultArray
       .concat(left.slice(leftIndex))
       .concat(right.slice(rightIndex));
+    await new Promise(resolve => setTimeout(resolve, this.speed()));
     this.state.mutate((state) => {
       state.mergeStep = this.step_count - state.devideStep - 1
       state.mergeList[state.mergeStep][state.steps[state.mergeStep].mergePointer] = resultArray.map(item => {
@@ -188,6 +192,7 @@ export class MergeSortComponent {
       state.steps[state.mergeStep].mergePointer++
       state.devideStep--
     })
+
     return resultArray
   }
 
@@ -203,7 +208,6 @@ export class MergeSortComponent {
     let startNumber = parseInt(this.getControl('startNumber').value)
     let endNumber = parseInt(this.getControl('endNumber').value)
     this.step_count = Math.ceil(Math.log2(endNumber - startNumber + 1) + 1)
-    console.log(this.step_count)
     let arr = this.randomArray(startNumber, endNumber)
     this.state.mutate((state) => {
       state.devideList[0] = [arr.map(item => {

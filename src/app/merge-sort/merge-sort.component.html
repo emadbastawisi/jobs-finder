@@ -48,28 +48,26 @@
 
 <div>
   <mat-grid-list
-    [cols]="state().devideList[0][0].length"
+    [cols]="getGridListColSpan()"
     rowHeight="100px"
     *ngFor="let steps of state().devideList"
   >
     <mat-grid-tile
       [rowspan]="1"
-      [colspan]="getColspan(state().devideList[0][0].length, steps.length)"
+      [colspan]="getColspan(getGridListColSpan(), steps.length)"
       *ngFor="let step of steps"
     >
-      {{ state().devideList[0][0].length }} -- {{ steps.length }} --
-      {{ getColspan(state().devideList[0][0].length, steps.length) }}
       <app-chip [list]="step"></app-chip>
     </mat-grid-tile>
   </mat-grid-list>
   <mat-grid-list
-    [cols]="state().devideList[0][0].length"
+    [cols]="getGridListColSpan()"
     rowHeight="100px"
     *ngFor="let steps of state().mergeList"
   >
     <mat-grid-tile
       [rowspan]="1"
-      [colspan]="getColspan(state().devideList[0][0].length, steps.length)"
+      [colspan]="getColspan(getGridListColSpan(), steps.length)"
       *ngFor="let step of steps"
     >
       <app-chip [list]="step"></app-chip>
