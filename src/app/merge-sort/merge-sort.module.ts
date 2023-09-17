@@ -1,26 +1,30 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SelectionSortRoutingModule } from './selection-sort-routing.module';
-import { SelectionSortComponent } from './selection-sort.component';
+import { MergeSortRoutingModule } from './merge-sort-routing.module';
+import { MergeSortComponent } from './merge-sort.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InputComponent } from '../shared/ui/input/input.component';
 import { ChipComponent } from '../shared/ui/chip/chip.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
-  declarations: [SelectionSortComponent],
+  declarations: [
+    MergeSortComponent
+  ],
   imports: [
     CommonModule,
-    SelectionSortRoutingModule,
+    MergeSortRoutingModule,
     ReactiveFormsModule,
     InputComponent,
     ChipComponent,
     MatButtonModule,
     MatSnackBarModule,
-    MatRadioModule
+    MatRadioModule,
+    MatGridListModule
   ]
 })
-export class SelectionSortModule { }
+export class MergeSortModule { }

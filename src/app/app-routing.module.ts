@@ -54,6 +54,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'mergeSort',
+    loadChildren: () =>
+      import('./merge-sort/merge-sort.module').then(
+        (m) => m.MergeSortModule
+      ),
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',

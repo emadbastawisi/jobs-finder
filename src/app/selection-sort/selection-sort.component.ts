@@ -63,7 +63,6 @@ export class SelectionSortComponent {
 
   setSpeed(speed: number) {
     this.speed.set(speed)
-
   }
 
   randomArray(start: number, end: number): number[] {

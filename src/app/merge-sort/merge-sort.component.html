@@ -1,0 +1,78 @@
+<div class="container">
+  <div class="card">
+    <h3 class="title">Merge Sort Algorithm Simulation</h3>
+  </div>
+
+  <form [formGroup]="FormGroup" class="form flex-col card">
+    <h3>Create a Random Array</h3>
+    <div class="flex-row full-width" style="gap: 1rem">
+      <div class="half-width">
+        <app-input
+          type="number"
+          label="Array start number"
+          [Control]="getControl('startNumber')"
+        ></app-input>
+      </div>
+      <div class="half-width">
+        <app-input
+          type="number"
+          label="Array end number"
+          [Control]="getControl('endNumber')"
+        ></app-input>
+      </div>
+    </div>
+    <div>
+      <mat-radio-group
+        [formControl]="getControl('speed')"
+        aria-label="Select an option"
+        (ngModelChange)="setSpeed($event)"
+      >
+        <p style="text-align: center">
+          Select Simulation delay between operations in ms
+        </p>
+        <mat-radio-button *ngFor="let option of speedList" [value]="option">{{
+          option
+        }}</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <button
+      color="primary"
+      mat-raised-button
+      [disabled]="!FormGroup.valid"
+      (click)="startSim()"
+    >
+      Start Merge Sort Simulation
+    </button>
+  </form>
+</div>
+
+<div>
+  <mat-grid-list
+    [cols]="state().devideList[0][0].length"
+    rowHeight="100px"
+    *ngFor="let steps of state().devideList"
+  >
+    <mat-grid-tile
+      [rowspan]="1"
+      [colspan]="getColspan(state().devideList[0][0].length, steps.length)"
+      *ngFor="let step of steps"
+    >
+      {{ state().devideList[0][0].length }} -- {{ steps.length }} --
+      {{ getColspan(state().devideList[0][0].length, steps.length) }}
+      <app-chip [list]="step"></app-chip>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <mat-grid-list
+    [cols]="state().devideList[0][0].length"
+    rowHeight="100px"
+    *ngFor="let steps of state().mergeList"
+  >
+    <mat-grid-tile
+      [rowspan]="1"
+      [colspan]="getColspan(state().devideList[0][0].length, steps.length)"
+      *ngFor="let step of steps"
+    >
+      <app-chip [list]="step"></app-chip>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
