@@ -110,6 +110,11 @@ export class MergeSortComponent {
     })
     if (arr.length <= 1) {
       await new Promise(resolve => setTimeout(resolve, this.speed()));
+      // if (this.step_count > this.state().devideStep + 1) {
+      //   this.state.mutate((state) => {
+      //     state.steps[state.devideStep + 1].devidePointer++
+      //   })
+      // }
       this.state.mutate((state) => {
         state.devideList[state.devideStep] = state.devideList[state.devideStep].map((value) => {
           value.map((item, index) => {
@@ -128,7 +133,7 @@ export class MergeSortComponent {
       state.devideList[state.devideStep] = state.devideList[state.devideStep].map((value) => {
         value.map((item, index) => {
           if (item.value == arr[index]) {
-            item.state = 'middle'
+            item.state = 'disabled'
           }
           return item
         })
@@ -164,26 +169,57 @@ export class MergeSortComponent {
 
   async merge(left: number[], right: number[]): Promise<number[]> {
     let resultArray: number[] = [], leftIndex = 0, rightIndex = 0;
-    console.log('left', left, 'right', right)
-    // console.log('mergeStep', this.state().mergeStep)
-    // console.log('mergePointer', this.state().steps[this.state().mergeStep].mergePointer)
-    // console.log(this.state().steps[this.state().mergeStep].mergePointer)
-    // console.log(this.state().mergeList[this.state().mergeStep][this.state().steps[this.state().mergeStep].mergePointer - 1])
-    await new Promise(resolve => setTimeout(resolve, this.speed()));
     while (leftIndex < left.length && rightIndex < right.length) {
-      console.log(this.state().mergeList[this.state().mergeStep][this.state().steps[this.state().mergeStep].mergePointer - 1])
+      await new Promise(resolve => setTimeout(resolve, this.speed()));
+      this.state.mutate((state) => {
+        state.mergeList[state.mergeStep][state.steps[state.mergeStep].mergePointer - 2] = state.mergeList[state.mergeStep][state.steps[state.mergeStep].mergePointer - 2]?.map((value) => {
+          return { value: value.value, state: value.value === left[leftIndex] ? 'left' : value.state }
+        })
+        state.mergeList[state.mergeStep][state.steps[state.mergeStep].mergePointer - 1] = state.mergeList[state.mergeStep][state.steps[state.mergeStep].mergePointer - 1]?.map((value) => {
+          return { value: value.value, state: value.value === right[rightIndex] ? 'left' : value.state }
+        })
+      })
       if (left[leftIndex] < right[rightIndex]) {
+        await new Promise(resolve => setTimeout(resolve, this.speed()));
         resultArray.push(left[leftIndex]);
+        this.state.mutate((state) => {
+          state.mergeList[state.mergeStep][state.steps[state.mergeStep].mergePointer - 2] = state.mergeList[state.mergeStep][state.steps[state.mergeStep].mergePointer - 2]?.map((value) => {
+            return { value: value.value, state: value.value === left[leftIndex] ? 'disabled' : value.state }
+          })
+          state.mergeList[this.step_count - state.devideStep - 1][state.steps[this.step_count - state.devideStep - 1].mergePointer] = resultArray.map(item => {
+            return { value: item, state: 'middle' }
+          })
+        })
         leftIndex++;
+
       } else {
+        await new Promise(resolve => setTimeout(resolve, this.speed()));
         resultArray.push(right[rightIndex]);
+        this.state.mutate((state) => {
+          state.mergeList[state.mergeStep][state.steps[state.mergeStep].mergePointer - 1] = state.mergeList[state.mergeStep][state.steps[state.mergeStep].mergePointer - 1]?.map((value) => {
+            return { value: value.value, state: value.value === right[rightIndex] ? 'disabled' : value.state }
+          })
+          state.mergeList[this.step_count - state.devideStep - 1][state.steps[this.step_count - state.devideStep - 1].mergePointer] = resultArray.map(item => {
+            return { value: item, state: 'middle' }
+          })
+        })
         rightIndex++;
       }
     }
+
     resultArray = resultArray
       .concat(left.slice(leftIndex))
       .concat(right.slice(rightIndex));
     await new Promise(resolve => setTimeout(resolve, this.speed()));
+    if (this.state().steps[this.state().mergeStep].mergePointer > 1)
+      this.state.mutate((state) => {
+        state.mergeList[state.mergeStep][state.steps[state.mergeStep].mergePointer - 2] = state.mergeList[state.mergeStep][state.steps[state.mergeStep].mergePointer - 2]?.map((value) => {
+          return { value: value.value, state: 'disabled' }
+        })
+        state.mergeList[state.mergeStep][state.steps[state.mergeStep].mergePointer - 1] = state.mergeList[state.mergeStep][state.steps[state.mergeStep].mergePointer - 1]?.map((value) => {
+          return { value: value.value, state: 'disabled' }
+        })
+      })
     this.state.mutate((state) => {
       state.mergeStep = this.step_count - state.devideStep - 1
       state.mergeList[state.mergeStep][state.steps[state.mergeStep].mergePointer] = resultArray.map(item => {
