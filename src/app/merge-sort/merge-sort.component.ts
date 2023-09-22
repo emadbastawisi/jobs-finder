@@ -110,11 +110,7 @@ export class MergeSortComponent {
     })
     if (arr.length <= 1) {
       await new Promise(resolve => setTimeout(resolve, this.speed()));
-      // if (this.step_count > this.state().devideStep + 1) {
-      //   this.state.mutate((state) => {
-      //     state.steps[state.devideStep + 1].devidePointer++
-      //   })
-      // }
+
       this.state.mutate((state) => {
         state.devideList[state.devideStep] = state.devideList[state.devideStep].map((value) => {
           value.map((item, index) => {
